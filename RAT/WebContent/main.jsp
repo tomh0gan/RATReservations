@@ -5,9 +5,9 @@
 <head>
 <script>
 	function Button1_onclick() {
-		if(document.loginForm.userName.value == "") {
+		if(document.loginForm.userName.value == "") 
     		alert("UserName Can Not Be Null!")
-			javascript:myForm.submit()
+		javascript:myForm.submit()
 		}
 
 		function Button2_onclick() {
