@@ -7,20 +7,19 @@
 	function Button1_onclick() {
 		if(document.loginForm.userName.value == "") 
     		alert("UserName Can Not Be Null!")
-		javascript:myForm.submit()
+		javascript:loginForm.submit()
 		}
 
 		function Button2_onclick() {
     		window.open("RegisterPage.htm","_self");
 		}
-
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
 	<h1>Login</h1>
-	<form id="loginForm" name="loginForm" action="login.jsp" method="post">
+	<form id="loginForm" name="loginForm" action="Login.jsp" method="post">
 		<span style="font-size: 10pt">User ID :</span>
         <input id="userName" name="userName" type="text" />
         &nbsp; 
