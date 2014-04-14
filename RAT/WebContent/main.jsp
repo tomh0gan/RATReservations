@@ -17,7 +17,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
-<body>
+<body style="text-align: center" bgcolor="#E8E8E8">
 	<h1>Login</h1>
 	<form id="loginForm" name="loginForm" action="Login.jsp" method="post">
 		<span style="font-size: 10pt">User ID :</span>
@@ -31,5 +31,6 @@
         <input id="Button2" style="width: 70px" type="button" value="Register" onclick="return Button2_onclick()" /><br />
         <br />
 	</form>
+	<img alt="Rats" src="Pic.png">
 </body>
 </html>

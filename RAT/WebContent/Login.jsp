@@ -36,7 +36,7 @@
             	conn.setAutoCommit(false);
             	java.sql.Statement stmt1=conn.createStatement();
 				
-            	java.sql.ResultSet rs = stmt1.executeQuery(" Select * from Passenger where account_num='"+username+"'");
+            	java.sql.ResultSet rs = stmt1.executeQuery("SELECT * FROM Passenger WHERE accountNum='"+username+"'");
 				if (rs.next())
 				{
 					// login success
@@ -45,7 +45,7 @@
 				}
 				else
 				{
-					rs = stmt1.executeQuery(" Select * from Employee where id='"+username+"' AND is_manager="+false);
+					rs = stmt1.executeQuery("SELECT * FROM Employee WHERE id='"+username+"' AND isManager="+false);
 					if(rs.next())
 					{
 						session.putValue("login", username);
@@ -54,7 +54,7 @@
 						
 					else
 					{
-						rs = stmt1.executeQuery(" Select * from Employee where id='"+username+"' AND is_manager="+true);
+						rs = stmt1.executeQuery("SELECT * FROM Employee WHERE id='"+username+"' AND isManager="+true);
 						if(rs.next())
 						{
 							session.putValue("login", username);
