@@ -11,7 +11,7 @@
 	<input id="Button1" name="ViewEmployees" type="button" value="View Employees" onclick="window.open('Jsp file here','_self');" />
 	<br />
 	<br />
-	<input id="Button2" name="ViewRevenue" type="button" value="View Revenue Reports" onclick="window.open('Jsp file here','_self');" />
+	<input id="Button2" name="ViewRevenue" type="button" value="View Revenue Reports" onclick="window.open('ManagerRevenueHomePage.jsp','_self');" />
 	<br />
 	<br />
 	<input id="Button3" name="ViewFlights" type="button" value="View Flights" onclick="window.open('ManagerViewFlights.jsp','_self');" />
