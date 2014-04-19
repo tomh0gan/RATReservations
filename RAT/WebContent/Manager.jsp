@@ -8,7 +8,7 @@
 </head>
 <body style="text-align: center" bgcolor="#E8E8E8">
 	<h1>Manager Home Page</h1>
-	<input id="Button1" name="ViewEmployees" type="button" value="View Employees" onclick="window.open('Jsp file here','_self');" />
+	<input id="Button1" name="ViewEmployees" type="button" value="View Employees" onclick="window.open('ManagerEmployeePage.jsp','_self');" />
 	<br />
 	<br />
 	<input id="Button2" name="ViewRevenue" type="button" value="View Revenue Reports" onclick="window.open('ManagerRevenueHomePage.jsp','_self');" />

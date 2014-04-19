@@ -25,6 +25,7 @@
 	<br />
 	<br />
 	<br />
+	<input id="Button1" type="button" value="Back" onclick="window.open('Manager.jsp','_self');" />
     <input id="Button2" type="button" value="Logout" onclick="window.open('main.jsp','_self');" />
     <br />
     <span style="font-size: 8pt">
