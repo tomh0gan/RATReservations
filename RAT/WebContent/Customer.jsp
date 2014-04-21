@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Passenger Home Page</title>
+<title>Customer Home Page</title>
 </head>
 <body>
 	<h1>Welcome, Your_Name_Here</h1>
