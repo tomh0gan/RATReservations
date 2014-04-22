@@ -4,9 +4,27 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Employee Home Page</title>
 </head>
-<body>
-
+<body style="text-align: center" bgcolor="#E8E8E8">
+	<h1>Employee Home Page</h1>
+	<input id="Button1" name="ViewCustomers" type="button" value="View Customers" onclick="window.open('EmployeeViewCustomers.jsp','_self');" />
+	<br />
+	<br />
+	<input id="Button2" name="RecordReservation" type="button" value="Record a Reservation" onclick="window.open('Jsp file here','_self');" />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+    <input id="Button2" type="button" value="Logout" onclick="window.open('main.jsp','_self');" />
+    <br />
+    <span style="font-size: 8pt">
+    <br />
+    RAT Reservations<br />
+    Department of Computer Science<br />
+	</span>    
 </body>
 </html>
