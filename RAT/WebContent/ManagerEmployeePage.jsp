@@ -8,13 +8,13 @@
 </head>
 <body style="text-align: center" bgcolor="#E8E8E8">
 	<h1>Manager Home Page</h1>
-	<input id="Button1" name="ViewEmployees" type="button" value="View Employees" onclick="window.open('Jsp file here','_self');" />
+	<input id="Button1" name="ViewEmployees" type="button" value="View Employees" onclick="window.open('ManagerViewEmployeePage.jsp','_self');" />
 	<br />
 	<br />
 	<input id="Button2" name="FindEmployees" type="button" value="Search an Employee" onclick="window.open('Jsp file here','_self');" />
 	<br />
 	<br />
-	<input id="Button3" name="CreateEmployee" type="button" value="Add New Employee" onclick="window.open('Jsp file here','_self');" />
+	<input id="Button3" name="CreateEmployee" type="button" value="Add New Employee" onclick="window.open('ManagerAddEmployeePage.jsp','_self');" />
 	<br />
 	<br />
 	<br />
@@ -25,6 +25,7 @@
 	<br />
 	<br />
 	<br />
+	<input id="Button1" type="button" value="Back" onclick="window.open('Manager.jsp','_self');" />
     <input id="Button2" type="button" value="Logout" onclick="window.open('main.jsp','_self');" />
     <br />
     <span style="font-size: 8pt">
