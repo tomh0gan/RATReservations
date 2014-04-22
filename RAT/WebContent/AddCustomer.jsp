@@ -9,6 +9,7 @@
 <script language="javascript" type="text/javascript">
 // <!CDATA[
 
+           
 function Button1_onclick() {
 if(document.addCust.firstName.value == "")
 		alert("Please enter first name")
