@@ -36,12 +36,12 @@
             	conn.setAutoCommit(false);
             	java.sql.Statement stmt1=conn.createStatement();
 				
-            	java.sql.ResultSet rs = stmt1.executeQuery("SELECT * FROM Passenger WHERE accountNum='"+username+"'");
+            	java.sql.ResultSet rs = stmt1.executeQuery("SELECT * FROM Customer WHERE accountNum='"+username+"'");
 				if (rs.next())
 				{
 					// login success
 					session.putValue("login",username);
-					response.sendRedirect("Passenger.jsp");
+					response.sendRedirect("Customer.jsp");
 				}
 				else
 				{
