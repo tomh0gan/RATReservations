@@ -73,7 +73,7 @@
 				e.printStackTrace();
 			}
 			finally{
-				try{conn.close();}catch(Exception ee){};
+				try{conn.close(); System.out.println("error~!"); }catch(Exception ee){};
 			}
 		}
 	}
