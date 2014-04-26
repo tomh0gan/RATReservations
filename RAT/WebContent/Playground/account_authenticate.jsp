@@ -10,6 +10,10 @@
 	String mysUserID = "tester";
 	String mysPassword = "test";
 	
+	if((!username.matches("[\\w]{1,20}")) || (!username.matches("[\\w]{1,20}"))){
+		response.sendRedirect("errors/login_error.html");
+	}
+	
 	Connection conn = null;
 	try{
 		Class.forName(mysJDBCDriver).newInstance();
