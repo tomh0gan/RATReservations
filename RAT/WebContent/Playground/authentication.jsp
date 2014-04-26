@@ -30,7 +30,7 @@
 		}
 		else{
 			// Invalid login info
-			response.sendRedirect("error.html");
+			response.sendRedirect("errors/login_error.html");
 		}
 	} catch(Exception e){}
 	finally{
