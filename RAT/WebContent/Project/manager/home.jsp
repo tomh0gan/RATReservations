@@ -39,7 +39,7 @@
     
       <div class="header">
         <ul class="nav nav-pills pull-right">
-          <li><a href="../index.html">Logout</a></li>
+          <li><a href="../logout.jsp">Logout</a></li>
         </ul>
         <h3>RAT Reservations - Manager</h3>
       </div>
