@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>RAT Reservations - Register</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="resources/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="resources/css/register.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="container">
+    
+      <h1 class="form-register" >RAT Reservations</h1><br /><br />
+
+      <form action="account_register.jsp" method="post" class="form-register">
+        <h2 class="form-register-heading">Register</h2>
+        <label for=firstName >First name </label><input name=firstName type="text" class="form-control" placeholder="First name" required autofocus>
+        <br />
+        <label for=lastName >Last name </label><input name=lastName type="text" class="form-control" placeholder="Last name">
+        <br />
+        <label for=email >Email </label><input name=email type="text" class="form-control" placeholder="Email">
+        <br />
+        <label for=username >Username </label><input name=username type="text" class="form-control" placeholder="Username">
+        <br />
+        <label for=password >Password </label><input name=password type="text" class="form-control" placeholder="Password">
+        <br />
+        <label for=address >Address </label><input name=address type="text" class="form-control" placeholder="Address">
+        <br />
+        <label for=city >City </label><input name=city type="text" class="form-control" placeholder="City">
+        <br />
+        <label for=state >State </label><input name=state type="text" class="form-control" placeholder="State">
+        <br />
+        <label for=zipcode >Zip code </label><input name=zipcode type="text" class="form-control" placeholder="Zip code">
+        <br />
+        <label for=creditCard >Credit card </label><input name=creditCard type="text" class="form-control" placeholder="Credit card">
+        <br />       
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>       
+        <br> Back to login page: <a href="index.html">Login</a>
+      </form>
+    </div> 
+
+  </body>
+</html>
