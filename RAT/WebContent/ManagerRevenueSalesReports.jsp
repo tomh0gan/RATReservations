@@ -84,7 +84,6 @@
      	String mysUserID = "tester"; 
     	String mysPassword = "test";
         
-    	String stuId = ""+session.getValue("login");
     	java.sql.Connection conn=null;
 			try 
 			{
