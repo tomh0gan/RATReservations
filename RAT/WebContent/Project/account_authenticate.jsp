@@ -30,7 +30,13 @@
 		if(rs.next()){
 			session.setAttribute("username",rs.getString("username"));
 			session.setAttribute("id",rs.getInt("id"));
-			response.sendRedirect(rs.getString("type")+"/home.jsp");
+			String type = rs.getString("type");
+			
+			rs = stmt1.executeQuery("SELECT * FROM person WHERE id="+session.getAttribute("id"));
+			rs.next();
+			session.setAttribute("name", rs.getString("firstName") + " " + rs.getString("lastName"));
+			
+			response.sendRedirect(type+"/home.jsp");
 		}
 		else{
 			// Invalid login info
