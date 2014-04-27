@@ -3,11 +3,6 @@
 <HTML>
 <BODY>
 	<%
-	String mysJDBCDriver = "com.mysql.jdbc.Driver";
-	String mysURL = "jdbc:mysql://localhost:3306/rat_schema";
-	String mysUserID = "tester";
-	String mysPassword = "test";
-	
 	boolean invalidInput = false;
 	String invalidInputs = "";
 	
@@ -19,10 +14,10 @@
 	String address = request.getParameter("address");
 	String city = request.getParameter("city");
 	String state = request.getParameter("state");
-	// but russell these are integer values... you're wrong! change them in your database.
 	String zipcode = request.getParameter("zipcode");
 	String creditCard = request.getParameter("creditCard");
 	
+	// check if input in "valid"
 	if(!username.matches("[\\w]{1,20}")){	
 		invalidInputs += "- Invalid Username, should be non-empty and at most 20 letters/digits<BR>";
 		invalidInput = true;
@@ -66,7 +61,53 @@
 	if(invalidInput == true){
 		session.setAttribute("error", invalidInputs);
 		response.sendRedirect("errors/register_error.jsp");
+		return;
 	}
+	
+	String mysJDBCDriver = "com.mysql.jdbc.Driver";
+	String mysURL = "jdbc:mysql://localhost:3306/rat_schema";
+	String mysUserID = "tester";
+	String mysPassword = "test";
+	
+	Connection conn = null;
+	try{
+		Class.forName(mysJDBCDriver).newInstance();
+		Properties sysprops = System.getProperties();
+		sysprops.put("user",mysUserID);
+		sysprops.put("password",mysPassword);
+		
+		conn = DriverManager.getConnection(mysURL,sysprops);
+		
+		Statement stmt1 = conn.createStatement();
+		
+		// checks if username is already in use
+		ResultSet rs = stmt1.executeQuery("SELECT * FROM Login WHERE username='"+username+"'");
+		if(rs.next()){
+			invalidInputs += "- The username '"+username+"' is already in use.";
+			session.setAttribute("error", invalidInputs);
+			response.sendRedirect("errors/register_error.jsp");
+			return;
+		}
+		
+		Statement stmt2 = conn.createStatement();
+		String a,b,c;
+		a = "INSERT INTO person (firstName, lastName, address, city, state, zipcode) VALUES ('"+firstName+"', '"+lastName+"', '"+address+"', '"+city+"', '"+state+"', '"+zipcode+"')";
+		stmt2.addBatch(a);
+		b = "INSERT INTO login (username, password, type, id) VALUES ('"+username+"', '"+password+"', 'customer', (SELECT MAX(id) from person))";
+		stmt2.addBatch(b);
+		c = "INSERT INTO customer (id, creditCardNum, email) VALUES ((SELECT MAX(id) from person), '"+creditCard+"', '"+email+"')";
+		stmt2.addBatch(c);
+		
+		stmt2.executeBatch();
+		response.sendRedirect("account_created.jsp");
+		
+	} catch(Exception e){
+		System.out.println(e);
+	}
+	finally{
+		try{conn.close();} catch(Exception ee){};
+	}
+	
 	%>
 </BODY>
 </HTML>
