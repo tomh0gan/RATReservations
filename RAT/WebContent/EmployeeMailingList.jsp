@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Employee - View Customers</title>
+<title>Employee - Mailing List</title>
 </head>
 <body style="text-align: center" bgcolor="#E8E8E8">
-	<h1>Customers</h1>
-		<input id="AddButton" type="button" value="Add Customer" onclick="window.open('AddCustomer.jsp','_self');" />
+	<h1>Customer Mailing List</h1>
+		
 	<table border="0" cellpadding="0" cellspacing="0" style="margin:0px auto; width:500px; height: 100%;">
             <tr>
                 <td style="vertical-align: Center; width: 11237px; text-align: left; height: 454px;">
@@ -33,28 +33,7 @@
                         <span style="font-size: 10pt">Zip</span>
                       </td>
                       <td style="width: 75px">
-                        <span style="font-size: 10pt">Account Number</span>
-                      </td>
-                      <td style="width: 75px">
-                        <span style="font-size: 10pt">Credit Card Number</span>
-                      </td>
-                      <td style="width: 75px">
                         <span style="font-size: 10pt">Email</span>
-                      </td>
-                      <td style="width: 75px">
-                        <span style="font-size: 10pt">Creation Date</span>
-                      </td>
-                      <td style="width: 75px">
-                        <span style="font-size: 10pt">Rating</span>
-                      </td>
-                      <td style="width: 75px">
-                        <span style="font-size: 10pt">Edit</span>
-                      </td>
-                      <td style="width: 75px">
-                        <span style="font-size: 10pt">Delete</span>
-                      </td>
-                      <td style="width: 75px">
-                        <span style="font-size: 10pt">Flight Sugg.</span>
                       </td>
                     </tr>   
 <%
@@ -97,22 +76,9 @@
 		                          <span style="font-size: 10pt"><%=rs.getString(12)%></span></td>
 		                      <td style="width: 84px">
 		                          <span style="font-size: 10pt"><%=rs.getString(13)%></span></td>
-		                      <td style="width: 187px">
-		                          <span style="font-size: 10pt"><%=rs.getString(2)%></span></td>
-		                      <td style="width: 74px">
-		                      	<span style="font-size: 10pt"><%=rs.getString(3)%></span></td>
-		                      <td>
+		                        <td>
 		                      	<span style="font-size: 10pt"><%=rs.getString(4)%></span></td>
-		                      <td style="width: 7px">
-		                      	<span style="font-size: 10pt"><%=rs.getString(5)%></span></td>
-		                      <td style="width: 7px">
-		                      	<span style="font-size: 10pt"><%=rs.getString(6)%></span></td>
-		                      <td style="width: 7px">
-		                      	<span style="font-size: 10pt"><input type="button" value="Edit"></span></td>
-		                      <td style="width: 7px">
-		                      	<span style="font-size: 10pt"><input type="button" value="Delete" onclick="javascript:if (confirm('Are you sure that you want to delete the customer?')==true){window.open('DeleteCustomer.jsp?custid=<%=rs.getString(2)%>','_self');return;"></span></td> 
-		                      <td style="width: 7px">
-		                      	<span style="font-size: 10pt"><input type="button" value="Go" onclick="window.open('FlightSuggestions.jsp?custid=<%=rs.getString(2)%>','_self')"></span></td>                         		
+		                            		
 		                    </tr>
 		<%      		
 		        	}
