@@ -8,8 +8,8 @@
 	
 	String firstName = (String) session.getAttribute("EmployeeFName");
 	String lastName = (String) session.getAttribute("EmployeeLName");
-	String username = (String) session.getAttribute("EmployeeUsername");
-	String password = (String) session.getAttribute("EmployeePassword");
+	String id = (String) session.getAttribute("EmployeeId");
+	String oldSsn = (String) session.getAttribute("OldEmployeeSSN");
 	String ssn = (String) session.getAttribute("EmployeeSSN");
 	String address = (String) session.getAttribute("EmployeeAddress");
 	String city = (String) session.getAttribute("EmployeeCity");
@@ -40,11 +40,11 @@
 		
 		Statement stmt2 = conn.createStatement();
 		String a,b,c;
-		a = "INSERT INTO person (firstName, lastName, address, city, state, zipcode) VALUES ('"+firstName+"', '"+lastName+"', '"+address+"', '"+city+"', '"+state+"', '"+zipcode+"')";
+		a = "UPDATE Person SET firstName='" + firstName + "', lastName='"+lastName+"', address='"+address+"', city='"+city+"', state='"+state+"', zipcode="+zipcode+" WHERE id="+id+";";
 		stmt2.addBatch(a);
-		b = "INSERT INTO login (username, password, type, id) VALUES ('"+username+"', '"+password+"', '"+emplType+"', (SELECT MAX(id) from person))";
+		b = "UPDATE Login SET type='" + emplType + "'WHERE id=" + id + ";";
 		stmt2.addBatch(b);
-		c = "INSERT INTO Employee (id, ssn, isManager, startDate, hourlyRate) VALUES ((SELECT MAX(id) from person), '" + ssn + "', " + position + ", '" + sdf.format(date1) + "', " + hourlyRate + ")";
+		c = "UPDATE Employee SET ssn='"+ssn+"', isManager="+position+", hourlyRate="+hourlyRate+" WHERE ssn='"+oldSsn+"';";
 		stmt2.addBatch(c);
 		
 		stmt2.executeBatch();

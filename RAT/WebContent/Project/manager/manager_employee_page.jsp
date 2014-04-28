@@ -62,7 +62,7 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li><a href="create_employee.jsp">Add An Employee</a></li>
+            <li><a href="employee_info.jsp?type=create">Add An Employee</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -132,7 +132,7 @@
                           <td><%=position%></td>
                           <td><%=rs.getString(5)%></td>
                           <td><%=rs.getString(6)%></td>   
-                          <td><button type="button" class="btn btn-sm btn-info">Edit</button></td>
+                          <td><button type="button" class="btn btn-sm btn-info" onclick="window.open('edit_employee.jsp?id=<%=rs.getString(7)%>','_self');">Edit</button></td>
                           <td><button type="button" class="btn btn-sm btn-danger" onclick="deleteEmployee('<%= rs.getString(1) + " " +  rs.getString(2)%>', '<%=rs.getString(7)%>','<%= rs.getString(3) %>')">Delete</button></td>             		
                         </tr>
     <%      		

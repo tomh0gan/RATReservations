@@ -27,11 +27,17 @@
   </head>
 
   <body>
-
     <div class="container">
 
-      <form action="employee_creation.jsp" method="post" class="form-horizontal">
-        <h2 class="col-sm-offset-3 form-register-heading">Create Employee</h2>
+      <form action="employee_verification.jsp" method="post" class="form-horizontal">
+      	<%
+      	if(request.getParameter("type") != null && request.getParameter("type").equals("edit")){
+      		%><h2 class="col-sm-offset-3 form-register-heading">Edit Employee</h2><% 
+      	}
+      	else{
+      		%><h2 class="col-sm-offset-3 form-register-heading">Create Employee</h2><% 
+      	}
+      	%>
         <br /><br />
         <div class="form-group">  
         	<label class="col-sm-2 control-label" for=firstName>First Name</label>
@@ -52,19 +58,25 @@
         		<span class="redText" id="ssnError">${EmployeeSSNError}</span>
         	</div>
         </div>
-        <div class="form-group">  
-        	<label class="col-sm-2 control-label" for=username>Username</label>
-        	<div class="col-sm-5">
-        		<input value="${EmployeeUsername}" name=username type="text" class="form-control" placeholder="Username" oninput="clearErrorMsg('usernameError')" required>
-        		<span class="redText" id="usernameError">${EmployeeUsernameError}</span>
-        	</div>
-        </div>       
-        <div class="form-group">  
-        	<label class="col-sm-2 control-label" for=password>Password</label>
-        	<div class="col-sm-5">
-        		<input name=password type="password" class="form-control" placeholder="Password" required>
-        	</div>
-        </div>
+        <%
+	      	if(request.getParameter("type") == null || !(request.getParameter("type").equals("edit"))){
+	      		%>
+	      			        <div class="form-group">  
+					        	<label class="col-sm-2 control-label" for=username>Username</label>
+					        	<div class="col-sm-5">
+					        		<input value="${EmployeeUsername}" name=username type="text" class="form-control" placeholder="Username" oninput="clearErrorMsg('usernameError')" required>
+					        		<span class="redText" id="usernameError">${EmployeeUsernameError}</span>
+					        	</div>
+					        </div>       
+					        <div class="form-group">  
+					        	<label class="col-sm-2 control-label" for=password>Password</label>
+					        	<div class="col-sm-5">
+					        		<input name=password type="password" class="form-control" placeholder="Password" required>
+					        	</div>
+					        </div>
+	      		<% 
+	      	}
+        %>
         <div class="form-group">  
         	<label class="col-sm-2 control-label" for=address>Address</label>
         	<div class="col-sm-5">
@@ -148,13 +160,13 @@
         	<div class="col-sm-5">
         	    <div class="radio">
 				  <label>
-				    <input type="radio" name="emplType" id="emplType1" value="employee" checked>
+				    <input type="radio" name="emplType" id="emplType1" value="employee" ${EmployeeEmplType=='employee'?"checked":""} required>
 				    Employee
 				  </label>
 				</div>
 				<div class="radio">
 				  <label>
-				    <input type="radio" name="emplType" id="emplType2" value="manager" required>
+				    <input type="radio" name="emplType" id="emplType2" value="manager" ${EmployeeEmplType=='manager'?"checked":""}>
 				    Manager
 				  </label>
 				</div>
@@ -163,7 +175,7 @@
         <div class="form-group">  
         	<label class="col-sm-2 control-label" for=hourlyRate>Hourly Rate</label>
         	<div class="col-sm-5">
-        		<input value="${EmployeeHourlyRate}" name=hourlyRate type="text" class="form-control" placeholder="Hourly Rate" required>
+        		<input value="${EmployeeHourlyRate}" name=hourlyRate type="text" class="form-control" oninput="clearErrorMsg('hourlyRateError')" placeholder="Hourly Rate" required>
         		<span class="redText" id="hourlyRateError">${EmployeeHourlyRateError}</span>
         	</div>
         </div>
@@ -174,7 +186,7 @@
  			<button class="btn btn-default btn-lg" type="submit">Submit</button>
 	      </div>
 	      <div class="col-sm-offset-3 col-sm-10">
-	      <br /><br />Employee Page: <a href="manager_employee_page.jsp">Back</a> 
+	      <br /><br />Employee Page: <a href="clear_employee_attributes.jsp">Back</a> 
 	      </div>
 	    </div>       
       </form>
