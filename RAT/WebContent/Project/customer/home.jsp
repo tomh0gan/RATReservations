@@ -1,12 +1,19 @@
+<%@ page import="java.sql.*, java.util.Properties" %>
 <!DOCTYPE html>
-<HTML>
-<HEAD>
-<TITLE>RAT Reservations - Customer</TITLE>
-</HEAD>
-<BODY>
-	Welcome <%= session.getAttribute("username")  %> 
-	<BR>your id is <%= session.getAttribute("id") %>
-	<BR>you are a customer
-	<BR><A HREF="../logout.jsp">Logout</A>
-</BODY>
-</HTML>
+<html>
+<head>
+<title>RAT Reservations - Customer</title>
+</head>
+<body>
+	Welcome, <%= session.getAttribute("name") %> (<%= session.getAttribute("username")  %>)
+	<br>
+	<a href="account.jsp">My Account</a>
+	<br>
+	<a href="view_reservations.jsp">Current Reservations</a>
+	<br><br>
+	
+	
+	
+	<br><a href="../logout.jsp">Logout</a>
+</body>
+</html>
