@@ -10,7 +10,7 @@
 	String mysUserID = "tester";
 	String mysPassword = "test";
 	
-	if((!username.matches("[\\w]{1,20}")) || (!username.matches("[\\w]{1,20}"))){
+	if((!username.matches("[\\w]{1,20}")) || (!password.matches("[\\w]{1,20}"))){
 		response.sendRedirect("errors/login_error.html");
 	}
 	
