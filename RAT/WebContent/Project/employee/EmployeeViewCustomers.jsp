@@ -108,7 +108,7 @@
 		                      <td style="width: 7px">
 		                      	<span style="font-size: 10pt"><%=rs.getString(6)%></span></td>
 		                      <td style="width: 7px">
-		                      	<span style="font-size: 10pt"><input type="button" value="Edit"></span></td>
+		                      	<span style="font-size: 10pt"><input type="button" value="Edit" onclick="window.open('EditCustomer.jsp?custid=<%=rs.getString(1)%>','_self')"></span></td>
 		                      <td style="width: 7px">
 		                      	<span style="font-size: 10pt"><input type="button" value="Delete" onclick="javascript:if (confirm('Are you sure that you want to delete the customer?')==true){window.open('DeleteCustomer.jsp?custid=<%=rs.getString(2)%>','_self');return;"></span></td> 
 		                      <td style="width: 7px">

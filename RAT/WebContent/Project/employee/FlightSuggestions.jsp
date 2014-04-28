@@ -77,7 +77,7 @@
 
 		  %>
 		  </table>
-		  <input id="Button1" type="button" value="Back" onclick="window.open('Employee.jsp','_self');" />
+		  <input id="Button1" type="button" value="Back" onclick="window.open('EmployeeViewCustomers.jsp','_self');" />
         <input id="Button2" type="button" value="Logout" onclick="window.open('main.jsp','_self');" />
         <br />
         <span style="font-size: 8pt">
