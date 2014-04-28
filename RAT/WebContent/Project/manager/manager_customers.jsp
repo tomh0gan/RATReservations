@@ -55,25 +55,28 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li><a href="employee_info.jsp?type=create">To do</a></li>
+            <li><a href="">View Active Customers</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         
-	    <h2 class="sub-header">To do</h2> 
+	    <h2 class="sub-header">Customers</h2> 
 	      
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
+                  <th>Account</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Address</th>
+                  <th>City</th>
+                  <th>State</th>
+                  <th>Email</th>
+                  <th>Rating</th>
+                  <th>Reservations</th>
+                  <th>Revenue</th>
+                  <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
@@ -97,7 +100,7 @@
             
             java.sql.Statement stmt1=conn.createStatement();
         
-            java.sql.ResultSet rs = stmt1.executeQuery("SELECT * FROM Customer");
+            java.sql.ResultSet rs = stmt1.executeQuery("SELECT C.accountNum, P.firstName, P.lastName, P.address, P.city, P.state, C.email, C.rating, P.id FROM Person P, Customer C WHERE P.id=C.id");
   	       	 	            	
           	while(rs.next())
             {
@@ -108,7 +111,13 @@
                           <td><%=rs.getString(3)%></td>
                           <td><%=rs.getString(4)%></td>
                           <td><%=rs.getString(5)%></td>
-                          <td><%=rs.getString(6)%></td>   
+                          <td><%=rs.getString(6)%></td>
+                          <td><%=rs.getString(7)%></td>
+                          <td><%=rs.getString(8)%></td>
+                          <td><button type="button" class="btn btn-sm btn-primary" >Reservations</button></td>
+                          <td><button type="button" class="btn btn-sm btn-success" onclick="window.open('manager_revenue_page.jsp?filter=Customer&value=<%=rs.getString(1)%>','_self')">Revenue</button></td>
+                          <td><button type="button" class="btn btn-sm btn-danger">Delete</button></td>             		
+                          <td>   
                           <td></td>
                           <td></td>             		
                         </tr>
