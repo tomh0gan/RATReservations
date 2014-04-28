@@ -1,10 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Add Customer</title>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>RAT Reservations - Register Customer</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="../resources/css/register.css" rel="stylesheet">
+    
+    <style>
+    	.redText{
+    		color: red;
+    	}
+    </style>
+
 
 <script language="javascript" type="text/javascript">
 // <!CDATA[
@@ -37,20 +54,77 @@ else{
 // ]]>
 </script>
 </head>
-<body style="text-align: center" bgcolor="#E8E8E8">
-	<h1>Add Customer</h1>
-	<form name="addCust" action="custAdded.jsp" method="post">
-	<p>First Name: <input type="text" value="" name="firstName"></p>
-	<p>Last Name: <input type="text" value="" name="lastName"></p>
-	<p>Address: <input type="text" value="" name="address"></p>
-	<p>City: <input type="text" value="" name="city"></p>
-	<p>State: <input type="text" value="" name="state"></p>
-	<p>Zip: <input type="text" value="" name="zip"></p>
-	<p>Credit Card Number: <input type="text" value="" name="cardNo"></p>
-	<p>Email: <input type="text" value="" name="email"></p>
-	<input id="submitButton" type="button" value="Submit" onclick="return Button1_onclick()" />
-	</form>
+<body>
+	<div class="container">
+	<h2 class="col-sm-offset-3 form-register-heading">Add Customer</h2>
+	<form name="addCust" action="custAdded.jsp" method="post" class="form-horizontal">
+		<div class="form-group">  
+        		<label class="col-sm-2 control-label" for=firstName>First Name</label>
+        		<div class="col-sm-5">
+        			<input value="" name=firstName type="text" class="form-control" placeholder="First name">
+        		</div>
+     	</div>
+     	<div class="form-group">  
+        		<label class="col-sm-2 control-label" for=lastName>Last Name</label>
+        		<div class="col-sm-5">
+        			<input value="" name=lastName type="text" class="form-control" placeholder="Last name">
+        		</div>
+     	</div>
 	
+		<div class="form-group">  
+        		<label class="col-sm-2 control-label" for=address>Address</label>
+        		<div class="col-sm-5">
+        			<input value="" name=address type="text" class="form-control" placeholder="Address">
+        		</div>
+     	</div>
 
+		<div class="form-group">  
+        		<label class="col-sm-2 control-label" for=city>City</label>
+        		<div class="col-sm-5">
+        			<input value="" name=city type="text" class="form-control" placeholder="City">
+        		</div>
+     	</div>
+	
+		<div class="form-group">  
+        		<label class="col-sm-2 control-label" for=state>State</label>
+        		<div class="col-sm-5">
+        			<input value="" name=state type="text" class="form-control" placeholder="State">
+        		</div>
+     	</div>
+     	
+     	<div class="form-group">  
+        		<label class="col-sm-2 control-label" for=zip>Zip</label>
+        		<div class="col-sm-5">
+        			<input value="" name=zip type="text" class="form-control" placeholder="Zip">
+        		</div>
+     	</div>
+	
+		<div class="form-group">  
+        		<label class="col-sm-2 control-label" for=cardNo>Credit Card Number</label>
+        		<div class="col-sm-5">
+        			<input value="" name=cardNo type="text" class="form-control" placeholder="Credit Card Number">
+        		</div>
+     	</div>
+
+		<div class="form-group">  
+        		<label class="col-sm-2 control-label" for=email>Email</label>
+        		<div class="col-sm-5">
+        			<input value="" name=email type="text" class="form-control" placeholder="Email">
+        		</div>
+     	</div>
+
+	
+	<div class="form-group">
+	      <div class="col-sm-offset-3 col-sm-10">
+ 			<button class="btn btn-default btn-lg" type="submit" onclick="return Button1_onclick()">Submit</button>
+	      </div>
+	      <div class="col-sm-offset-3 col-sm-10">
+	      <br /><br />Employee Page: <a href="EmployeeViewCustomers.jsp">Back</a> 
+	      </div>
+	    </div>
+	
+	
+	</form>
+    </div>	
 </body>
 </html>

@@ -5,27 +5,59 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Employee Home Page</title>
+<!-- Bootstrap -->
+    <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+		body, html {
+		  padding-top: 20px;
+		  padding-bottom: 20px;
+		  text-align: center;
+		  background-color: #CFCFCF;
+		}
+		/* Custom page header */
+		.header {
+		  border-bottom: 1px solid #e5e5e5;
+		}
+		/* Make the masthead heading the same height as the navigation */
+		.header h3 {
+		  padding-bottom: 19px;
+		  margin-top: 0;
+		  margin-bottom: 0;
+		  line-height: 40px;
+		}
+		.footer {
+		  padding-top: 19px;
+		  border-top: 1px solid #e5e5e5;
+		}
+		
+    </style>
 </head>
-<body style="text-align: center" bgcolor="#E8E8E8">
-	<h1>Employee Home Page</h1>
-	<input id="Button1" name="ViewCustomers" type="button" value="View Customers" onclick="window.open('EmployeeViewCustomers.jsp','_self');" />
+<body>
+  <div class="container">
+	<div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="../logout.jsp">Logout</a></li>
+        </ul>
+        <h3>RAT Reservations - Employee</h3>
+      </div>
+	<button type="button" class="btn btn-lg btn-primary" onclick="window.open('EmployeeViewCustomers.jsp','_self');" />View Customers</button>
 	<br />
 	<br />
-	<input id="Button2" name="RecordReservation" type="button" value="Record a Reservation" onclick="window.open('Jsp file here','_self');" />
+	<button type="button" class="btn btn-lg btn-primary" onclick="window.open('Jsp file here','_self');" />Record A Reservation</button>
 	<br />
 	<br />
+	<button type="button" class="btn btn-lg btn-primary" onclick="window.open('EmployeeMailingList.jsp','_self');" />Produce Mailing List</button>
 	<br />
-	<input id="Button3" name="ProduceMailingList" type="button" value="Produce Mailing List" onclick="window.open('EmployeeMailingList.jsp','_self');" />
-	<br />
-	<br />
-	<br />
-	<br />
-    <input id="Button2" type="button" value="Logout" onclick="window.open('main.jsp','_self');" />
-    <br />
-    <span style="font-size: 8pt">
-    <br />
-    RAT Reservations<br />
-    Department of Computer Science<br />
-	</span>    
+
+    <footer class="footer">
+        <p>RAT Reservations</p>
+      </footer>
+	</div> 
+	
+	 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -36,8 +36,13 @@
 				out.print(e.toString());
 			}
 			finally{
-			
-				try{conn.close();}catch(Exception ee){};
+				try{conn.close();
+				}
+				catch(Exception ee){
+					
+				};
+				
+				
 			}
 			
 /*
@@ -45,5 +50,18 @@
 */
 %>
 
+
+<html>
+<head>
+<script language="javascript" type="text/javascript">
+function load(){
+	window.open("EmployeeViewCustomers.jsp","_self")	
+}
+</script>
+</head>
+
+<body onload="load()">
+
 Customer Deleted!
-<a href="StudentInformation.jsp"><font color="Blue">Back</font></a>
+</body>
+</html>
