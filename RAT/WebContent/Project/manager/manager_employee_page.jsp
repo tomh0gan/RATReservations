@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
-    <title>RAT Reservations - Manager - Flights</title>
+    <title>RAT Reservations - Manager - Employees</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
