@@ -36,6 +36,12 @@
 			rs.next();
 			session.setAttribute("name", rs.getString("firstName") + " " + rs.getString("lastName"));
 			
+			if(type.equals("customer")){
+				rs = stmt1.executeQuery("SELECT accountNum FROM customer WHERE id="+session.getAttribute("id"));
+				rs.next();
+				session.setAttribute("accountNum", rs.getString("accountNum"));
+			}
+			
 			response.sendRedirect(type+"/home.jsp");
 		}
 		else{

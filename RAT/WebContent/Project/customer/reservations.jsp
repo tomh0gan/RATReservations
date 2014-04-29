@@ -81,7 +81,6 @@
 					request.getParameter("filter").equals("PastBids"))){
 					%>
 						<th>Flight</th>
-						<th>Date</th>
 						<th>Departure<th>
 						<th>Arrival<th>
 						<th>Fare</th>
@@ -103,7 +102,6 @@
 					} else {
 					%>
 						<th>Flight</th>
-						<th>Date</th>
 						<th>Departure<th>
 						<th>Arrival<th>
 						<th>Fare</th>
@@ -136,7 +134,6 @@
 						%>
 							<tr>
 								<td>Flight</td>
-								<td>Date</td>
 								<td>Departure<td>
 								<td>Arrival<td>
 								<td>Fare</td>
@@ -159,16 +156,21 @@
 							</tr>
 						<%
 						} else {
+							ResultSet rs = stmt1.executeQuery("SELECT I.airlineId, I.flightNum, I.legNum, L.depAirportId, L.depTime, L.arrAirportId, L.arrTime, R.totalFare" 
+									+" FROM reservation R, includes I, leg L WHERE ((((R.accountNum="+session.getAttribute("accountNum")+" AND R.resrNum=I.resrNum) AND L.airlineId = I.airlineId) "
+											+"AND L.flightNUM = I.flightNum) AND L.legNum = I.legNum)");
+							while(rs.next())
+							{
 						%>
 							<tr>
-								<td>Flight</td>
-								<td>Date</td>
-								<td>Departure<td>
-								<td>Arrival<td>
-								<td>Fare</td>
+								<td><%= rs.getString(1) + "-" + rs.getString(2) + "-" + rs.getString(3) %></td>
+								<td><%= rs.getString(4) + " at " + rs.getString(5) %><td>
+								<td><%= rs.getString(6) + " at " + rs.getString(7) %><td>
+								<td><%= rs.getString(8) %></td>
 								<td>"A" Button</td>
 							</tr>
 						<% 
+							}
 						}
 		    		} catch(Exception e)
 					{
