@@ -9,7 +9,7 @@
 	<br>
 	<a href="account.jsp">My Account</a>
 	<br>
-	<a href="view_reservations.jsp">Current Reservations</a>
+	<a href="reservations.jsp">My Reservations</a>
 	<br><br>
 	
 	
