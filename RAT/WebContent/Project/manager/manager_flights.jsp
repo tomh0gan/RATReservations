@@ -24,10 +24,10 @@
         	airport = airport.replace("'", "''");
     %>
 	<script>
-	function getDropdown(){
-		var url = "manager_flights.jsp?filter=Airport&airport=" + document.getElementById("AirportDropdown").value;
-	    window.open(url, '_self');
-	}
+		function getDropdown(){
+			var url = "manager_flights.jsp?filter=Airport&airport=" + document.getElementById("AirportDropdown").value;
+		    window.open(url, '_self');
+		}
 	</script>
   </head>
 
@@ -117,6 +117,7 @@
                   <th>Airline</th>
                   <th>Flight Number</th>
                   <th>Count</th>
+                  <th>Reservations</th>
                 	<%
                 }
                 else {
@@ -127,6 +128,7 @@
                   <th>Operating Days</th>
                   <th>Min Length of Stay</th>
                   <th>Max Length of Stay</th>
+                  <th>Reservations</th>
                 <%
                 }
                 %>
@@ -162,7 +164,8 @@
                         <tr>
                           <td><%=rs.getString(1)%></td>
                           <td><%=rs.getString(2)%></td>
-                          <td><%=rs.getString(3)%></td>          		
+                          <td><%=rs.getString(3)%></td>
+                          <td><button type="button" class="btn btn-sm btn-primary" onclick="window.open('reservations.jsp?view=flights&airId=<%=rs.getString(1)%>&flightNum=<%=rs.getString(2)%>&filter=<%=request.getParameter("filter")%>', '_self')" >Reservations</button></td>          		
                         </tr>
     <%      		
             	}
@@ -179,8 +182,9 @@
                           <td><%=rs.getString(3)%></td>
                           <td><%=rs.getString(4)%></td>
                           <td><%=rs.getString(5)%></td>
-                          <td><%=rs.getString(6)%></td>            		
-                        </tr>
+                          <td><%=rs.getString(6)%></td>
+                          <td><button type="button" class="btn btn-sm btn-primary" onclick="window.open('reservations.jsp?view=flights&airId=<%=rs.getString(1)%>&flightNum=<%=rs.getString(2)%>&filter=<%=request.getParameter("filter")%>&airport=<%=airport%>', '_self')" >Reservations</button></td>  
+                          </tr>
     <%      		
             	}
             }
@@ -195,7 +199,8 @@
                           <td><%=rs.getString(3)%></td>
                           <td><%=rs.getString(4)%></td>
                           <td><%=rs.getString(5)%></td>
-                          <td><%=rs.getString(6)%></td>            		
+                          <td><%=rs.getString(6)%></td>
+                          <td><button type="button" class="btn btn-sm btn-primary" onclick="window.open('reservations.jsp?view=flights&airId=<%=rs.getString(1)%>&flightNum=<%=rs.getString(2)%>&filter=<%=request.getParameter("filter")%>', '_self')" >Reservations</button></td>            		
                         </tr>
     <%      		
             	}
@@ -211,7 +216,8 @@
                           <td><%=rs.getString(3)%></td>
                           <td><%=rs.getString(4)%></td>
                           <td><%=rs.getString(5)%></td>
-                          <td><%=rs.getString(6)%></td>            		
+                          <td><%=rs.getString(6)%></td>
+                          <td><button type="button" class="btn btn-sm btn-primary" onclick="window.open('reservations.jsp?view=flights&airId=<%=rs.getString(1)%>&flightNum=<%=rs.getString(2)%>&filter=<%=request.getParameter("filter")%>', '_self')" >Reservations</button></td>            		
                         </tr>
     <%      		
             	}
@@ -227,7 +233,8 @@
                           <td><%=rs.getString(3)%></td>
                           <td><%=rs.getString(4)%></td>
                           <td><%=rs.getString(5)%></td>
-                          <td><%=rs.getString(6)%></td>            		
+                          <td><%=rs.getString(6)%></td>
+                          <td><button type="button" class="btn btn-sm btn-primary" onclick="window.open('reservations.jsp?view=flights&airId=<%=rs.getString(1)%>&flightNum=<%=rs.getString(2)%>', '_self')" >Reservations</button></td>            		
                         </tr>
     <%      		
             	}

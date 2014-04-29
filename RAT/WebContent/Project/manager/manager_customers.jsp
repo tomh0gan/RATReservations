@@ -18,10 +18,10 @@
     <link href="../resources/css/table.css" rel="stylesheet">
     
     <script>
-    	function deleteEmployee(name, id, ssn){
+    	function deleteCustomer(name, id, accountNum){
     		var resp=confirm("Are you sure you want to delete " + name + "?");
     		if (resp==true){
-    			window.open("delete_employee.jsp?id=" + id + "&ssn=" + ssn, '_self'); 
+    			window.open("delete_customer.jsp?id=" + id + "&accountNum=" + accountNum, '_self'); 
     		}
     	}
     </script>
@@ -55,7 +55,7 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li><a href="">View Active Customers</a></li>
+            <li><a href="create_customer.jsp?type=managerCreate">Add a Customer</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -113,10 +113,10 @@
                           <td><%=rs.getString(5)%></td>
                           <td><%=rs.getString(6)%></td>
                           <td><%=rs.getString(7)%></td>
-                          <td><%=rs.getString(8)%></td>
-                          <td><button type="button" class="btn btn-sm btn-primary" >Reservations</button></td>
+                          <td><% if(rs.getString(8) == null) out.println("N/A"); else out.println(rs.getString(8)); %></td>
+                          <td><button type="button" class="btn btn-sm btn-primary" onclick="window.open('reservations.jsp?view=customers&fname=<%=rs.getString(2)%>&lname=<%=rs.getString(3)%>', '_self')" >Reservations</button></td>
                           <td><button type="button" class="btn btn-sm btn-success" onclick="window.open('manager_revenue_page.jsp?filter=Customer&value=<%=rs.getString(1)%>','_self')">Revenue</button></td>
-                          <td><button type="button" class="btn btn-sm btn-danger">Delete</button></td>             		
+                          <td><button type="button" class="btn btn-sm btn-danger" onclick="deleteCustomer('<%=rs.getString(2)%> <%=rs.getString(3)%>', '<%=rs.getString(9)%>', '<%=rs.getString(1)%>');" >Delete</button></td>             		
                           <td>   
                           <td></td>
                           <td></td>             		

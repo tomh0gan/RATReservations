@@ -31,6 +31,9 @@
 		  padding-top: 19px;
 		  border-top: 1px solid #e5e5e5;
 		}
+		button{
+			width: 350px;
+		}
 		
     </style>
   </head>
@@ -58,10 +61,7 @@
 	  </p>     
 	  <p>
 	    <button type="button" class="btn btn-lg btn-primary" onclick="window.open('manager_customers.jsp','_self');">View Customers</button>
-	  </p>
-	  <p>
-	    <button type="button" class="btn btn-lg btn-primary" onclick="window.open('manager_customer_representatives.jsp','_self');">View Customer Representatives</button>
-	  </p>        
+	  </p>    
       
       <br/>
       <br/>

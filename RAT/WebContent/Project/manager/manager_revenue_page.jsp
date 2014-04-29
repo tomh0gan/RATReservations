@@ -174,10 +174,10 @@
            	}
            	else if(filter.equals("Customer")){
            		%>
+           			<input id="CustButton" name="CustButton" type="button" value="Go to Customers Page" onclick="window.open('manager_customers.jsp', '_self')" /> 
     	   			<span>Customer Account Number: </span>
     	   			<input type="text" name="AccountNum" id="value" value="${value}" />
     	   			<input id="GoButton" name="GoButton" type="button" value="Go" onclick="getInput()" /> 
-    	   			<input id="CustButton" name="CustButton" type="button" value="Go to Customers Page" onclick="window.open('manager_customers.jsp', '_self')" /> 
        			<% 
            	}
            	else if(filter.equals("")){
