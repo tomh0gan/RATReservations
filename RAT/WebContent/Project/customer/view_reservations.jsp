@@ -50,16 +50,93 @@
       </div>
      </div>
 	<br>
+<%
+	String mysJDBCDriver = "com.mysql.jdbc.Driver"; 
+	String mysURL = "jdbc:mysql://localhost:3306/rat_schema"; 
+	String mysUserID = "tester"; 
+	String mysPassword = "test";
+
+	java.sql.Connection conn=null;
+	try {
+        Class.forName(mysJDBCDriver).newInstance();
+		java.util.Properties sysprops=System.getProperties();
+		sysprops.put("user",mysUserID);
+		sysprops.put("password",mysPassword);
+    
+        conn=java.sql.DriverManager.getConnection(mysURL,sysprops);
+        java.sql.Statement stmt=conn.createStatement();
+		
+        java.sql.ResultSet rs = stmt.executeQuery("SELECT R.resrDate, R.totalFare FROM Reservation R" 
+        		+ " WHERE EXISTS ("
+        				+ " SELECT * FROM Includes I, Leg L"
+        				+ " WHERE R.ResrNum = I.ResrNum AND I.AirlineID = L.AirlineID" 
+        				+ " AND I.FlightNum = L.FlightNum AND L.DepTime >= NOW())"
+        				+ " AND R.AccountNum = " + session.getAttribute("accountNum") + ";");
+%>
 	<div class="container">
 		<legend>Current Reservations</legend>
 		<div class="well">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+					<th>Reservation Date</th>
+					<th>Total Fare</th>
+					</tr>
+				</thead>
+				<tbody>
+<% 
+				while(rs.next()){
+%>
+					<tr>
+					<td><%=rs.getString(1)%></td>
+					<td><%=rs.getString(2)%></td>
+					</tr>
+<%
+				}
+%>
+				</tbody>
+			</table>
 		</div>
 	</div>
+<%
+		rs = stmt.executeQuery("SELECT R.resrDate, R.totalFare FROM Reservation R" 
+		+ " WHERE EXISTS ("
+				+ " SELECT * FROM Includes I, Leg L"
+				+ " WHERE R.ResrNum = I.ResrNum AND I.AirlineID = L.AirlineID" 
+				+ " AND I.FlightNum = L.FlightNum AND L.DepTime < NOW())"
+				+ " AND R.AccountNum = " + session.getAttribute("accountNum") + ";");
+%>
 	<div class="container">
 		<legend>Reservation History</legend>
 		<div class="well">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+					<th>Reservation Date</th>
+					<th>Total Fare</th>
+					</tr>
+				</thead>
+				<tbody>
+<% 
+				while(rs.next()){
+%>
+					<tr>
+					<td><%=rs.getString(1)%></td>
+					<td><%=rs.getString(2)%></td>
+					</tr>
+<%
+				}
+%>
+				</tbody>
+			</table>
 		</div>
 	</div>
+<%
+	} catch(Exception e){
+		out.print(e.toString());
+	}
+	finally{try{conn.close();}catch(Exception ee){};}
+%>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="../resources/js/bootstrap.min.js"></script>

@@ -50,14 +50,19 @@
       </div>
      </div>
 	<br>
+	
 	<div class="container">
 		<legend>Current Bids</legend>
 		<div class="well">
+			<table class="table table-striped">
+			</table>
 		</div>
 	</div>
 	<div class="container">
 		<legend>Bid History</legend>
 		<div class="well">
+			<table class="table table-striped">
+			</table>
 		</div>
 	</div>
 
