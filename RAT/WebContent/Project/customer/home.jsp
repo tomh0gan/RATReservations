@@ -37,12 +37,12 @@
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Find Flights</a></li>
-              <li><a href="#">View Reservations</a></li>
-              <li><a href="#">View Bids</a></li>
+              <li class="active"><a href="home.jsp">Find Flights</a></li>
+              <li><a href="view_reservations.jsp">View Reservations</a></li>
+              <li><a href="view_bids.jsp">View Bids</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="#"><b>My Account (<%=session.getAttribute("username")%>)</b></a></li>
+              <li><a href="account.jsp">My Account (<%=session.getAttribute("username")%>)</a></li>
       		  <li><div><a class="btn btn-default navbar-btn" href="../logout.jsp">Log out</a></div></li>
             </ul>
           </div>
