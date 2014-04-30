@@ -50,6 +50,16 @@
       </div>
      </div>
 	<br>
+	<div class="container">
+		<legend>Current Bids</legend>
+		<div class="well">
+		</div>
+	</div>
+	<div class="container">
+		<legend>Bid History</legend>
+		<div class="well">
+		</div>
+	</div>
 
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

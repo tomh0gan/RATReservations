@@ -50,7 +50,16 @@
       </div>
      </div>
 	<br>
-
+	<div class="container">
+		<legend>Current Reservations</legend>
+		<div class="well">
+		</div>
+	</div>
+	<div class="container">
+		<legend>Reservation History</legend>
+		<div class="well">
+		</div>
+	</div>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="../resources/js/bootstrap.min.js"></script>
