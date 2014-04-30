@@ -46,19 +46,26 @@
 		
 		ResultSet rs1 = stmt2.executeQuery(legsQuery);
 		while(rs1.next()){
-			fg.addEdge(rs1.getString(4), rs1.getString(5), new FlightInfo(rs1.getString(1), rs1.getString(2), rs1.getString(3)));
+			FlightInfo info = new FlightInfo(rs1.getString(1), rs1.getString(2), rs1.getString(3));
+			fg.addEdge(rs1.getString(4), rs1.getString(5), info);
 		}
 		
-		//out.println(fg.printVertices());
-		//out.println(fg.printEdges());
-		
-		from = "Los Angeles International";
+		from = "LaGuardia";
 		to = "Tokyo International";
 		
+		//Find flight path
 		LinkedList<FlightVertex> path = fg.getFlightPath(from, to);
+		
+		System.out.print(from);
 		for(int i = 0; i < path.size(); i++){
-			out.println(path.get(i).getAirport().getAirportName());
+			System.out.print(" -> " + path.get(i).getFlightInfo().getFlightNum());
 		}
+		
+		request.setAttribute("path", path);
+		request.setAttribute("flightType", "oneWay");
+		
+		RequestDispatcher rd = request.getRequestDispatcher("display_flights.jsp");
+		rd.forward(request, response);
 		
 	} catch(Exception e){
 		System.out.println(e);

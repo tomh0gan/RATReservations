@@ -59,7 +59,7 @@ public class FlightGraph {
 		}
 		FlightVertex fv = new FlightVertex(toIndex, arrAirport, info);
 		graph[fromIndex].add(fv);
-		return "Edge Added!"+depAirportId+"->"+arrAirportId;
+		return "Edge Added!"+info.getFlightNum()+"->"+arrAirportId;
 	}
 	
 	public LinkedList<FlightVertex> getFlightPath(String start, String finish){
@@ -88,14 +88,14 @@ public class FlightGraph {
 		queue.add(graph[startIndex].get(0));
 		discovered[startIndex] = true;
 		while(!queue.isEmpty()){
-			tempCurrent = queue.removeFirst();
+			tempCurrent = (FlightVertex) queue.removeFirst();
 			processed[tempCurrent.getIndex()] = true;
 			int index = 1;
 			if(graph[tempCurrent.getIndex()].size() == index){
 				tempTo = null;
 			}
 			else{
-				tempTo = graph[tempCurrent.getIndex()].get(index);
+				tempTo = (FlightVertex) graph[tempCurrent.getIndex()].get(index);
 			}
 			while(tempTo != null){
 				index++;
@@ -134,7 +134,12 @@ public class FlightGraph {
 		//Create Solution
 		int tempIndex = endIndex;
 		while(startIndex != tempIndex){
-			solution.addFirst(graph[tempIndex].get(0));
+			int tempIndex2 = parent[tempIndex];
+			for(int i = 1; i < graph[tempIndex2].size(); i++){
+				if(graph[tempIndex2].get(i).contains(graph[tempIndex].get(0).getAirport())){
+					solution.addFirst((FlightVertex)graph[tempIndex2].get(i));
+				}
+			}
 			tempIndex = parent[tempIndex];
 		}
 		
