@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
+
   <script type="text/javascript">
 	function dtable(){
 		if(document.getElementById('type-0').checked){
@@ -22,10 +23,36 @@
 		}
 	}
   </script>
+  
 </head>
 <body>
-	<br>
-	<br>
+	 <div class="container">
+      <div class="navbar navbar-default" role="navigation" style="margin-top:20px;">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">RAT Reservations</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="#">Search Flights</a></li>
+              <li><a href="#">Reservations</a></li>
+              <li><a href="#">Bids</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#">Account</a></li>
+      		  <li><a href="#">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+     </div>
+
 	<br>
 	<div class="container">
 		<form class="form-horizontal">
@@ -160,6 +187,6 @@
 
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+	<script src="../resources/js/bootstrap.min.js"></script>
 </body>
 </html>
