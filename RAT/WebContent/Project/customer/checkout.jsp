@@ -1,3 +1,4 @@
+<%@ page import="java.sql.*, java.util.*, java.text.*" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,6 +28,10 @@
   </script>
 </head>
 <body>
+	<% 
+		double totalFare = 0;
+		DecimalFormat df = new DecimalFormat("#.##");
+	%>
 	 <div class="container">
       <div class="navbar navbar-default" role="navigation" style="margin-top:20px;">
         <div class="container-fluid">
@@ -57,72 +62,115 @@
 	<br>
 	<div class="container">
 		<form action="../flights/find_flights.jsp" class="form-horizontal" method="post">
+			<input type="hidden" name=flyingfrom value=<%= request.getParameter("flyingfrom") %> />
+			<input type="hidden" name=flyingto value=<%= request.getParameter("flyingto") %> />
+			<input type="hidden" name=flightType value=<%= request.getParameter("flightType") %> />
+			<input type="hidden" name=departing value=<%= request.getParameter("departing") %> />
+			<input type="hidden" name=returning value=<%= request.getParameter("returning") %> />
+			<input type="hidden" name=numOfPassengers value=<%= request.getParameter("numOfPassengers") %> />
+			<input type="hidden" name=airlineId value=<%= request.getParameter("airlineId") %> />
+			<input type="hidden" name=flightNum value=<%= request.getParameter("flightNum") %> />
 			<fieldset>
 				<legend><h1>Checkout</h1></legend>
 				
 				<%
-					for(int i = 1; i <= Integer.parseInt((String)session.getAttribute("numOfPassengers")); i++){
+				String mysJDBCDriver = "com.mysql.jdbc.Driver";
+				String mysURL = "jdbc:mysql://localhost:3306/rat_schema";
+				String mysUserID = "tester";
+				String mysPassword = "test";
+				
+				Connection conn = null;
+				try{
+					Class.forName(mysJDBCDriver).newInstance();
+					Properties sysprops = System.getProperties();
+					sysprops.put("user",mysUserID);
+					sysprops.put("password",mysPassword);
+					
+					conn = DriverManager.getConnection(mysURL,sysprops);
+					
+					double fareValue = 0;
+					String fare = "";
+					Statement stmt = conn.createStatement();
+					String fareQuery = "SELECT fare FROM Fare WHERE airlineId='"+request.getParameter("airlineId")+"' AND flightNum="+request.getParameter("flightNum")+" AND fareType='"+request.getParameter("flightType")+"' AND class='"+request.getParameter("custClass")+"';";
+					ResultSet rs = stmt.executeQuery(fareQuery);
+					if(rs.next()){
+						fareValue =  Double.parseDouble(rs.getString(1));
+						fare = rs.getString(1);
+					}
+						
+					for(int i = 1; i <= Integer.parseInt((String)request.getParameter("numOfPassengers")); i++){
+						totalFare += fareValue;
 						%>
 							<legend><h3>Passenger <%= i %></h3></legend>
 							<div class = "well">
 								<div class="form-group">
-									<label class="col-md-4 control-label" for="passName<%= i %>">Name</label>
+									<label class="col-md-4 control-label" for="passName<%= i %>">Passenger Name: </label>
 									<div class="col-md-5">
-										<input class="form-control" name="passName<%= i %>" type="text" />
+										<input class="form-control" name="passName<%= i %>" type="text" required />
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-md-4 control-label" for="passClass<%= i %>">Class</label>
+									<label class="col-md-4 control-label" for="passClass<%= i %>">Class: </label>
 									<div class="col-md-5">
-										<select class="form-control" name="passClass<%= i %>" >
-											<option>Economy</option>
-											<option>First</option>
-										</select>
+										<span class="help-block" id="passFare<%= i %>" name="passFare<%= i %>" ><%= request.getParameter("custClass") %></span>
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-md-4 control-label" for="seatNum<%= i %>">Seat Number</label>
+									<label class="col-md-4 control-label" for="seatNum<%= i %>">Seat Number: </label>
 									<div class="col-md-5">
 										<p class="help-block"><%= i %></p>
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-md-4 control-label" for="passMeal<%= i %>">Meal</label>
+									<label class="col-md-4 control-label" for="passMeal<%= i %>">Meal: </label>
 									<div class="col-md-5">
-										<select class="form-control" name="passMeal<%= i %>" type="text" >
+										<select class="form-control" name="passMeal<%= i %>" type="text" required >
 											<option>Cheese</option>
-											<option>Extra Cheese</option>
 											<option>Grilled Cheese</option>
 											<option>Special Cheese</option>
 											<option>Premium Cheese</option>
-											<option>Sargento Cheese</option>
 										</select>
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-md-4 control-label" for="passFare<%= i %>">Price</label>
+									<label class="col-md-4 control-label" for="passFare<%= i %>">Price: </label>
 									<div class="col-md-5">
-										<span class="help-block" name="passFare<%= i %>" >FARE HERE</span>
+										<span class="help-block" id="passFare<%= i %>" name="passFare<%= i %>" ><%= "$" +  fare %></span>
 									</div>
 								</div>
 							</div>
 						<% 
 					}
+				} catch(Exception e){
+					System.out.println(e);
+				}
+				finally{
+					try{conn.close();} catch(Exception ee){};
+				}
+				double bookingFee = 0.1 * totalFare;
 				%>
 				<legend><h3>Total</h3></legend>
 				<div class = "well">
 					<div class="form-group">
+						<label class="col-md-4 control-label" for="total">Total Fare: </label>
+						<div class="col-md-5">
+							<span class="help-block" name="total"><%= "$" + df.format(totalFare) %></span>
+						</div>
+						<label class="col-md-4 control-label" for="total">Booking Fee: </label>
+						<div class="col-md-5">
+							<span class="help-block" name="total"><%= "$" + df.format(bookingFee) %></span>
+						</div>
 						<label class="col-md-4 control-label" for="total">Total: </label>
 						<div class="col-md-5">
-							<span class="help-block" name="total">TOTAL HERE</span>
+							<span class="help-block" name="total"><%= "$" + df.format(totalFare + bookingFee) %></span>
 						</div>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="buy"></label>
 					<div class="col-md-8">
-						<button type=submit id="buy" name="buy" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-ok"></span> Buy </button>
-						<button type=submit id="buy" name="buy" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-remove"></span> Cancel </button>
+						<button type=submit id="buy" name="buy" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-ok"></span> Continue </button>
+						<button type="reset" id="buy" name="buy" class="btn btn-danger btn-lg" onclick="window.open(home.jsp, '_self')"><span class="glyphicon glyphicon-remove"></span> Cancel </button>
 					</div>
 				</div>
 			</fieldset>

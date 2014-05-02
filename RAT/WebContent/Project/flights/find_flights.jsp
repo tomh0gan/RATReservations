@@ -15,7 +15,7 @@
 	request.setAttribute("flightType", flightType);
 	request.setAttribute("departing", departDate);
 	request.setAttribute("returning", returnDate);
-	session.setAttribute("numOfPassengers", numOfPassengers);
+	request.setAttribute("numOfPassengers", numOfPassengers);
 	
 	String mysJDBCDriver = "com.mysql.jdbc.Driver";
 	String mysURL = "jdbc:mysql://localhost:3306/rat_schema";
@@ -47,7 +47,7 @@
 				index++;
 			}
 		
-	  		if(flightType.equals("oneWay")){
+	  		if(flightType.equals("ONEWAY")){
 			
 				FlightGraph fg = new FlightGraph(airports, map);
 				
@@ -77,7 +77,7 @@
 				rd.forward(request, response);
 				return;
 			}
-	  		else if(flightType.equals("roundtrip")){
+	  		else if(flightType.equals("ROUNDTRIP")){
 				FlightGraph fgTo = new FlightGraph(airports, map);
 				
 				Statement stmt2 = conn.createStatement();

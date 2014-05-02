@@ -26,7 +26,7 @@
 	}
   </script>
 </head>
-<body>
+<body onload="dtable();" >
 	 <div class="container">
       <div class="navbar navbar-default" role="navigation" style="margin-top:20px;">
         <div class="container-fluid">
@@ -63,17 +63,16 @@
 					<label class="col-md-4 control-label" for="type"></label>
 					<div class="col-md-4">
 						<label class="radio-inline" for="type-0"> 
-							<input type="radio" name="flightType" id="type-0" value="roundtrip" onclick="dtable()" checked="checked" required> Round-trip
+							<input type="radio" name="flightType" id="type-0" value="ROUNDTRIP" onclick="dtable()" ${flightType=="ROUNDTRIP"?"checked":""} required> Round-trip
 						</label> 
 						<label class="radio-inline" for="type-1"> 
-							<input type="radio" name="flightType" id="type-1" value="oneWay" onclick="dtable()" ${flightType=="oneWay"?"checked":""} > One way
+							<input type="radio" name="flightType" id="type-1" value="ONEWAY" onclick="dtable()" ${flightType=="ONEWAY"?"checked":""} > One way
 						</label> 
 						<label class="radio-inline" for="type-2"> 
-							<input type="radio" name="flightType" id="type-2" value="multDest" onclick="dtable()" ${flightType=="multDest"?"checked":""} > Multiple destinations
+							<input type="radio" name="flightType" id="type-2" value="MULTDEST" onclick="dtable()" ${flightType=="MULTDEST"?"checked":""} > Multiple destinations
 						</label>
 					</div>
 				</div>
-
 				<div class = "well">
 				<div class="form-group">
 					<label class="col-md-5 control-label" id="flightError" style="color: red;"> ${flightErrorMsg} </label>

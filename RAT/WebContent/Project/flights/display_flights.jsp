@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>RAT - View Reservations</title>
+	<title>RAT - Display Flights</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="../resources/css/bootstrap.min.css" rel="stylesheet">
 	<style>
@@ -11,6 +11,12 @@
 			width: 200px;
 		}
 	</style>
+	<script>
+		function changeFormAction(changeUrl){
+			document.flightForm.action = changeUrl;
+			return true;
+		}
+	</script>
 </head>
 <body>
 	 <div class="container">
@@ -41,7 +47,9 @@
      </div>
 	<br>
 <%
-	if(request.getAttribute("flightType").equals("oneWay")){
+	String airline = "";
+	String flightNum = "";
+	if(request.getAttribute("flightType").equals("ONEWAY")){
 %>
 	<div class="container">
 		<legend>Flight From <%= request.getParameter("flyingfrom") %> to <%= request.getParameter("flyingto") %></legend>
@@ -57,19 +65,13 @@
 					</tr>
 				</thead>
 				<tbody>
-<% 				
-				//For Fare
-				ArrayList<String> flightNumbersForFare = new ArrayList();
-				ArrayList<String> airlineIdForFare = new ArrayList();
-
+<% 			
 				LinkedList<FlightVertex> path = (LinkedList<FlightVertex>) request.getAttribute("path");
 				int index = 0;
 				String startAirport = request.getParameter("flyingfrom");
 				while(index < path.size()){
-					if(!flightNumbersForFare.contains(path.get(index).getFlightInfo().getFlightNum())){
-						flightNumbersForFare.add(path.get(index).getFlightInfo().getFlightNum());
-						airlineIdForFare.add(path.get(index).getFlightInfo().getAirlineId());
-					}
+					if(airline.equals("")) airline = path.get(index).getFlightInfo().getAirlineId();
+					if(flightNum.equals("")) flightNum = path.get(index).getFlightInfo().getFlightNum();
 %>
 						
 						<tr>
@@ -87,17 +89,9 @@
 				</tbody>
 			</table>
 		</div>
-		<div>
-		<label class="col-md-4 control-label" for="buy"></label>
-		<div class="col-md-8">
-			<button id="buy" name="buy" class="btn btn-primary btn-lg" onclick="window.open('../customer/checkout.jsp', '_self')"><span class="glyphicon glyphicon-hand-up"></span> Go to checkout</button>
-			<button id="bid" name="bid" class="btn btn-warning btn-lg"><span class="glyphicon glyphicon-tag"></span> Bid</button>
-		</div>
-	</div>
-	</div>
 <%
 	}
-	else if(request.getAttribute("flightType").equals("roundtrip")){
+	else if(request.getAttribute("flightType").equals("ROUNDTRIP")){
 %>
 	<div class="container">
 		<legend>Depart: Flight From <%= request.getParameter("flyingfrom") %> to <%= request.getParameter("flyingto") %></legend>
@@ -118,6 +112,8 @@
 				int index = 0;
 				String startAirport = request.getParameter("flyingfrom");
 				while(index < path.size()){
+					if(airline.equals("")) airline = path.get(index).getFlightInfo().getAirlineId();
+					if(flightNum.equals("")) flightNum = path.get(index).getFlightInfo().getFlightNum();
 %>
 						<tr>
 							<td><%= path.get(index).getFlightInfo().getFlightNum() %></td>
@@ -134,7 +130,6 @@
 				</tbody>
 			</table>
 		</div>
-		<div>
 	</div>
 	<div class="container">
 		<legend>Return: Flight From <%= request.getParameter("flyingto") %> to <%= request.getParameter("flyingfrom") %></legend>
@@ -171,17 +166,64 @@
 				</tbody>
 			</table>
 		</div>
-		<div>
-		<label class="col-md-4 control-label" for="buy"></label>
-			<div class="col-md-8">
-				<button id="buy" name="buy" class="btn btn-primary btn-lg" onclick="window.open('../customer/checkout.jsp', '_self')"><span class="glyphicon glyphicon-hand-up"></span> Go to checkout</button>
-				<button id="bid" name="bid" class="btn btn-warning btn-lg"><span class="glyphicon glyphicon-tag"></span> Bid </button>
-			</div>
-		</div>
-	</div>
-<%
+		<%
 	}
 %>
+		<div>
+		<form action="../customer/checkout.jsp" class="form-horizontal" method="post" name=flightForm>
+			<input type="hidden" name=flyingfrom value="${flyingfrom}" />
+			<input type="hidden" name=flyingto value="${flyingto}" />
+			<input type="hidden" name=flightType value="${flightType}" />
+			<input type="hidden" name=departing value="${departing}" />
+			<input type="hidden" name=returning value="${returning}" />
+			<input type="hidden" name=numOfPassengers value="${numOfPassengers}" />
+			<input type="hidden" name=airlineId value="<%=airline %>" />
+			<input type="hidden" name=flightNum value="<%=flightNum %>" />
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="custClass">Choose class: </label>
+				<div class="col-md-5">
+					<select id="custClass" name="custClass" class="form-control" required>
+					<% 
+					String mysJDBCDriver = "com.mysql.jdbc.Driver";
+					String mysURL = "jdbc:mysql://localhost:3306/rat_schema";
+					String mysUserID = "tester";
+					String mysPassword = "test";
+					
+					Connection conn = null;
+					try{
+						Class.forName(mysJDBCDriver).newInstance();
+						Properties sysprops = System.getProperties();
+						sysprops.put("user",mysUserID);
+						sysprops.put("password",mysPassword);
+						
+						conn = DriverManager.getConnection(mysURL,sysprops);
+						
+						Statement stmt = conn.createStatement();
+						String classes = "SELECT class FROM Fare WHERE airlineId='"+airline+"' AND flightNum="+flightNum+" AND fareType='"+request.getAttribute("flightType")+"';";
+						ResultSet rs = stmt.executeQuery(classes);
+												
+						while(rs.next()){
+							%> <option value=<%=rs.getString(1) %> ><%=rs.getString(1) %></option> <% 
+						}
+						
+					} catch(Exception e){
+						System.out.println(e);
+					}
+					finally{
+						try{conn.close();} catch(Exception ee){};
+					}
+					%>
+					</select>
+				</div>
+			</div>
+			<label class="col-md-4 control-label" for="buy"></label>
+			<div class="col-md-8">
+				<button type=submit id="buy" name="buy" class="btn btn-primary btn-lg" onClick="return changeFormAction('../customer/checkout.jsp');"><span class="glyphicon glyphicon-hand-up"></span> Go to checkout</button>
+				<button type=submit  id="bid" name="bid" class="btn btn-warning btn-lg" onClick="return changeFormAction('../customer/place_bid.jsp');"><span class="glyphicon glyphicon-tag"></span> Bid </button>
+			</div>
+		  </form>
+		</div>
+	</div>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="../resources/js/bootstrap.min.js"></script>
