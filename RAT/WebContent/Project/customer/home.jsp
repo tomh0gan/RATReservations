@@ -20,6 +20,10 @@
 			document.getElementById('multiple_destinations_div').style.display = "block";
 		}
 	}
+	
+	function clearError(){
+		document.getElementById("flightError").innerHTML = "";
+	}
   </script>
 </head>
 <body>
@@ -52,32 +56,45 @@
 	<br>
 	<br>
 	<div class="container">
-		<form class="form-horizontal">
+		<form action="../flights/find_flights.jsp" class="form-horizontal" method="post">
 			<fieldset>
 				<legend><h1>Find Flights</h1></legend>
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="type"></label>
 					<div class="col-md-4">
-						<label class="radio-inline" for="type-0"> <input
-							type="radio" name="type" id="type-0" value="1" onclick="dtable()" checked="checked">
-							Roundtrip
-						</label> <label class="radio-inline" for="type-1"> <input
-							type="radio" name="type" id="type-1" value="2" onclick="dtable()"> One way
-						</label> <label class="radio-inline" for="type-2"> <input
-							type="radio" name="type" id="type-2" value="3" onclick="dtable()"> Multiple
-							destinations
+						<label class="radio-inline" for="type-0"> 
+							<input type="radio" name="flightType" id="type-0" value="roundtrip" onclick="dtable()" checked="checked" required> Round-trip
+						</label> 
+						<label class="radio-inline" for="type-1"> 
+							<input type="radio" name="flightType" id="type-1" value="oneWay" onclick="dtable()" ${flightType=="oneWay"?"checked":""} > One way
+						</label> 
+						<label class="radio-inline" for="type-2"> 
+							<input type="radio" name="flightType" id="type-2" value="multDest" onclick="dtable()" ${flightType=="multDest"?"checked":""} > Multiple destinations
 						</label>
 					</div>
 				</div>
 
 				<div class = "well">
 				<div class="form-group">
+					<label class="col-md-5 control-label" id="flightError" style="color: red;"> ${flightErrorMsg} </label>
+				</div>
+				<div class="form-group">
 					<label class="col-md-4 control-label" for="flyingfrom">Flying
 						from</label>
 					<div class="col-md-5">
-						<select id="flyingfrom" name="flyingfrom" class="form-control">
-							<option value="1">Option one</option>
-							<option value="2">Option two</option>
+						<select id="flyingfrom" name="flyingfrom" class="form-control" onfocus="clearError()" required>
+							<option value="">Please choose:</option>
+							<option ${flyingfrom=="Berlin Tegel"?"Selected=selected":""} value="Berlin Tegel">Berlin, Germany (Berlin Tegel)</option>
+							<option ${flyingfrom=="Chicago O'Hare International"?"Selected=selected":""} value="Chicago O'Hare International">Chicago, USA (Chicago O'Hare International)</option>
+							<option ${flyingfrom=="Hartsfield-Jackson Atlanta Int"?"Selected=selected":""} value="Hartsfield-Jackson Atlanta Int">Atlanta, USA (Hartsfield-Jackson Atlanta Int)</option>
+							<option ${flyingfrom=="Ivato International"?"Selected=selected":""} value="Ivato International">Antananarivo, Madagascar (Ivato International)</option>
+							<option ${flyingfrom=="John F. Kennedy International"?"Selected=selected":""} value="John F. Kennedy International">New York, USA (John F. Kennedy International)</option>
+							<option ${flyingfrom=="Los Angeles International"?"Selected=selected":""} value="Los Angeles International">Los Angeles, USA (Los Angeles International)</option>
+							<option ${flyingfrom=="LaGuardia"?"Selected=selected":""} value="LaGuardia">New York, USA (LaGuardia)</option>
+							<option ${flyingfrom=="London Heathrow"?"Selected=selected":""} value="London Heathrow">London, United Kingdom (London Heathrow)</option>
+							<option ${flyingfrom=="Logan International"?"Selected=selected":""} value="Logan International">Boston, USA (Logan International)</option>
+							<option ${flyingfrom=="San Francisco International"?"Selected=selected":""} value="San Francisco International">San Francisco, USA (San Francisco International)</option>
+							<option ${flyingfrom=="Tokyo International"?"Selected=selected":""} value="Tokyo International">Tokyo, Japan (Tokyo International)</option>
 						</select>
 					</div>
 				</div>
@@ -86,9 +103,19 @@
 					<label class="col-md-4 control-label" for="flyingto">Flying
 						to</label>
 					<div class="col-md-5">
-						<select id="flyingto" name="flyingto" class="form-control">
-							<option value="1">Option one</option>
-							<option value="2">Option two</option>
+						<select id="flyingto" name="flyingto" class="form-control" onfocus="clearError()" required>
+							<option value="">Please choose:</option>
+							<option ${flyingto=="Berlin Tegel"?"Selected=selected":""} value="Berlin Tegel">Berlin, Germany (Berlin Tegel)</option>
+							<option ${flyingto=="Chicago O'Hare International"?"Selected=selected":""} value="Chicago O'Hare International">Chicago, USA (Chicago O'Hare International)</option>
+							<option ${flyingto=="Hartsfield-Jackson Atlanta Int"?"Selected=selected":""} value="Hartsfield-Jackson Atlanta Int">Atlanta, USA (Hartsfield-Jackson Atlanta Int)</option>
+							<option ${flyingto=="Ivato International"?"Selected=selected":""} value="Ivato International">Antananarivo, Madagascar (Ivato International)</option>
+							<option ${flyingto=="John F. Kennedy International"?"Selected=selected":""} value="John F. Kennedy International">New York, USA (John F. Kennedy International)</option>
+							<option ${flyingto=="Los Angeles International"?"Selected=selected":""} value="Los Angeles International">Los Angeles, USA (Los Angeles International)</option>
+							<option ${flyingto=="LaGuardia"?"Selected=selected":""} value="LaGuardia">New York, USA (LaGuardia)</option>
+							<option ${flyingto=="London Heathrow"?"Selected=selected":""} value="London Heathrow">London, United Kingdom (London Heathrow)</option>
+							<option ${flyingto=="Logan International"?"Selected=selected":""} value="Logan International">Boston, USA (Logan International)</option>
+							<option ${flyingto=="San Francisco International"?"Selected=selected":""} value="San Francisco International">San Francisco, USA (San Francisco International)</option>
+							<option ${flyingto=="Tokyo International"?"Selected=selected":""} value="Tokyo International">Tokyo, Japan (Tokyo International)</option>
 						</select>
 					</div>
 				</div>
@@ -96,33 +123,27 @@
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="departing">Departing</label>
 					<div class="col-md-4">
-						<select id="departing" name="departing" class="form-control">
-							<option value="1">Option one</option>
-							<option value="2">Option two</option>
-						</select>
+						<input type="date" name="departing" class="form-control" value="${departing}" onfocus="clearError()" required />
 					</div>
 				</div>
 
 				<div id="returning_div" class="form-group">
 					<label class="col-md-4 control-label" for="returning">Returning</label>
 					<div class="col-md-4">
-						<select id="returning" name="returning" class="form-control">
-							<option value="1">Option one</option>
-							<option value="2">Option two</option>
-						</select>
+						<input type="date" name="returning" class="form-control" value="${returning}" onfocus="clearError()" />
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="passengers">Passengers</label>
 					<div class="col-md-2">
-						<select id="passengers" name="passengers" class="form-control">
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-							<option value="6">6</option>
+						<select id="passengers" name="passengers" class="form-control" onfocus="clearError()" required>
+							<option ${numOfPassengers=="1"?"Selected=selected":""} value="1" >1</option>
+							<option ${numOfPassengers=="2"?"Selected=selected":""} value="2" >2</option>
+							<option ${numOfPassengers=="3"?"Selected=selected":""} value="3" >3</option>
+							<option ${numOfPassengers=="4"?"Selected=selected":""} value="4" >4</option>
+							<option ${numOfPassengers=="5"?"Selected=selected":""} value="5" >5</option>
+							<option ${numOfPassengers=="6"?"Selected=selected":""} value="6" >6</option>
 						</select>
 					</div>
 				</div>
@@ -137,9 +158,19 @@
 					<div class="form-group">
 					<label class="col-md-4 control-label" for="flyingfrom">Flying from</label>
 					<div class="col-md-5">
-							<select id="flyingfrom<%= i %>" name="flyingfrom<%= i %>" class="form-control">
-								<option value="1">Option one</option>
-								<option value="2">Option two</option>
+							<select id="flyingfrom<%= i %>" name="flyingfrom" class="form-control" onfocus="clearError()">
+								<option value="">Please choose:</option>
+								<option ${flyingfrom=="Berlin Tegel"?"Selected=selected":""} value="Berlin Tegel">Berlin, Germany (Berlin Tegel)</option>
+								<option ${flyingfrom=="Chicago O'Hare International"?"Selected=selected":""} value="Chicago O'Hare International">Chicago, USA (Chicago O'Hare International)</option>
+								<option ${flyingfrom=="Hartsfield-Jackson Atlanta Int"?"Selected=selected":""} value="Hartsfield-Jackson Atlanta Int">Atlanta, USA (Hartsfield-Jackson Atlanta Int)</option>
+								<option ${flyingfrom=="Ivato International"?"Selected=selected":""} value="Ivato International">Antananarivo, Madagascar (Ivato International)</option>
+								<option ${flyingfrom=="John F. Kennedy International"?"Selected=selected":""} value="John F. Kennedy International">New York, USA (John F. Kennedy International)</option>
+								<option ${flyingfrom=="Los Angeles International"?"Selected=selected":""} value="Los Angeles International">Los Angeles, USA (Los Angeles International)</option>
+								<option ${flyingfrom=="LaGuardia"?"Selected=selected":""} value="LaGuardia">New York, USA (LaGuardia)</option>
+								<option ${flyingfrom=="London Heathrow"?"Selected=selected":""} value="London Heathrow">London, United Kingdom (London Heathrow)</option>
+								<option ${flyingfrom=="Logan International"?"Selected=selected":""} value="Logan International">Boston, USA (Logan International)</option>
+								<option ${flyingfrom=="San Francisco International"?"Selected=selected":""} value="San Francisco International">San Francisco, USA (San Francisco International)</option>
+								<option ${flyingfrom=="Tokyo International"?"Selected=selected":""} value="Tokyo International">Tokyo, Japan (Tokyo International)</option>
 							</select>
 						</div>
 					</div>
@@ -147,9 +178,19 @@
 					<div class="form-group">
 					<label class="col-md-4 control-label" for="flyingto">Flying to</label>
 						<div class="col-md-5">
-							<select id="flyingto<%= i %>" name="flyingto<%= i %>" class="form-control">
-								<option value="1">Option one</option>
-								<option value="2">Option two</option>
+							<select id="flyingto<%= i %>" name="flyingto" class="form-control" onfocus="clearError()">
+								<option value="">Please choose:</option>
+								<option ${flyingto=="Berlin Tegel"?"Selected=selected":""} value="Berlin Tegel">Berlin, Germany (Berlin Tegel)</option>
+								<option ${flyingto=="Chicago O'Hare International"?"Selected=selected":""} value="Chicago O'Hare International">Chicago, USA (Chicago O'Hare International)</option>
+								<option ${flyingto=="Hartsfield-Jackson Atlanta Int"?"Selected=selected":""} value="Hartsfield-Jackson Atlanta Int">Atlanta, USA (Hartsfield-Jackson Atlanta Int)</option>
+								<option ${flyingto=="Ivato International"?"Selected=selected":""} value="Ivato International">Antananarivo, Madagascar (Ivato International)</option>
+								<option ${flyingto=="John F. Kennedy International"?"Selected=selected":""} value="John F. Kennedy International">New York, USA (John F. Kennedy International)</option>
+								<option ${flyingto=="Los Angeles International"?"Selected=selected":""} value="Los Angeles International">Los Angeles, USA (Los Angeles International)</option>
+								<option ${flyingto=="LaGuardia"?"Selected=selected":""} value="LaGuardia">New York, USA (LaGuardia)</option>
+								<option ${flyingto=="London Heathrow"?"Selected=selected":""} value="London Heathrow">London, United Kingdom (London Heathrow)</option>
+								<option ${flyingto=="Logan International"?"Selected=selected":""} value="Logan International">Boston, USA (Logan International)</option>
+								<option ${flyingto=="San Francisco International"?"Selected=selected":""} value="San Francisco International">San Francisco, USA (San Francisco International)</option>
+								<option ${flyingto=="Tokyo International"?"Selected=selected":""} value="Tokyo International">Tokyo, Japan (Tokyo International)</option>
 							</select>
 						</div>
 					</div>
@@ -157,10 +198,7 @@
 					<div class="form-group">
 					<label class="col-md-4 control-label" for="departing">Departing</label>
 						<div class="col-md-4">
-							<select id="departing<%= i %>" name="departing<%= i %>" class="form-control">
-								<option value="1">Option one</option>
-								<option value="2">Option two</option>
-							</select>
+							<input type="date" id="departing<%= i %>" name="departing" class="form-control" onfocus="clearError()" />
 						</div>
 					</div>
 				</div>
@@ -171,10 +209,9 @@
 
 
 				<div class="form-group">
-					<label class="col-md-4 control-label" for="buy"></label>
+					<label class="col-md-4 control-label" for="search"></label>
 					<div class="col-md-8">
-						<button id="buy" name="buy" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-hand-up"></span> Buy</button>
-						<button id="bid" name="bid" class="btn btn-warning btn-lg"><span class="glyphicon glyphicon-tag"></span> Bid</button>
+						<button type=submit id="search" name="search" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-search"></span> Search for Flight</button>
 					</div>
 				</div>
 
