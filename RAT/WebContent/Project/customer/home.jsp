@@ -56,7 +56,7 @@
 	<br>
 	<br>
 	<div class="container">
-		<form action="../flights/find_flights.jsp" class="form-horizontal" method="post">
+		<form action="../flights/find_available_flights.jsp" class="form-horizontal" method="post">
 			<fieldset>
 				<legend><h1>Find Flights</h1></legend>
 				<div class="form-group">
@@ -157,7 +157,7 @@
 					<div class="form-group">
 					<label class="col-md-4 control-label" for="flyingfrom">Flying from</label>
 					<div class="col-md-5">
-							<select id="flyingfrom<%= i %>" name="flyingfrom" class="form-control" onfocus="clearError()">
+							<select id="flyingfrom<%= i %>" name="flyingfrom<%= i %>" class="form-control" onfocus="clearError()">
 								<option value="">Please choose:</option>
 								<option ${flyingfrom=="Berlin Tegel"?"Selected=selected":""} value="Berlin Tegel">Berlin, Germany (Berlin Tegel)</option>
 								<option ${flyingfrom=="Chicago O'Hare International"?"Selected=selected":""} value="Chicago O'Hare International">Chicago, USA (Chicago O'Hare International)</option>
@@ -177,7 +177,7 @@
 					<div class="form-group">
 					<label class="col-md-4 control-label" for="flyingto">Flying to</label>
 						<div class="col-md-5">
-							<select id="flyingto<%= i %>" name="flyingto" class="form-control" onfocus="clearError()">
+							<select id="flyingto<%= i %>" name="flyingto<%= i %>" class="form-control" onfocus="clearError()">
 								<option value="">Please choose:</option>
 								<option ${flyingto=="Berlin Tegel"?"Selected=selected":""} value="Berlin Tegel">Berlin, Germany (Berlin Tegel)</option>
 								<option ${flyingto=="Chicago O'Hare International"?"Selected=selected":""} value="Chicago O'Hare International">Chicago, USA (Chicago O'Hare International)</option>
@@ -197,7 +197,7 @@
 					<div class="form-group">
 					<label class="col-md-4 control-label" for="departing">Departing</label>
 						<div class="col-md-4">
-							<input type="date" id="departing<%= i %>" name="departing" class="form-control" onfocus="clearError()" />
+							<input type="date" id="departing<%= i %>" name="departing<%= i %>" class="form-control" onfocus="clearError()" />
 						</div>
 					</div>
 				</div>

@@ -70,6 +70,10 @@
 					return;
 				}
 				
+				//DO ENOUGH SEATS REMAIN?
+				//Statement seats = conn.createStatement();
+				//String seatsQuery = "SELECT COUNT(DISTINCT seatNum) FROM ReservationPassenger R, Includes I WHERE I.resrNum=R.resrNum AND I.airlineId='"++"' AND I.flightNum='111' AND date='"+departDate+"';";
+				
 				request.setAttribute("path", path);
 				request.setAttribute("flightType", flightType);
 				

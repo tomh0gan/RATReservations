@@ -97,7 +97,7 @@
 						fareValue =  Double.parseDouble(rs.getString(1));
 						fare = rs.getString(1);
 					}
-						
+					
 					for(int i = 1; i <= Integer.parseInt((String)request.getParameter("numOfPassengers")); i++){
 						totalFare += fareValue;
 						%>
