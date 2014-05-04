@@ -186,11 +186,14 @@
  			<button class="btn btn-default btn-lg" type="submit">Submit</button>
 	      </div>
 	      <div class="col-sm-offset-3 col-sm-10">
-	      <br /><br />Employee Page: <a href="clear_employee_attributes.jsp">Back</a> 
+	      <br /><br />Employee Page: <a href="manager_employee_page.jsp">Back</a> 
 	      </div>
 	    </div>       
       </form>
     </div> 
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="../resources/js/bootstrap.min.js"></script>
 
   </body>
 </html>

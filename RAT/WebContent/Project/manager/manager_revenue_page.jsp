@@ -124,10 +124,33 @@
         	java.sql.ResultSet rs1;
         	
             if(filter.equals("FlightNum")){
+            	
+            	if(request.getParameter("view") != null && request.getParameter("view").equals("flightsRev")){
+                	if(request.getParameter("revFilter")==null){
+                		%> <button type="button" class="btn btn-sm btn-primary" style="width: 150px;" onclick="window.open('manager_flights.jsp', '_self')" >Back</button><br /><br /><br />  <%
+                	}
+                	else if(request.getParameter("revFilter").equals("MostActive")){
+                		%> <button type="button" class="btn btn-sm btn-primary" style="width: 150px;" onclick="window.open('manager_flights.jsp?filter=MostActive', '_self')" >Back</button><br /><br /><br />  <%
+                	}
+                	else if(request.getParameter("revFilter").equals("Airport")){
+                		%> <button type="button" class="btn btn-sm btn-primary" style="width: 150px;" onclick="window.open('manager_flights.jsp?filter=Airport&airport=<%=request.getParameter("airport")%>', '_self')" >Back</button><br /><br /><br />  <%
+                	}
+                	else if(request.getParameter("revFilter").equals("OnTime")){
+                		%> <button type="button" class="btn btn-sm btn-primary" style="width: 150px;" onclick="window.open('manager_flights.jsp?filter=OnTime', '_self')" >Back</button><br /><br /><br />  <%
+                	}
+                	else if(request.getParameter("revFilter").equals("Delayed")){
+                		%> <button type="button" class="btn btn-sm btn-primary" style="width: 150px;" onclick="window.open('manager_flights.jsp?filter=Delayed', '_self')" >Back</button><br /><br /><br />  <%
+                	}
+            	}
+            	else{
+            		%> <button type="button" class="btn btn-sm btn-primary" style="width: 200px;" onclick="window.open('manager_flights.jsp?', '_self')" >Go to Flights Page</button><br /><br /><br /> <%
+            	}
+            	
             	rs1 = stmt1.executeQuery("SELECT airlineId, airlineName FROM airlines;");
            		%>
+           		
            			<span>Airline Id: </span>
-           			<select name="AirlineId" id="value2">
+           			<select name="AirlineId" id="value2" class="form-control" style="width: 250px;">
            			<option value="">Please select airline!</option>
            				<%
            					while(rs1.next()){
@@ -144,16 +167,19 @@
            					}
            				%>
            			</select>
+           			<br />
            			<span>Flight Number: </span>
-           			<input type="text" name="FlightNum" id="value" value="${ManagerRevenue}" />
-           			<input id="GoButton" name="GoButton" type="button" value="Go" onclick="getInput()" /> 
+           			<input type="text" name="FlightNum" id="value" value="${ManagerRevenue}" class="form-control" style="width: 250px;"/>
+           			<br />
+           			<input id="GoButton" name="GoButton" type="button" value="Go" onclick="getInput()" style="width: 100px;" class="btn btn-primary btn-sm"/> 
            		<% 
            	}
            	else if(filter.equals("City")){
            		rs1 = stmt1.executeQuery("SELECT DISTINCT city FROM airport;");
            		%>
     	   			<span>Destination City: </span>
-    	   			<select id="value">
+    	   			<select class="form-control" style="width: 250px;" id="value">
+    	   				<option value="">Please select city: </option>
     	   			    <%
            					while(rs1.next()){
            						if(value.equals(rs1.getString(1))){
@@ -169,21 +195,26 @@
            					}
            				%>
     	   			</select>
-    	   			<input id="GoButton" name="GoButton" type="button" value="Go" onclick="getInput()" />
+    	   			<br />
+    	   			<input id="GoButton" name="GoButton" type="button" value="Go" onclick="getInput()" class="btn btn-primary btn-sm" style="width: 100px;" />
        			<% 
            	}
            	else if(filter.equals("Customer")){
            		%>
-           			<input id="CustButton" name="CustButton" type="button" value="Go to Customers Page" onclick="window.open('manager_customers.jsp', '_self')" /> 
-    	   			<span>Customer Account Number: </span>
-    	   			<input type="text" name="AccountNum" id="value" value="${value}" />
-    	   			<input id="GoButton" name="GoButton" type="button" value="Go" onclick="getInput()" /> 
+    	   			<input id="CustButton" name="CustButton" type="button" value="Go to Customers Page" class="btn btn-primary btn-sm" style="width: 200px;" onclick="window.open('manager_customers.jsp', '_self')" /> 
+    	   		    <br />
+    	   			<br />
+    	   			<br />
+    	   		    <span class="customerSpan">Customer Account Number: </span>
+    	   			<input type="text" name="AccountNum" id="value" value="${value}" style="width: 250px;" class="form-control" />
+    	   			<br/>
+    	   			<input id="GoButton" name="GoButton" type="button" value="Go" onclick="getInput()" style="width: 100px;" class="btn btn-primary btn-sm" /> 
        			<% 
            	}
            	else if(filter.equals("")){
            		%>
            			<span class="monthSpan">Month: </span>
-					<select id="MonthDropdown" name="MonthDropdown">
+					<select id="MonthDropdown" name="MonthDropdown" class="form-control" style="width: 250px;">
 						<option value="">Select a Month</option>
 						<option ${ManagerMonth=="01"?"selected='selected'":""} value="01">January</option>
 						<option ${ManagerMonth=="02"?"selected='selected'":""} value="02">February</option>
@@ -199,7 +230,7 @@
 						<option ${ManagerMonth=="12"?"selected='selected'":""} value="12">December</option>		
 					</select>
 					<span class="yearSpan">Year: </span>
-					<select id="YearDropdown" name="YearDropdown">
+					<select id="YearDropdown" name="YearDropdown" class="form-control" style="width: 250px;">
 						<option value="">Select a Year</option>
 						<option ${ManagerYear=="2010"?"selected='selected'":""} value="2010">2010</option>
 						<option ${ManagerYear=="2011"?"selected='selected'":""} value="2011">2011</option>
@@ -207,7 +238,8 @@
 						<option ${ManagerYear=="2013"?"selected='selected'":""} value="2013">2013</option>
 						<option ${ManagerYear=="2014"?"selected='selected'":""} value="2014">2014</option>	
 					</select>
-					<input id="GoButton" name="GoButton" type="button" value="Go" onclick="getMonth()" />
+					<br/>
+					<input id="GoButton" name="GoButton" type="button" class="btn btn-primary btn-sm" style="width: 100px;" value="Go" onclick="getMonth()" />
            		<% 
            	}
         
@@ -373,7 +405,7 @@
                           <td><%="$"+rs.getString(3)%></td>
                           <td><%="$"+rs.getString(4)%></td>  
                           <td><% if(rs.getString(5)==null) out.println("N/A"); else out.println(rs.getString(5));%></td>
-                          <td><%=rs.getString(6)%></td>          		
+                          <td><%=rs.getString(6) + " " + rs.getString(7) %></td>          		
                         </tr>
     <%      		
             	}
@@ -396,8 +428,7 @@
       </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <script src="../../assets/js/docs.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="../resources/js/bootstrap.min.js"></script>
   </body>
 </html>

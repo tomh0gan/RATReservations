@@ -33,26 +33,26 @@
 		hourlyRate = hourlyRate.substring(hourlyRate.indexOf("$"));
 	}
 	
-	session.setAttribute("EmployeeFName", firstName);
-	session.setAttribute("EmployeeLName", lastName);
-	session.setAttribute("EmployeeUsername", username);
-	session.setAttribute("EmployeePassword", password);
-	session.setAttribute("EmployeeSSN", ssn);
-	session.setAttribute("EmployeeAddress", address);
-	session.setAttribute("EmployeeCity", city);
-	session.setAttribute("EmployeeState", state);
-	session.setAttribute("EmployeeZip", zipcode);
-	session.setAttribute("EmployeeEmplType", emplType);
-	session.setAttribute("EmployeeHourlyRate", hourlyRate);
+	request.setAttribute("EmployeeFName", firstName);
+	request.setAttribute("EmployeeLName", lastName);
+	request.setAttribute("EmployeeUsername", username);
+	request.setAttribute("EmployeePassword", password);
+	request.setAttribute("EmployeeSSN", ssn);
+	request.setAttribute("EmployeeAddress", address);
+	request.setAttribute("EmployeeCity", city);
+	request.setAttribute("EmployeeState", state);
+	request.setAttribute("EmployeeZip", zipcode);
+	request.setAttribute("EmployeeEmplType", emplType);
+	request.setAttribute("EmployeeHourlyRate", hourlyRate);
 	
 	// check if input in "valid"
 	if(!edit){
 		if(!username.matches("[\\w]{1,20}")){	
-			session.setAttribute("EmployeeUsernameError", "Invalid Username, should be non-empty and at most 20 letters/digits");
+			request.setAttribute("EmployeeUsernameError", "Invalid Username, should be non-empty and at most 20 letters/digits");
 			invalidInput = true;
 		}
 		else{
-			session.removeAttribute("EmployeeUsernameError");
+			request.removeAttribute("EmployeeUsernameError");
 		}
 		if(!password.matches("[\\w]{1,20}")){				
 			invalidInputs += "- Invalid Password, should be non-empty and at most 20 letters/digits<BR>";
@@ -60,60 +60,60 @@
 		}
 	}
 	if(!ssn.matches("[0-9]{9,9}")){			
-		session.setAttribute("EmployeeSSNError", "A SSN should contain 9 digits!");
+		request.setAttribute("EmployeeSSNError", "A SSN should contain 9 digits!");
 		invalidInput = true;
 	}
 	else{
-		session.removeAttribute("EmployeeSSNError");
+		request.removeAttribute("EmployeeSSNError");
 	}
 	if(!firstName.matches("[a-zA-Z]{1,50}")){
-		session.setAttribute("EmployeeFNameError", "A name should not contain any digits!");
+		request.setAttribute("EmployeeFNameError", "A name should not contain any digits!");
 		invalidInput = true;
 	}
 	else{
-		session.removeAttribute("EmployeeFNameError");
+		request.removeAttribute("EmployeeFNameError");
 	}
 	if(!lastName.matches("[a-zA-Z]{1,50}")){
-		session.setAttribute("EmployeeLNameError", "A name should not contain any digits!");
+		request.setAttribute("EmployeeLNameError", "A name should not contain any digits!");
 		invalidInput = true;
 	}
 	else{
-		session.removeAttribute("EmployeeLNameError");
+		request.removeAttribute("EmployeeLNameError");
 	}
 	if(!address.matches("[\\w ]{1,100}")){
-		session.setAttribute("EmployeeAddressError", "Please enter an address!");
+		request.setAttribute("EmployeeAddressError", "Please enter an address!");
 		invalidInput = true;
 	}
 	else{
-		session.removeAttribute("EmployeeAddressError");
+		request.removeAttribute("EmployeeAddressError");
 	}
 	if(!city.matches("[a-zA-Z ]{1,50}")){
-		session.setAttribute("EmployeeCityError", "A city should not contain any digits!");
+		request.setAttribute("EmployeeCityError", "A city should not contain any digits!");
 		invalidInput = true;
 	}
 	else{
-		session.removeAttribute("EmployeeCityError");
+		request.removeAttribute("EmployeeCityError");
 	}
 	if(!state.matches("[a-zA-Z ]{1,50}")){
-		session.setAttribute("EmployeeStateError", "A state should not contain any digits!");
+		request.setAttribute("EmployeeStateError", "A state should not contain any digits!");
 		invalidInput = true;
 	}
 	else{
-		session.removeAttribute("EmployeeStateError");
+		request.removeAttribute("EmployeeStateError");
 	}
 	if(!zipcode.matches("[0-9]{5,5}")){
-		session.setAttribute("EmployeeZipError", "A zip code should be 5 digits!");
+		request.setAttribute("EmployeeZipError", "A zip code should be 5 digits!");
 		invalidInput = true;
 	}
 	else{
-		session.removeAttribute("EmployeeZipError");
+		request.removeAttribute("EmployeeZipError");
 	}
 	if(!hourlyRate.matches("[0-9]{1,3}.[0-9]{2,2}")){
-		session.setAttribute("EmployeeHourlyRateError", "An hourly rate should have a decimal point followed by 2 digits!");
+		request.setAttribute("EmployeeHourlyRateError", "An hourly rate should have a decimal point followed by 2 digits!");
 		invalidInput = true;
 	}
 	else{
-		session.removeAttribute("EmployeeHourlyRateError");
+		request.removeAttribute("EmployeeHourlyRateError");
 	}
 	
 	
@@ -135,9 +135,17 @@
 			//checks if the ssn is already in use
 			ResultSet rs = stmt1.executeQuery("SELECT * FROM Employee WHERE ssn='"+ssn+"'");
 			if(rs.next()){
-				session.setAttribute("EmployeeSSNError", "The ssn '"+ssn+"' is already in use!");
-				if(edit) response.sendRedirect("employee_info.jsp?type=edit");
-				else response.sendRedirect("employee_info.jsp?type=create");
+				request.setAttribute("EmployeeSSNError", "The ssn '"+ssn+"' is already in use!");
+				if(edit){
+					RequestDispatcher rd = request.getRequestDispatcher("employee_info.jsp?type=edit");
+					rd.forward(request, response);
+					//response.sendRedirect("employee_info.jsp?type=edit");
+				}
+				else{
+					RequestDispatcher rd = request.getRequestDispatcher("employee_info.jsp?type=create");
+					rd.forward(request, response);
+					//response.sendRedirect("employee_info.jsp?type=create");
+				}
 				return;
 			}	
 		}
@@ -145,7 +153,7 @@
 		// checks if username is already in use
 		ResultSet rs1 = stmt1.executeQuery("SELECT * FROM Login WHERE username='"+username+"'");
 		if(rs1.next()){
-			session.setAttribute("EmployeeUsernameError", "The username '"+username+"' is already in use.");
+			request.setAttribute("EmployeeUsernameError", "The username '"+username+"' is already in use.");
 			response.sendRedirect("employee_info.jsp?type=create");
 			return;
 		}
@@ -159,19 +167,26 @@
 	
 	if(invalidInput == true){
 		if(edit){
-			response.sendRedirect("employee_info.jsp?type=edit");
+			RequestDispatcher rd = request.getRequestDispatcher("employee_info.jsp?type=edit");
+			rd.forward(request, response);
+			//response.sendRedirect("employee_info.jsp?type=edit");
 		}
 		else{
-			System.out.println("Reached");
-			response.sendRedirect("employee_info.jsp?type=create");
+			RequestDispatcher rd = request.getRequestDispatcher("employee_info.jsp?type=create");
+			rd.forward(request, response);
+			//response.sendRedirect("employee_info.jsp?type=create");
 		}
 	}
 	else{
 		if(edit){
-			response.sendRedirect("employee_update.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("employee_update.jsp");
+			rd.forward(request, response);
+			//response.sendRedirect("employee_update.jsp");
 		}
 		else{
-			response.sendRedirect("employee_creation.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("employee_creation.jsp");
+			rd.forward(request, response);
+			//response.sendRedirect("employee_creation.jsp");
 		}
 	}
 	%>

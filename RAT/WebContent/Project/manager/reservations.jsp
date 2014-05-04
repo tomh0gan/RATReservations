@@ -46,7 +46,28 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li><a href="">Anything Here?</a></li>
+            <%
+        	if(request.getParameter("view") != null && request.getParameter("view").equals("flights")){
+            	if(request.getParameter("filter")==null){
+            		%><li><a href="manager_flights.jsp">Back to All Flights</a></li>  <%
+            	}
+            	else if(request.getParameter("filter").equals("MostActive")){
+            		%><li><a href="manager_flights.jsp?filter=MostActive">Back to Most Active Flights</a></li><%
+            	}
+            	else if(request.getParameter("filter").equals("Airport")){
+            		%><li><a href="manager_flights.jsp?filter=Airport&airport=<%=request.getParameter("airport")%>">Back to Flights By Airport</a></li><%
+            	}
+            	else if(request.getParameter("filter").equals("OnTime")){
+            		%><li><a href="manager_flights.jsp?filter=OnTime">Back to On-time Flights</a></li><%
+            	}
+            	else if(request.getParameter("filter").equals("Delayed")){
+            		%><li><a href="manager_flights.jsp?filter=Delayed">Back to Delayed Flights</a></li><%
+            	}
+        	}
+        	else if(request.getParameter("view") != null && request.getParameter("view").equals("customers")){
+        		%><li><a href="manager_customers.jsp">Back to Customers Page</a></li><%
+        	}
+        	%>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -155,8 +176,8 @@
       </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <script src="../../assets/js/docs.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="../resources/js/bootstrap.min.js"></script>
+
   </body>
 </html>
