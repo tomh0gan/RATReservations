@@ -6,17 +6,17 @@
 	boolean invalidInput = false;
 	String invalidInputs = "";
 	
-	String firstName = (String) session.getAttribute("EmployeeFName");
-	String lastName = (String) session.getAttribute("EmployeeLName");
-	String username = (String) session.getAttribute("EmployeeUsername");
-	String password = (String) session.getAttribute("EmployeePassword");
-	String ssn = (String) session.getAttribute("EmployeeSSN");
-	String address = (String) session.getAttribute("EmployeeAddress");
-	String city = (String) session.getAttribute("EmployeeCity");
-	String state = (String) session.getAttribute("EmployeeState");
-	String zipcode = (String) session.getAttribute("EmployeeZip");
-	String emplType = (String) session.getAttribute("EmployeeEmplType");
-	String hourlyRate = (String) session.getAttribute("EmployeeHourlyRate");
+	String firstName = (String) request.getAttribute("EmployeeFName");
+	String lastName = (String) request.getAttribute("EmployeeLName");
+	String username = (String) request.getAttribute("EmployeeUsername");
+	String password = (String) request.getAttribute("EmployeePassword");
+	String ssn = (String) request.getAttribute("EmployeeSSN");
+	String address = (String) request.getAttribute("EmployeeAddress");
+	String city = (String) request.getAttribute("EmployeeCity");
+	String state = (String) request.getAttribute("EmployeeState");
+	String zipcode = (String) request.getAttribute("EmployeeZip");
+	String emplType = (String) request.getAttribute("EmployeeEmplType");
+	String hourlyRate = (String) request.getAttribute("EmployeeHourlyRate");
 	
 	java.util.Date date1 = new java.util.Date();
 	java.text.DateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
@@ -48,7 +48,7 @@
 		stmt2.addBatch(c);
 		
 		stmt2.executeBatch();
-		response.sendRedirect("clear_employee_attributes.jsp");
+		response.sendRedirect("manager_employee_page.jsp");
 		
 	} catch(Exception e){
 		System.out.println(e);

@@ -73,6 +73,7 @@
           	if(request.getParameter("filter").equals("Airport")){
           		%>
           		<select style="height: 40px;" id="AirportDropdown" name="AirportDropdown">
+          			<option ${ManagerFlight==""?"selected=selected":""} value="">Please select an airport: </option>
           			<option ${ManagerFlight=="Berlin Tegel"?"selected=selected":""} value="Berlin Tegel">Berlin Tegel</option>
           			<option ${ManagerFlight=="Chicago O'Hare International"?"selected=selected":""} value="Chicago O'Hare International" >Chicago O'Hare International</option>
           			<option ${ManagerFlight=="Hartsfield-Jackson Atlanta Int"?"selected=selected":""} value="Hartsfield-Jackson Atlanta Int" >Hartsfield-Jackson Atlanta Int</option>
@@ -118,6 +119,7 @@
                   <th>Flight Number</th>
                   <th>Count</th>
                   <th>Reservations</th>
+                  <th>Revenue</th>
                 	<%
                 }
                 else {
@@ -129,6 +131,7 @@
                   <th>Min Length of Stay</th>
                   <th>Max Length of Stay</th>
                   <th>Reservations</th>
+                  <th>Revenue</th>
                 <%
                 }
                 %>
@@ -165,7 +168,8 @@
                           <td><%=rs.getString(1)%></td>
                           <td><%=rs.getString(2)%></td>
                           <td><%=rs.getString(3)%></td>
-                          <td><button type="button" class="btn btn-sm btn-primary" onclick="window.open('reservations.jsp?view=flights&airId=<%=rs.getString(1)%>&flightNum=<%=rs.getString(2)%>&filter=<%=request.getParameter("filter")%>', '_self')" >Reservations</button></td>          		
+                          <td><button type="button" class="btn btn-sm btn-primary" onclick="window.open('reservations.jsp?view=flights&airId=<%=rs.getString(1)%>&flightNum=<%=rs.getString(2)%>&filter=<%=request.getParameter("filter")%>', '_self')" >Reservations</button></td>
+                          <td><button type="button" class="btn btn-sm btn-success" onclick="window.open('manager_revenue_page.jsp?view=flightsRev&revFilter=MostActive&filter=FlightNum&airline=<%=rs.getString(1)%>&value=<%=rs.getString(2)%>', '_self')" >Revenue</button></td>            		
                         </tr>
     <%      		
             	}
@@ -184,7 +188,8 @@
                           <td><%=rs.getString(5)%></td>
                           <td><%=rs.getString(6)%></td>
                           <td><button type="button" class="btn btn-sm btn-primary" onclick="window.open('reservations.jsp?view=flights&airId=<%=rs.getString(1)%>&flightNum=<%=rs.getString(2)%>&filter=<%=request.getParameter("filter")%>&airport=<%=airport%>', '_self')" >Reservations</button></td>  
-                          </tr>
+                          <td><button type="button" class="btn btn-sm btn-success" onclick="window.open('manager_revenue_page.jsp?view=flightsRev&revFilter=Airport&filter=FlightNum&airline=<%=rs.getString(1)%>&value=<%=rs.getString(2)%>', '_self')" >Revenue</button></td>  
+                        </tr>
     <%      		
             	}
             }
@@ -201,6 +206,7 @@
                           <td><%=rs.getString(5)%></td>
                           <td><%=rs.getString(6)%></td>
                           <td><button type="button" class="btn btn-sm btn-primary" onclick="window.open('reservations.jsp?view=flights&airId=<%=rs.getString(1)%>&flightNum=<%=rs.getString(2)%>&filter=<%=request.getParameter("filter")%>', '_self')" >Reservations</button></td>            		
+                          <td><button type="button" class="btn btn-sm btn-success" onclick="window.open('manager_revenue_page.jsp?view=flightsRev&revFilter=OnTime&filter=FlightNum&airline=<%=rs.getString(1)%>&value=<%=rs.getString(2)%>', '_self')" >Revenue</button></td>  
                         </tr>
     <%      		
             	}
@@ -218,6 +224,7 @@
                           <td><%=rs.getString(5)%></td>
                           <td><%=rs.getString(6)%></td>
                           <td><button type="button" class="btn btn-sm btn-primary" onclick="window.open('reservations.jsp?view=flights&airId=<%=rs.getString(1)%>&flightNum=<%=rs.getString(2)%>&filter=<%=request.getParameter("filter")%>', '_self')" >Reservations</button></td>            		
+                          <td><button type="button" class="btn btn-sm btn-success" onclick="window.open('manager_revenue_page.jsp?view=flightsRev&revFilter=Delayed&filter=FlightNum&airline=<%=rs.getString(1)%>&value=<%=rs.getString(2)%>', '_self')" >Revenue</button></td>  
                         </tr>
     <%      		
             	}
@@ -234,7 +241,8 @@
                           <td><%=rs.getString(4)%></td>
                           <td><%=rs.getString(5)%></td>
                           <td><%=rs.getString(6)%></td>
-                          <td><button type="button" class="btn btn-sm btn-primary" onclick="window.open('reservations.jsp?view=flights&airId=<%=rs.getString(1)%>&flightNum=<%=rs.getString(2)%>', '_self')" >Reservations</button></td>            		
+                          <td><button type="button" class="btn btn-sm btn-primary" onclick="window.open('reservations.jsp?view=flights&airId=<%=rs.getString(1)%>&flightNum=<%=rs.getString(2)%>', '_self')" >Reservations</button></td>     
+                          <td><button type="button" class="btn btn-sm btn-success" onclick="window.open('manager_revenue_page.jsp?view=flightsRev&filter=FlightNum&airline=<%=rs.getString(1)%>&value=<%=rs.getString(2)%>', '_self')" >Revenue</button></td>          		
                         </tr>
     <%      		
             	}
@@ -257,8 +265,7 @@
       </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <script src="../../assets/js/docs.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="../resources/js/bootstrap.min.js"></script>
   </body>
 </html>

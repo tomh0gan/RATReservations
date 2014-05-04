@@ -58,17 +58,17 @@
 				String emplType = "employee";
 				if(isManager.equals("1")) emplType = "manager";
 				
-				session.setAttribute("EmployeeId", id);
-				session.setAttribute("EmployeeFName", firstName);
-				session.setAttribute("EmployeeLName", lastName);
-				session.setAttribute("EmployeeSSN", ssn);
-				session.setAttribute("OldEmployeeSSN", ssn);
-				session.setAttribute("EmployeeAddress", address);
-				session.setAttribute("EmployeeCity", city);
-				session.setAttribute("EmployeeState", state);
-				session.setAttribute("EmployeeZip", zipcode);
-				session.setAttribute("EmployeeEmplType", emplType);
-				session.setAttribute("EmployeeHourlyRate", hourlyRate);
+				request.setAttribute("EmployeeId", id);
+				request.setAttribute("EmployeeFName", firstName);
+				request.setAttribute("EmployeeLName", lastName);
+				request.setAttribute("EmployeeSSN", ssn);
+				request.setAttribute("OldEmployeeSSN", ssn);
+				request.setAttribute("EmployeeAddress", address);
+				request.setAttribute("EmployeeCity", city);
+				request.setAttribute("EmployeeState", state);
+				request.setAttribute("EmployeeZip", zipcode);
+				request.setAttribute("EmployeeEmplType", emplType);
+				request.setAttribute("EmployeeHourlyRate", hourlyRate);
 				
 				RequestDispatcher fd = request.getRequestDispatcher("employee_info.jsp?type=edit");
 				fd.forward(request, response);
