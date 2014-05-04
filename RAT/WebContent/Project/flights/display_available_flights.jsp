@@ -64,13 +64,15 @@
 			
 			conn = DriverManager.getConnection(mysURL,sysprops);
 		
+		String flightType = "ONEWAY";
 		String airline = "";
 		String flightNum = "";
-		String flightType = "ONEWAY";
 		if(request.getAttribute("flightType").equals("ROUNDTRIP")) flightType = "ROUNDTRIP";
 		//CREATE TABLES
 		int loopMax = (Integer) request.getAttribute("numOfFlights");
 		for(int i = 0; i < loopMax; i++){
+			airline = "";
+			flightNum = "";
 		%>
 		<fieldset>
 			<legend>Flight From <%= request.getAttribute("flyingfrom"+i) %> to <%= request.getAttribute("flyingto"+i) %></legend>
@@ -109,10 +111,12 @@
 					%>
 					</tbody>
 				</table>
+				<input type="hidden" name="airlineId<%=i %>" value="<%=airline %>" />
+				<input type="hidden" name="flightNum<%=i %>" value="<%=flightNum %>" />
 				<div class="form-group">
 				<label class="col-md-4 control-label" for="custClass">Choose class: </label>
 				<div class="col-md-5">
-					<select id="custClass" name="custClassReturn" class="form-control" required>
+					<select id="custClass" name="custClass<%= i %>" class="form-control" required>
 					<% 						
 						Statement stmt = conn.createStatement();
 						String classes = "SELECT class FROM Fare WHERE airlineId='"+airline+"' AND flightNum="+flightNum+" AND fareType='"+flightType+"';";
@@ -151,8 +155,6 @@
 					int index = 0;
 					String startAirport = request.getParameter("flyingfrom");
 					while(index < path.size()){
-						if(airline.equals("")) airline = path.get(index).getFlightInfo().getAirlineId();
-						if(flightNum.equals("")) flightNum = path.get(index).getFlightInfo().getFlightNum();
 					%>
 							
 							<tr>
@@ -199,14 +201,13 @@
 		%>
 	</div>
 	<div>
+			<input type="hidden" name=numOfFlights value="${numOfFlights}" />
 			<input type="hidden" name=flyingfrom value="${flyingfrom}" />
 			<input type="hidden" name=flyingto value="${flyingto}" />
 			<input type="hidden" name=flightType value="${flightType}" />
 			<input type="hidden" name=departing value="${departing}" />
 			<input type="hidden" name=returning value="${returning}" />
 			<input type="hidden" name=numOfPassengers value="${numOfPassengers}" />
-			<input type="hidden" name=airlineId value="" />
-			<input type="hidden" name=flightNum value="" />
 			<label class="col-md-4 control-label" for="buy"></label>
 			<div class="col-md-8">
 				<button type=submit id="buy" name="buy" class="btn btn-primary btn-lg" onClick="return changeFormAction('../customer/checkout.jsp');"><span class="glyphicon glyphicon-hand-up"></span> Go to checkout</button>

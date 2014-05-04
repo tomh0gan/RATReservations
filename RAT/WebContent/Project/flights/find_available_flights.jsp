@@ -37,6 +37,7 @@
 		//Handle Airports
 		ArrayList<Flights.FlightVertex> airports = new ArrayList<Flights.FlightVertex>();
 		HashMap<String, Airport> map = new HashMap<String, Airport>();
+		HashMap<String, String> nameToId = new HashMap<String, String>();
 		Statement airportsStmt = conn.createStatement();
 		String airportsQuery = "SELECT airportId, airportName, city FROM Airport;";
 		ResultSet airportResults = airportsStmt.executeQuery(airportsQuery);
@@ -44,11 +45,11 @@
 		while(airportResults.next()){
 			Airport airport = new Airport(airportResults.getString(2), airportResults.getString(3));
 			map.put(airportResults.getString(1), airport);
+			nameToId.put(airportResults.getString(2), airportResults.getString(1));
 			airports.add(new FlightVertex(index, airport, null));	
 			index++;
 		}
 		
-		//Does flight exist?
 		int loopMax = 1;
 		if(request.getParameter("flightType").equals("MULTDEST")){
 			for(int k = 2; k < 5; k++){
@@ -62,6 +63,7 @@
 		}
 		
 		request.setAttribute("numOfFlights", loopMax);
+		//Does flight exist?
 		for(int i = 0; i < loopMax; i++){
 			if(!(i==0)){
 				from = request.getParameter("flyingfrom"+(i+1));
@@ -72,21 +74,27 @@
 			request.setAttribute(("flyingfrom"+i), from);
 			request.setAttribute(("flyingto"+i), to);
 			
-			
 			//Graph for flights
 			FlightGraph fg = new FlightGraph(airports, map);
-					
-			//Add all possible edges
-			Statement stmt = conn.createStatement();
-			String query = "SELECT airlineId, flightNum, legNum, depAirportId, arrAirportId, depTime, arrTime FROM Leg WHERE depTime>'"+departDate+" 00:00:00' AND depTime<'"+departDate+" 23:59:59';";
-			ResultSet rs = stmt.executeQuery(query);
-			while(rs.next()){
-				FlightInfo info = new FlightInfo(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(6), rs.getString(7));
-				fg.addEdge(rs.getString(4), rs.getString(5), info);
+			
+			Statement possStmt = conn.createStatement();
+			String poss = "SELECT l1.airlineId, l1.flightNum, l1.legNum FROM Leg l1 WHERE EXISTS(SELECT DISTINCT flightNum FROM Leg l2 WHERE l2.depAirportId='"+nameToId.get(from)+"' AND l1.flightNum=l2.flightNum) AND depTime>'"+departDate+" 00:00:00' AND depTime<'"+departDate+" 23:59:59';";
+			ResultSet possRs = possStmt.executeQuery(poss);
+			while(possRs.next()){
+			
+				//Add all possible edges
+				Statement stmt = conn.createStatement(); 
+				String query = "SELECT airlineId, flightNum, legNum, depAirportId, arrAirportId, min(depTime), min(arrTime) FROM Leg WHERE airlineId='"+possRs.getString(1)+"' AND flightNum="+possRs.getString(2)+" AND legNum="+possRs.getString(3)+" AND depTime>'"+departDate+" 00:00:00';";
+				ResultSet rs = stmt.executeQuery(query);
+				while(rs.next()){
+					FlightInfo info = new FlightInfo(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(6), rs.getString(7));
+					fg.addEdge(rs.getString(4), rs.getString(5), info);
+				}
+				
 			}
 			
-			//Get the flight path
 			LinkedList<FlightVertex> path = fg.getFlightPath(from, to);
+			
 			if(path == null || path.isEmpty()){
 				request.setAttribute("flightErrorMsg", "No flight to destination available!");
 				RequestDispatcher rd = request.getRequestDispatcher("../customer/home.jsp");
@@ -127,9 +135,12 @@
 					return;
 				}
 				else{
-					passengers.put(("pass"+j), seatsRemain+1);
+					passengers.put(("pass"+i), seatsRemain);
 				}
 			}
+			
+			//Don't know how else to pass all the values
+			session.setAttribute("passengers"+i, passengers);			
 			
 			request.setAttribute(("path"+i), path);
 			request.setAttribute("flightType", flightType);
@@ -236,7 +247,6 @@
 			
 		}
 	
-		request.setAttribute("passengers", passengers);
 		RequestDispatcher rd2 = request.getRequestDispatcher("display_available_flights.jsp");
 		rd2.forward(request, response);	
 		return;

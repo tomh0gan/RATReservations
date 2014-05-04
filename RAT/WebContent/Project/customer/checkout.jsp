@@ -28,7 +28,9 @@
   </script>
 </head>
 <body>
-	<% 
+	<%
+		String flightType = "ONEWAY";
+		if(request.getParameter("flightType").equals("ROUNDTRIP")) flightType = "ROUNDTRIP";
 		double totalFare = 0;
 		DecimalFormat df = new DecimalFormat("#.##");
 	%>
@@ -87,21 +89,21 @@
 					sysprops.put("password",mysPassword);
 					
 					conn = DriverManager.getConnection(mysURL,sysprops);
-					
-					double fareValue = 0;
-					String fare = "";
-					Statement stmt = conn.createStatement();
-					String fareQuery = "SELECT fare FROM Fare WHERE airlineId='"+request.getParameter("airlineId")+"' AND flightNum="+request.getParameter("flightNum")+" AND fareType='"+request.getParameter("flightType")+"' AND class='"+request.getParameter("custClass")+"';";
-					ResultSet rs = stmt.executeQuery(fareQuery);
-					if(rs.next()){
-						fareValue =  Double.parseDouble(rs.getString(1));
-						fare = rs.getString(1);
+					String[] faresStr = new String[Integer.parseInt(request.getParameter("numOfFlights"))];
+					double[] fares = new double[Integer.parseInt(request.getParameter("numOfFlights"))];
+					for(int i = 0; i < fares.length; i++){
+						Statement stmt = conn.createStatement();
+						String fareQuery = "SELECT fare FROM Fare WHERE airlineId='"+request.getParameter("airlineId"+i)+"' AND flightNum="+request.getParameter("flightNum"+i)+" AND fareType='"+flightType+"' AND class='"+request.getParameter("custClass"+i)+"';";
+						ResultSet rs = stmt.executeQuery(fareQuery);
+						if(rs.next()){
+							fares[i] =  Double.parseDouble(rs.getString(1));
+							faresStr[i] = rs.getString(1);
+						}
 					}
 					
-					for(int i = 1; i <= Integer.parseInt((String)request.getParameter("numOfPassengers")); i++){
-						totalFare += fareValue;
+					for(int i = 0; i < Integer.parseInt((String)request.getParameter("numOfPassengers")); i++){
 						%>
-							<legend><h3>Passenger <%= i %></h3></legend>
+							<legend><h3>Passenger <%= i+1 %></h3></legend>
 							<div class = "well">
 								<div class="form-group">
 									<label class="col-md-4 control-label" for="passName<%= i %>">Passenger Name: </label>
@@ -110,16 +112,31 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-md-4 control-label" for="passClass<%= i %>">Class: </label>
-									<div class="col-md-5">
-										<span class="help-block" id="passFare<%= i %>" name="passFare<%= i %>" ><%= request.getParameter("custClass") %></span>
-									</div>
+									<%
+									for(int j = 0; j < fares.length; j++){
+										%>
+										<label class="col-md-4 control-label" for="passClass<%= i %>">Flight <%=j+1 %> Class: </label>
+										<div class="col-md-5">
+											<span class="help-block" id="passFare<%= i %>" name="passFare<%= i %>" ><%= request.getParameter("custClass"+j) %></span>
+											<input type=hidden name="passFare<%= i %>" value="<%= request.getParameter("custClass"+j) %>" />
+										</div>
+										<%
+									}
+									%>
 								</div>
 								<div class="form-group">
-									<label class="col-md-4 control-label" for="seatNum<%= i %>">Seat Number: </label>
-									<div class="col-md-5">
-										<p class="help-block"><%= i %></p>
-									</div>
+									<%
+									for(int j = 0; j < fares.length; j++){
+										HashMap<String, Integer> passengers = (HashMap<String, Integer>) session.getAttribute("passengers"+j);
+										%>
+										<label class="col-md-4 control-label" for="seatNum<%= i %>">Flight <%=j+1 %> Seat Number: </label>
+										<div class="col-md-5">
+											<p class="help-block"><%= (passengers.get("pass"+j)+(i+1)) + "A" %></p>
+											<input type=hidden name="seatNumber<%= i %>" value="<%= (passengers.get("pass"+j)+(i+1)) + "A" %>" />
+										</div>
+										<%
+									}
+									%>
 								</div>
 								<div class="form-group">
 									<label class="col-md-4 control-label" for="passMeal<%= i %>">Meal: </label>
@@ -133,10 +150,18 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-md-4 control-label" for="passFare<%= i %>">Price: </label>
-									<div class="col-md-5">
-										<span class="help-block" id="passFare<%= i %>" name="passFare<%= i %>" ><%= "$" +  fare %></span>
-									</div>
+									<%
+										for(int j = 0; j < fares.length; j++){
+											totalFare += fares[j];
+											%>
+											<label class="col-md-4 control-label" for="passFare<%= i %>">Ticket <%=j+1 %> Price: </label>
+											<div class="col-md-5">
+												<span class="help-block" id="passFare<%= i %>" name="passFare<%= i %>" ><%= "$" +  fares[j] %></span>
+												<input type=hidden name="passFare<%= i %>" value="<%= fares[j] %>"  />
+											</div>	
+											<%
+										}
+									%>
 								</div>
 							</div>
 						<% 

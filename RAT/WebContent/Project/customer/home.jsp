@@ -83,17 +83,17 @@
 					<div class="col-md-5">
 						<select id="flyingfrom" name="flyingfrom" class="form-control" onfocus="clearError()" required>
 							<option value="">Please choose:</option>
-							<option ${flyingfrom=="Berlin Tegel"?"Selected=selected":""} value="Berlin Tegel">Berlin, Germany (Berlin Tegel)</option>
-							<option ${flyingfrom=="Chicago O'Hare International"?"Selected=selected":""} value="Chicago O'Hare International">Chicago, USA (Chicago O'Hare International)</option>
-							<option ${flyingfrom=="Hartsfield-Jackson Atlanta Int"?"Selected=selected":""} value="Hartsfield-Jackson Atlanta Int">Atlanta, USA (Hartsfield-Jackson Atlanta Int)</option>
-							<option ${flyingfrom=="Ivato International"?"Selected=selected":""} value="Ivato International">Antananarivo, Madagascar (Ivato International)</option>
-							<option ${flyingfrom=="John F. Kennedy International"?"Selected=selected":""} value="John F. Kennedy International">New York, USA (John F. Kennedy International)</option>
-							<option ${flyingfrom=="Los Angeles International"?"Selected=selected":""} value="Los Angeles International">Los Angeles, USA (Los Angeles International)</option>
-							<option ${flyingfrom=="LaGuardia"?"Selected=selected":""} value="LaGuardia">New York, USA (LaGuardia)</option>
-							<option ${flyingfrom=="London Heathrow"?"Selected=selected":""} value="London Heathrow">London, United Kingdom (London Heathrow)</option>
-							<option ${flyingfrom=="Logan International"?"Selected=selected":""} value="Logan International">Boston, USA (Logan International)</option>
-							<option ${flyingfrom=="San Francisco International"?"Selected=selected":""} value="San Francisco International">San Francisco, USA (San Francisco International)</option>
-							<option ${flyingfrom=="Tokyo International"?"Selected=selected":""} value="Tokyo International">Tokyo, Japan (Tokyo International)</option>
+							<option ${flyingfrom0=="Berlin Tegel"?"Selected=selected":""} value="Berlin Tegel">Berlin, Germany (Berlin Tegel)</option>
+							<option ${flyingfrom0=="Chicago O'Hare International"?"Selected=selected":""} value="Chicago O'Hare International">Chicago, USA (Chicago O'Hare International)</option>
+							<option ${flyingfrom0=="Hartsfield-Jackson Atlanta Int"?"Selected=selected":""} value="Hartsfield-Jackson Atlanta Int">Atlanta, USA (Hartsfield-Jackson Atlanta Int)</option>
+							<option ${flyingfrom0=="Ivato International"?"Selected=selected":""} value="Ivato International">Antananarivo, Madagascar (Ivato International)</option>
+							<option ${flyingfrom0=="John F. Kennedy International"?"Selected=selected":""} value="John F. Kennedy International">New York, USA (John F. Kennedy International)</option>
+							<option ${flyingfrom0=="Los Angeles International"?"Selected=selected":""} value="Los Angeles International">Los Angeles, USA (Los Angeles International)</option>
+							<option ${flyingfrom0=="LaGuardia"?"Selected=selected":""} value="LaGuardia">New York, USA (LaGuardia)</option>
+							<option ${flyingfrom0=="London Heathrow"?"Selected=selected":""} value="London Heathrow">London, United Kingdom (London Heathrow)</option>
+							<option ${flyingfrom0=="Logan International"?"Selected=selected":""} value="Logan International">Boston, USA (Logan International)</option>
+							<option ${flyingfrom0=="San Francisco International"?"Selected=selected":""} value="San Francisco International">San Francisco, USA (San Francisco International)</option>
+							<option ${flyingfrom0=="Tokyo International"?"Selected=selected":""} value="Tokyo International">Tokyo, Japan (Tokyo International)</option>
 						</select>
 					</div>
 				</div>
@@ -104,17 +104,17 @@
 					<div class="col-md-5">
 						<select id="flyingto" name="flyingto" class="form-control" onfocus="clearError()" required>
 							<option value="">Please choose:</option>
-							<option ${flyingto=="Berlin Tegel"?"Selected=selected":""} value="Berlin Tegel">Berlin, Germany (Berlin Tegel)</option>
-							<option ${flyingto=="Chicago O'Hare International"?"Selected=selected":""} value="Chicago O'Hare International">Chicago, USA (Chicago O'Hare International)</option>
-							<option ${flyingto=="Hartsfield-Jackson Atlanta Int"?"Selected=selected":""} value="Hartsfield-Jackson Atlanta Int">Atlanta, USA (Hartsfield-Jackson Atlanta Int)</option>
-							<option ${flyingto=="Ivato International"?"Selected=selected":""} value="Ivato International">Antananarivo, Madagascar (Ivato International)</option>
-							<option ${flyingto=="John F. Kennedy International"?"Selected=selected":""} value="John F. Kennedy International">New York, USA (John F. Kennedy International)</option>
-							<option ${flyingto=="Los Angeles International"?"Selected=selected":""} value="Los Angeles International">Los Angeles, USA (Los Angeles International)</option>
-							<option ${flyingto=="LaGuardia"?"Selected=selected":""} value="LaGuardia">New York, USA (LaGuardia)</option>
-							<option ${flyingto=="London Heathrow"?"Selected=selected":""} value="London Heathrow">London, United Kingdom (London Heathrow)</option>
-							<option ${flyingto=="Logan International"?"Selected=selected":""} value="Logan International">Boston, USA (Logan International)</option>
-							<option ${flyingto=="San Francisco International"?"Selected=selected":""} value="San Francisco International">San Francisco, USA (San Francisco International)</option>
-							<option ${flyingto=="Tokyo International"?"Selected=selected":""} value="Tokyo International">Tokyo, Japan (Tokyo International)</option>
+							<option ${flyingto0=="Berlin Tegel"?"Selected=selected":""} value="Berlin Tegel">Berlin, Germany (Berlin Tegel)</option>
+							<option ${flyingto0=="Chicago O'Hare International"?"Selected=selected":""} value="Chicago O'Hare International">Chicago, USA (Chicago O'Hare International)</option>
+							<option ${flyingto0=="Hartsfield-Jackson Atlanta Int"?"Selected=selected":""} value="Hartsfield-Jackson Atlanta Int">Atlanta, USA (Hartsfield-Jackson Atlanta Int)</option>
+							<option ${flyingto0=="Ivato International"?"Selected=selected":""} value="Ivato International">Antananarivo, Madagascar (Ivato International)</option>
+							<option ${flyingto0=="John F. Kennedy International"?"Selected=selected":""} value="John F. Kennedy International">New York, USA (John F. Kennedy International)</option>
+							<option ${flyingto0=="Los Angeles International"?"Selected=selected":""} value="Los Angeles International">Los Angeles, USA (Los Angeles International)</option>
+							<option ${flyingto0=="LaGuardia"?"Selected=selected":""} value="LaGuardia">New York, USA (LaGuardia)</option>
+							<option ${flyingto0=="London Heathrow"?"Selected=selected":""} value="London Heathrow">London, United Kingdom (London Heathrow)</option>
+							<option ${flyingto0=="Logan International"?"Selected=selected":""} value="Logan International">Boston, USA (Logan International)</option>
+							<option ${flyingto0=="San Francisco International"?"Selected=selected":""} value="San Francisco International">San Francisco, USA (San Francisco International)</option>
+							<option ${flyingto0=="Tokyo International"?"Selected=selected":""} value="Tokyo International">Tokyo, Japan (Tokyo International)</option>
 						</select>
 					</div>
 				</div>
