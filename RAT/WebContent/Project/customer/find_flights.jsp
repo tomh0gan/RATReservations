@@ -1,10 +1,46 @@
 <%@ page import="java.sql.*, java.util.ArrayList" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Find Flights JSP</title>
+<meta charset="utf-8">
+<title>RAT - Find Flights</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="../resources/css/bootstrap.min.css" rel="stylesheet">
+<!-- START SCRIPT --> 
+<script>
+</script>
+<!-- END SCRIPT --> 
 </head>
 <body>
+<!-- START NAV -->
+<div class="container">
+	<div class="navbar navbar-default" style="margin-top:20px;">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">RAT Reservations</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Find Flights</a></li>
+					<li><a href="#">View Reservations</a></li>
+					<li><a href="#">View Bids</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#">My Account (<%=session.getAttribute("username")%>)</a></li>
+					<li><div><a class="btn btn-default navbar-btn" href="../logout.jsp">Log out</a></div></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END NAV --><br><br>
+<!-- START PAGE -->
 <%
 	String mysJDBCDriver = "com.mysql.jdbc.Driver"; 
 	String mysURL = "jdbc:mysql://localhost:3306/rat"; 
@@ -96,10 +132,50 @@
 	}
 	
 	if(foundFlights.isEmpty()){
-		response.sendRedirect("home.jsp");
+%>
+	nothing found
+<% 
 	} else {
-		
+%>
+<div class="container">
+	<table class = "table table-hover">
+		<thead>
+			<tr>
+				<th>D(Airport)</th>
+				<th>D(Time)</th>
+				<th>A(Airport)</th>
+				<th>A(Time)</th>
+				<th>Total Time</th>
+				<th># of Stops</th>
+				<th>Cost</th>
+			</tr>
+		</thead>
+		<tbody>
+<% 
+	for(ArrayList<String[]> flight : foundFlights){
+%>
+			<tr>
+				<td><%= request.getParameter("depAirport") %></td>
+				<td>x</td>
+				<td><%= request.getParameter("arrAirport") %></td>
+				<td>x</td>
+				<td>x</td>
+				<td><%= flight.size() %></td>
+				<td>x</td>
+				<td><a href="#" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-ok"></span> Buy</a></td>
+				<td><a href="#" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-tag"></span> Bid</a></td>
+			<tr>
+<%
 	}
 %>
+		</tbody>
+	</table>
+</div>
+<%
+	}
+%>
+<!-- END PAGE -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="../resources/js/bootstrap.min.js"></script>
 </body>
 </html>
