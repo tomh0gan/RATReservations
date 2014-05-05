@@ -25,6 +25,10 @@
 		ssn = "";
 		for(int i = 0; i < sepSsn.length; i++){ ssn+=sepSsn[i]; }
 	}
+	String oldSsn = "";
+	if(request.getParameter("oldSsn") != null){
+		oldSsn = request.getParameter("oldSsn");
+	}
 	String firstName = request.getParameter("firstName");
 	String lastName = request.getParameter("lastName");
 	String address = request.getParameter("address");
@@ -42,6 +46,7 @@
 	request.setAttribute("EmployeeUsername", username);
 	request.setAttribute("EmployeePassword", password);
 	request.setAttribute("EmployeeSSN", ssn);
+	request.setAttribute("OldEmployeeSSN", oldSsn);
 	request.setAttribute("EmployeeAddress", address);
 	request.setAttribute("EmployeeCity", city);
 	request.setAttribute("EmployeeState", state);
@@ -119,6 +124,32 @@
 	else{
 		request.removeAttribute("EmployeeHourlyRateError");
 	}
+	//Checks if employee is making an incorrect hourly rate
+	if(emplType.equals("employee") && !invalidInput){
+		double sal = Double.parseDouble(hourlyRate);
+		if(sal > 12){
+			request.setAttribute("EmployeeHourlyRateError", "An employee cannot earn more than $12.00 an hour!");
+			invalidInput = true;
+		}
+		else if(sal < 7){
+			request.setAttribute("EmployeeHourlyRateError", "An employee has to earn more than $7.00 an hour!");
+			invalidInput = true;
+		}
+		else{
+			request.removeAttribute("EmployeeHourlyRateError");
+		}
+	}
+	//Checks if manager is making less than their minimum
+	if(emplType.equals("manager") && !invalidInput){
+		double sal = Double.parseDouble(hourlyRate);
+		if(sal < 14){
+			request.setAttribute("EmployeeHourlyRateError", "A manager cannot earn less than $14.00 an hour!");
+			invalidInput = true;
+		}
+		else{
+			request.removeAttribute("EmployeeHourlyRateError");
+		}
+	}
 	
 	
 	String mysJDBCDriver = "com.mysql.jdbc.Driver";
@@ -135,7 +166,7 @@
 		conn = DriverManager.getConnection(mysURL,sysprops);
 		
 		Statement stmt1 = conn.createStatement();
-		if(!edit){
+		if(!(ssn.equals(oldSsn))){
 			//checks if the ssn is already in use
 			ResultSet rs = stmt1.executeQuery("SELECT * FROM Employee WHERE ssn='"+ssn+"'");
 			if(rs.next()){

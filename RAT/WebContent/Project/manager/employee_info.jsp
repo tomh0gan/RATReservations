@@ -46,13 +46,15 @@
         <div class="form-group">  
         	<label class="col-sm-2 control-label" for=firstName>First Name</label>
         	<div class="col-sm-5">
-        		<input value="${EmployeeFName}" name=firstName type="text" class="form-control" placeholder="First name" value="${EmployeeFName}" required autofocus>
+        		<input value="${EmployeeFName}" name=firstName type="text" class="form-control" placeholder="First name" oninput="clearErrorMsg('fnameError')" required autofocus>
+        		<span class="redText" id="fnameError">${EmployeeFNameError}</span>
         	</div>
         </div>
         <div class="form-group">  
         	<label class="col-sm-2 control-label" for=lastName>Last Name</label>
         	<div class="col-sm-5">
-        		<input value="${EmployeeLName}" name=lastName type="text" class="form-control" placeholder="Last name" required>
+        		<input value="${EmployeeLName}" name=lastName type="text" class="form-control" placeholder="Last name" oninput="clearErrorMsg('lnameError')" required>
+        		<span class="redText" id="lnameError">${EmployeeLNameError}</span>
         	</div>
         </div>
         <div class="form-group">  
@@ -60,6 +62,7 @@
         	<div class="col-sm-5">
         		<input value="${EmployeeSSN}" name=ssn type="text" class="form-control" placeholder="SSN" oninput="clearErrorMsg('ssnError')" required>
         		<span class="redText" id="ssnError">${EmployeeSSNError}</span>
+        		<input type=hidden value="${OldEmployeeSSN}" name=oldSsn />
         	</div>
         </div>
         <%
@@ -179,8 +182,8 @@
         <div class="form-group">  
         	<label class="col-sm-2 control-label" for=hourlyRate>Hourly Rate</label>
         	<div class="col-sm-5">
-        		<input value="${EmployeeHourlyRate}" name=hourlyRate type="text" class="form-control" oninput="clearErrorMsg('hourlyRateError')" placeholder="Hourly Rate" required>
-        		<span class="redText" id="hourlyRateError">${EmployeeHourlyRateError}</span>
+        	<input value="${EmployeeHourlyRate}" name=hourlyRate type="text" class="form-control" oninput="clearErrorMsg('hourlyRateError')" placeholder="Hourly Rate" required>
+			<span class="redText" id="hourlyRateError">${EmployeeHourlyRateError}</span>
         	</div>
         </div>
         <br />

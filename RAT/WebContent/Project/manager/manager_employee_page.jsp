@@ -105,7 +105,6 @@
         
     		//connect to the database
             conn=java.sql.DriverManager.getConnection(mysURL,sysprops);
-            System.out.println("Connected successfully to database using JConnect");
             
             String orderBy = "firstName";
             if(request.getParameter("sort") != null){
