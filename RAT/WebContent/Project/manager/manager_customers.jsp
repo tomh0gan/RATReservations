@@ -46,6 +46,7 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
+          	<li><a href="help.jsp?help=manCus">Help</a></li>
             <li><a href="../logout.jsp">Logout</a></li>
           </ul>
           <form class="navbar-form navbar-right">

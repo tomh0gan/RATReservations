@@ -46,6 +46,7 @@
     
       <div class="header">
         <ul class="nav nav-pills pull-right">
+        	<li><a href="help.jsp?help=navManHomScr">Help</a></li>
           <li><a href="../logout.jsp">Logout</a></li>
         </ul>
         <h3>RAT Reservations - Manager</h3>

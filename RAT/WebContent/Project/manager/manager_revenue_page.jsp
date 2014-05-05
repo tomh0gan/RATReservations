@@ -39,7 +39,10 @@
   </head>
 
   <body>
-
+    <% if(session.getAttribute("manager") == null || !(session.getAttribute("manager").equals("valid"))){
+  		  throw new SkipPageException();
+  	   }
+  	 %>
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -53,6 +56,7 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
+            <li><a href="help.jsp?help=manRev">Help</a></li>
             <li><a href="../logout.jsp">Logout</a></li>
           </ul>
           <form class="navbar-form navbar-right">
