@@ -41,6 +41,9 @@
 				rs.next();
 				session.setAttribute("accountNum", rs.getString("accountNum"));
 			}
+			else if(type.equals("manager")){
+				session.setAttribute("manager", "valid");
+			}
 			
 			response.sendRedirect(type+"/home.jsp");
 		}

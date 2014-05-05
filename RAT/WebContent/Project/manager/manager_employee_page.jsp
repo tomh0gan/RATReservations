@@ -29,6 +29,10 @@
   </head>
 
   <body>
+     <% if(session.getAttribute("manager") == null || !(session.getAttribute("manager").equals("valid"))){
+  		  throw new SkipPageException();
+  	   }
+  	 %>
     <%  
     	if(request.getParameter("order") == null){
     		response.sendRedirect("manager_employee_page.jsp?order=ASC");

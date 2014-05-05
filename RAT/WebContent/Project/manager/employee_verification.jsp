@@ -5,6 +5,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>
 <body>
+	<% if(session.getAttribute("manager") == null || !(session.getAttribute("manager").equals("valid"))){
+  		  throw new SkipPageException();
+  	   }
+  	 %>
 	<%
 	boolean invalidInput = false;
 	String invalidInputs = "";

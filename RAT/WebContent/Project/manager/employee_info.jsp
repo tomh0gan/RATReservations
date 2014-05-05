@@ -27,6 +27,10 @@
   </head>
 
   <body>
+  	 <% if(session.getAttribute("manager") == null || !(session.getAttribute("manager").equals("valid"))){
+  		  throw new SkipPageException();
+  	   }
+  	 %>
     <div class="container">
 
       <form action="employee_verification.jsp" method="post" class="form-horizontal">

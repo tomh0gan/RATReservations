@@ -20,6 +20,10 @@
   </head>
 
   <body>
+     <% if(session.getAttribute("manager") == null || !(session.getAttribute("manager").equals("valid"))){
+  		  throw new SkipPageException();
+  	   }
+  	 %>
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">

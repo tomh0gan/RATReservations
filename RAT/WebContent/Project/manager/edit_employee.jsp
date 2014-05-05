@@ -5,7 +5,12 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>
 <body>
+	 <% if(session.getAttribute("manager") == null || !(session.getAttribute("manager").equals("valid"))){
+  		  throw new SkipPageException();
+  	   }
+  	 %>
 	<%
+	
 
 			String mysJDBCDriver = "com.mysql.jdbc.Driver";
 			String mysURL = "jdbc:mysql://localhost:3306/rat_schema";

@@ -38,6 +38,10 @@
     </style>
   </head>
   <body>
+  	<% if(session.getAttribute("manager") == null || !(session.getAttribute("manager").equals("valid"))){
+  		  throw new SkipPageException();
+  	   }
+  	 %>
     <div class="container">
     
       <div class="header">
@@ -61,7 +65,10 @@
 	  </p>     
 	  <p>
 	    <button type="button" class="btn btn-lg btn-primary" onclick="window.open('manager_customers.jsp','_self');">View Customers</button>
-	  </p>    
+	  </p>
+	  <p>
+	    <button type="button" class="btn btn-lg btn-primary" onclick="window.open('backup_database.jsp','_self');">Backup Database</button>
+	  </p>        
       
       <br/>
       <br/>

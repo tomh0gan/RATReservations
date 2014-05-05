@@ -2,6 +2,10 @@
 <!DOCTYPE html>
 <HTML>
 <BODY>
+     <% if(session.getAttribute("manager") == null || !(session.getAttribute("manager").equals("valid"))){
+  		  throw new SkipPageException();
+  	   }
+  	 %>
 	<%
 	boolean invalidInput = false;
 	String invalidInputs = "";
