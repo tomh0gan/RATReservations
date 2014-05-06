@@ -1,4 +1,4 @@
-<%@ page import="java.util.GregorianCalendar, java.text.SimpleDateFormat, java.sql.*"%>
+<%@ page import="Flights.*, java.util.ArrayList"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,7 +48,19 @@
 	<br>
 	<br>
 	<!-- START PAGE -->
-
+<%
+	ArrayList<ArrayList<Leg>> paths = ((ArrayList<ArrayList<Leg>>)session.getAttribute("paths"));
+	for(ArrayList<Leg> path : paths){
+		for(Leg l : path){
+%>
+		<%= l.toString() %>
+<%
+		}
+%>
+	<BR>
+<%
+	}
+%>
 	<!-- END PAGE -->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

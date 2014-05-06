@@ -49,10 +49,26 @@
 	<br>
 	<!-- START PAGE -->
 	<div class="container">
-		<form class="form-horizontal" action="generate_paths.jsp" method="post">
+		<form class="form-horizontal" action="generate_oneway.jsp" method="post">
 			<fieldset>
 				<legend>Search Flights</legend>
-
+				
+				<!-- SEARCH TYPE -->
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="flightType"></label>
+					<div class="col-md-4">
+						<label class="radio-inline" for="type-0"> 
+							<input type="radio" name="flightType" id="type-0" value="oneway" checked> One way
+						</label> 
+						<label class="radio-inline" for="type-1"> 
+							<input type="radio" name="flightType" id="type-1" value="roundtrip"> Round-trip
+						</label> 
+						<label class="radio-inline" for="type-2"> 
+							<input type="radio" name="flightType" id="type-2" value="multdest"> Multiple destinations
+						</label>
+					</div>
+				</div>
+				
 				<!-- DEPATURE AIRPORT -->
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="depAirportId">Flying

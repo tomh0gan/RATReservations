@@ -9,6 +9,7 @@
 	String depAirport = request.getParameter("depAirportId");			// Departure Airport
 	String arrAirport = request.getParameter("arrAirportId");			// Arrival Airport
 	String depDate = request.getParameter("depDate");					// Depature Date
+	
 	/* START PATH GENERATING ALGORITHM */
 	// all valid paths, comprised of legs, between DepAirport & ArrAirport, departing on depDate
 	ArrayList<ArrayList<Leg>> paths = new ArrayList<ArrayList<Leg>>();		
@@ -48,7 +49,7 @@
 			}
 		}
 		if(pathStarts.isEmpty()){										// there are no starts to a path
-			/* NOT HANDLED */
+			/* return to home.jsp page */
 		}else{															// there are starts to a path
 			for(Leg start : pathStarts){								// for each start to a path
 				q = "SELECT * FROM leg" +
@@ -99,16 +100,16 @@
 				}
 			}
 		}
-
 	} catch(Exception e){
 		System.out.println(e);
-	} finally {
-		try {
-			conn.close();
-			} catch(Exception ee){ }
+	} finally {try {conn.close();} catch(Exception ee){}}
+	
+	if(paths.isEmpty()){
+		response.sendRedirect("home.jsp");
+	}else{
+		session.setAttribute("paths", paths);
+		response.sendRedirect("view_search_results.jsp");
 	}
-	/* END PATH GENERATING ALGORITHM */
-	System.out.println(paths);
 %>
 </body>
 </html>
