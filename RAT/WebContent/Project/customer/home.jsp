@@ -142,7 +142,7 @@
 				<div id="returning_div" class="form-group" style="display:none">
 					<label class="col-md-4 control-label" for="retDate">Returning</label>
 					<div class="col-md-3">
-						<input id="retDate" name="retDate" type="date" class="form-control input-md" required>
+						<input id="retDate" name="retDate" type="date" class="form-control input-md">
 					</div>
 				</div>
 

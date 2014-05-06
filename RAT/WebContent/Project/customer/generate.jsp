@@ -138,7 +138,7 @@
 		String depAirportId = request.getParameter("depAirportId");
 		String arrAirportId = request.getParameter("arrAirportId");
 		String depDate = request.getParameter("depDate");
-		String retDate = request.getParameter("retDate");
+		String retDate = request.getParameter("retDate"); // check if this is null!
 		ArrayList<ArrayList<Leg>> dep_paths = findPaths(depAirportId, arrAirportId, depDate);
 		ArrayList<ArrayList<Leg>> ret_paths = findPaths(arrAirportId, depAirportId, retDate);
 		if(dep_paths.isEmpty() || ret_paths.isEmpty()){
