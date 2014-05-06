@@ -28,8 +28,10 @@
 
            
 function Button1_onclick() {
-if(document.addCust.firstName.value == "")
+	
+if(document.addCust.firstName.value == ""){
 		alert("Please enter first name")
+}
 else if(document.addCust.lastName.value == "")
 		alert("Please enter last name")
 else if(document.addCust.address.value == "")
@@ -40,11 +42,20 @@ else if(document.addCust.state.value == "")
 		alert("Please enter state")
 else if(document.addCust.zip.value == "")
 		alert("Please enter zip")
+else if(document.addCust.zip.value.length != 5)
+		alert("Please enter a valid 5 digit zip")
 else if(document.addCust.cardNo.value == "")
 		alert("Please enter credit card number")
+else if(document.addCust.cardNo.value.length  != 16)
+		alert("Please enter a valid 16 digit credit card number")
 else if(document.addCust.email.value == "")
 		alert("Please enter email")
+else if(document.addCust.email.value.indexOf("@") == -1)
+		alert("Please enter valid email address")
+else if(document.addCust.email.value.indexOf(".") == -1)
+		alert("Please enter valid email address")
 else{
+	
 	document.addCust.submit()
 	}
 }
@@ -116,7 +127,7 @@ else{
 	
 	<div class="form-group">
 	      <div class="col-sm-offset-3 col-sm-10">
- 			<button class="btn btn-default btn-lg" type="submit" onclick="return Button1_onclick()">Submit</button>
+ 			<button class="btn btn-default btn-lg" type="button" onclick="return Button1_onclick()">Submit</button>
 	      </div>
 	      <div class="col-sm-offset-3 col-sm-10">
 	      <br /><br />Employee Page: <a href="EmployeeViewCustomers.jsp">Back</a> 
