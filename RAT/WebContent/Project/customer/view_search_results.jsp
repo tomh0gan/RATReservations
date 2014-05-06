@@ -49,17 +49,8 @@
 	<br>
 	<!-- START PAGE -->
 <%
-	ArrayList<ArrayList<Leg>> paths = ((ArrayList<ArrayList<Leg>>)session.getAttribute("paths"));
-	for(ArrayList<Leg> path : paths){
-		for(Leg l : path){
-%>
-		<%= l.toString() %>
-<%
-		}
-%>
-	<BR>
-<%
-	}
+	ArrayList<Res> results = (ArrayList<Res>) session.getAttribute("results");
+	System.out.println(results);
 %>
 	<!-- END PAGE -->
 	<script

@@ -107,7 +107,22 @@
 	if(paths.isEmpty()){
 		response.sendRedirect("home.jsp");
 	}else{
-		session.setAttribute("paths", paths);
+		ArrayList<Res> results = new ArrayList<Res>();
+		
+		for(ArrayList<Leg> path : paths){
+			Res r = new Res(paths.indexOf(path));
+			for(int i = 1; i <= 1; i++){
+				Res_Passenger rp = new Res_Passenger(i);
+				for(Leg l : path){
+					Res_Leg rl = new Res_Leg(l, "economy", "oneway", -1);
+					rp.getLegs().add(rl);
+				}
+				r.getPassengers().add(rp);
+			}
+			results.add(r);
+		}
+		
+		session.setAttribute("results", results);
 		response.sendRedirect("view_search_results.jsp");
 	}
 %>
