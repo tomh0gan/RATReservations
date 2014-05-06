@@ -68,7 +68,7 @@
 	else{
 		request.removeAttribute("CustomerLNameError");
 	}
-	if(!address.matches("[\\w ]{1,100}")){
+	if(!address.matches("[\\w ]{1,100}.")){
 		request.setAttribute("CustomerAddressError", "Please enter an address!");
 		invalidInput = true;
 	}

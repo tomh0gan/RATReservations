@@ -5,22 +5,6 @@
 <title>RAT - View Reservations</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
-  <script type="text/javascript">
-	function dtable(){
-		if(document.getElementById('type-0').checked){
-			document.getElementById('returning_div').style.display = "block";
-			document.getElementById('multiple_destinations_div').style.display = "none";
-		}
-		if(document.getElementById('type-1').checked){
-			document.getElementById('returning_div').style.display = "none";
-			document.getElementById('multiple_destinations_div').style.display = "none";
-		}
-		if(document.getElementById('type-2').checked){
-			document.getElementById('returning_div').style.display = "none";
-			document.getElementById('multiple_destinations_div').style.display = "block";
-		}
-	}
-  </script>
 </head>
 <body>
 	 <div class="container">
@@ -42,7 +26,7 @@
               <li><a href="view_bids.jsp">View Bids</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="account.jsp">My Account (<%=session.getAttribute("username")%>)</a></li>
+              <li><a href="get_account_info.jsp">My Account (<%=session.getAttribute("username")%>)</a></li>
       		  <li><div><a class="btn btn-default navbar-btn" href="../logout.jsp">Log out</a></div></li>
             </ul>
           </div>
@@ -66,12 +50,10 @@
         conn=java.sql.DriverManager.getConnection(mysURL,sysprops);
         java.sql.Statement stmt=conn.createStatement();
 		
-        java.sql.ResultSet rs = stmt.executeQuery("SELECT R.resrDate, R.totalFare FROM Reservation R" 
-        		+ " WHERE EXISTS ("
-        				+ " SELECT * FROM Includes I, Leg L"
-        				+ " WHERE R.ResrNum = I.ResrNum AND I.AirlineID = L.AirlineID" 
-        				+ " AND I.FlightNum = L.FlightNum AND L.DepTime >= NOW())"
-        				+ " AND R.AccountNum = " + session.getAttribute("accountNum") + ";");
+        java.sql.ResultSet rs = stmt.executeQuery("SELECT R.resrCreated, R.totalFare, R.resrNum FROM Reservation R"
+			    							   + " WHERE EXISTS (SELECT * FROM reservation_legs S"
+			   								   + " WHERE R.ResrNum = S.ResrNum AND S.DepTime > NOW() AND S.depDate > NOW())"
+			   								   + " AND R.AccountNum=1008;");
 %>
 	<div class="container">
 		<legend>Current Reservations</legend>
@@ -81,6 +63,7 @@
 					<tr>
 					<th>Reservation Date</th>
 					<th>Total Fare</th>
+					<th>View</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -90,6 +73,7 @@
 					<tr>
 					<td><%=rs.getString(1)%></td>
 					<td><%=rs.getString(2)%></td>
+					<td><button type="button" class="btn btn-sm btn-primary" onclick="window.open('customer_reservation.jsp?resrNum=<%=rs.getString(3) %>', '_self')" >View</button></td>
 					</tr>
 <%
 				}
@@ -99,12 +83,10 @@
 		</div>
 	</div>
 <%
-		rs = stmt.executeQuery("SELECT R.resrDate, R.totalFare FROM Reservation R" 
-		+ " WHERE EXISTS ("
-				+ " SELECT * FROM Includes I, Leg L"
-				+ " WHERE R.ResrNum = I.ResrNum AND I.AirlineID = L.AirlineID" 
-				+ " AND I.FlightNum = L.FlightNum AND L.DepTime < NOW())"
-				+ " AND R.AccountNum = " + session.getAttribute("accountNum") + ";");
+		rs = stmt.executeQuery("SELECT R.resrCreated, R.totalFare, R.resrNum FROM Reservation R"
+						    + " WHERE EXISTS (SELECT * FROM reservation_legs S"
+						    + " WHERE R.ResrNum = S.ResrNum AND S.DepTime < NOW() AND S.depDate < NOW())"
+						    + " AND R.AccountNum=1008;");
 %>
 	<div class="container">
 		<legend>Reservation History</legend>
@@ -114,6 +96,7 @@
 					<tr>
 					<th>Reservation Date</th>
 					<th>Total Fare</th>
+					<th>View</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -123,6 +106,7 @@
 					<tr>
 					<td><%=rs.getString(1)%></td>
 					<td><%=rs.getString(2)%></td>
+					<td><button type="button" class="btn btn-sm btn-primary" onclick="window.open('customer_reservation.jsp?resrNum=<%=rs.getString(3) %>', '_self')" >View</button></td>
 					</tr>
 <%
 				}
