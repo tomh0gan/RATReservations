@@ -6,11 +6,10 @@
 </head>
 <body>
 <%
+	String depAirport = request.getParameter("depAirportId");			// Departure Airport
+	String arrAirport = request.getParameter("arrAirportId");			// Arrival Airport
+	String depDate = request.getParameter("depDate");					// Depature Date
 	/* START PATH GENERATING ALGORITHM */
-	String depAirport = "SFI";			// Departure Airport
-	String arrAirport = "LGA";			// Arrival Airport
-	String depDate = "2014-05-05";		// Depature Date
-	
 	// all valid paths, comprised of legs, between DepAirport & ArrAirport, departing on depDate
 	ArrayList<ArrayList<Leg>> paths = new ArrayList<ArrayList<Leg>>();		
 	
@@ -109,7 +108,6 @@
 			} catch(Exception ee){ }
 	}
 	/* END PATH GENERATING ALGORITHM */
-	
 	System.out.println(paths);
 %>
 </body>
