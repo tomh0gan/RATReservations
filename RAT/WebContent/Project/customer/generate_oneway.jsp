@@ -9,6 +9,7 @@
 	String depAirport = request.getParameter("depAirportId");			// Departure Airport
 	String arrAirport = request.getParameter("arrAirportId");			// Arrival Airport
 	String depDate = request.getParameter("depDate");					// Depature Date
+	int numOfPassengers = Integer.parseInt(request.getParameter("numOfPassengers"));
 	
 	/* START PATH GENERATING ALGORITHM */
 	// all valid paths, comprised of legs, between DepAirport & ArrAirport, departing on depDate
@@ -111,14 +112,17 @@
 		
 		for(ArrayList<Leg> path : paths){
 			Res r = new Res(paths.indexOf(path));
-			for(int i = 1; i <= 1; i++){
+			double cost = 0;
+			for(int i = 1; i <= numOfPassengers; i++){
 				Res_Passenger rp = new Res_Passenger(i);
 				for(Leg l : path){
 					Res_Leg rl = new Res_Leg(l, "economy", "oneway", -1);
+					cost += l.getBaseFare();
 					rp.getLegs().add(rl);
 				}
 				r.getPassengers().add(rp);
 			}
+			r.setCost(cost);
 			results.add(r);
 		}
 		
