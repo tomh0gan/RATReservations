@@ -52,6 +52,8 @@
 	ArrayList<Res> results = (ArrayList<Res>)session.getAttribute("results");
 %>
 <div class="container">
+	<h1><%= results.get(0).getPassengers().get(0).getLegs().get(0).getL().getDepAirportId() %>
+	to <%= results.get(0).getPassengers().get(0).getLegs().get(results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrAirportId() %></h1>
 	<table class="table table-hover">
 		<thead>
 			<tr>
