@@ -1,27 +1,63 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Employee - Flight Suggestions</title>
-</head>
-<body style="text-align: center" bgcolor="#E8E8E8">
-	<h1>Flight Suggestions</h1>
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+
+    <title>RAT Reservations - Employee - Flight Suggestions</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../resources/css/table.css" rel="stylesheet">
+<body>
+	<div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">RAT Reservations - Flight Suggestions</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="../logout.jsp">Logout</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <button type="button" class="form-control" onclick="window.open('Employee.jsp','_self');">Home</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          
+        </div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    
+    <div class="table-responsive">
 		
-	<table border="0" cellpadding="0" cellspacing="0" align="center" style="margin:0px auto; width:500px; height: 100%;">
+	<table class="table table-striped">
+		<thead>
             <tr>
-                <td style="vertical-align: Center; width: 11237px; text-align: left; height: 454px;">
-                    <table border="1" id="TABLE1">
-                    <tr>
-                      <td style="width: 75px">
-                          <span style="font-size: 10pt">Airline ID</span>
-                      </td>
-                      <td style="width: 75px">
-                          <span style="font-size: 10pt">Flight Number</span>
-                      </td>
-                      
-                    </tr>   
+                <td>Airline ID</td>
+                <td>Flight Number</td>
+            </tr>   
+        </thead>
+        
+        <tbody>
 <%
 		String accNum = request.getParameter("custid");
 		String mysJDBCDriver = "com.mysql.jdbc.Driver"; 
@@ -54,11 +90,8 @@
 		          {			
 		%>
 		                    <tr>
-		                    	<td style="width: 84px">
-		                          <span style="font-size: 10pt"><%=rs.getString(1)%></span></td>
-		                      <td style="width: 84px">
-		                          <span style="font-size: 10pt"><%=rs.getString(2)%></span></td>
-		                      
+		                    	<td><%=rs.getString(1)%></td>
+		                      	<td><%=rs.getString(2)%></td>
 		                    </tr>
 		<%      		
 		        	
@@ -76,9 +109,10 @@
 					}
 
 		  %>
+		  	</tbody>
 		  </table>
-		  <input id="Button1" type="button" value="Back" onclick="window.open('EmployeeViewCustomers.jsp','_self');" />
-        <input id="Button2" type="button" value="Logout" onclick="window.open('main.jsp','_self');" />
+		  </div>
+
         <br />
         <span style="font-size: 8pt">
         <br />

@@ -49,6 +49,8 @@
 	<br />
 	<button type="button" class="btn btn-lg btn-primary" onclick="window.open('EmployeeMailingList.jsp','_self');" />Produce Mailing List</button>
 	<br />
+	<br />
+	<button type="button" class="btn btn-lg btn-primary" onclick="window.open('ReviewAuctions.jsp','_self');" />Review Auctions</button>
 
     <footer class="footer">
         <p>RAT Reservations</p>
