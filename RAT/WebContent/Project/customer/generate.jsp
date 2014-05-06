@@ -123,7 +123,8 @@
 					}
 					r.getPassengers().add(rp);
 				}
-				r.setCost(cost);
+				cost = cost + (cost*0.10);	// add booking fee
+				r.setCost(cost);			// set default cost for reservation
 				results.add(r);
 			}
 			
@@ -132,6 +133,8 @@
 		}
 	}
 	else if(flightType.equals("roundtrip")){
+		response.sendRedirect("home.jsp");
+		/*
 		String depAirportId = request.getParameter("depAirportId");
 		String arrAirportId = request.getParameter("arrAirportId");
 		String depDate = request.getParameter("depDate");
@@ -142,7 +145,7 @@
 			response.sendRedirect("home.jsp");
 		}else{
 			
-		}
+		}*/
 	}
 	else if(flightType.equals("multdest")){
 		response.sendRedirect("home.jsp");

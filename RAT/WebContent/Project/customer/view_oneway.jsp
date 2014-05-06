@@ -63,7 +63,6 @@
 			<th>Stops</th>
 			<th>Price</th>
 			<th> </th>
-			<th> </th>
 			</tr>
 		</thead>
 		<tbody>
@@ -82,8 +81,7 @@
 				</td>
 				<td><%= r.getPassengers().get(0).getLegs().size()-1 %></td>
 				<td><%= r.getCost() %></td>
-				<td><a href="#" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-check"></span> Buy</a></td>
-				<td><a href="#" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-tag"></span> Bid</a></td>
+				<td><a href="#" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-check"></span> Select</a></td>
 			</tr>
 <%
 			}
