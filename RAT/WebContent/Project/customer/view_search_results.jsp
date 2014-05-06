@@ -49,9 +49,46 @@
 	<br>
 	<!-- START PAGE -->
 <%
-	ArrayList<Res> results = (ArrayList<Res>) session.getAttribute("results");
-	System.out.println(results);
+	ArrayList<Res> results = (ArrayList<Res>)session.getAttribute("results");
 %>
+<div class="container">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+			<th>Departure</th>
+			<th> </th>
+			<th>Arrival</th>
+			<th>Stops</th>
+			<th>Price</th>
+			<th> </th>
+			<th> </th>
+			</tr>
+		</thead>
+		<tbody>
+<%
+			for(Res r : results) {
+%>
+			<tr>
+				<td>
+				<%= r.getPassengers().get(0).getLegs().get(0).getL().getDepDate() %>
+				<%= r.getPassengers().get(0).getLegs().get(0).getL().getDepTime() %>
+				</td>
+				<td><span class="glyphicon glyphicon-arrow-right"></span></td>
+				<td>
+				<%= r.getPassengers().get(0).getLegs().get(r.getPassengers().get(0).getLegs().size()-1).getL().getArrDate() %>
+				<%= r.getPassengers().get(0).getLegs().get(r.getPassengers().get(0).getLegs().size()-1).getL().getArrTime() %>
+				</td>
+				<td><%= r.getPassengers().get(0).getLegs().size()-1 %></td>
+				<td>Place holder</td>
+				<td><a href="#" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-check"></span> Buy</a></td>
+				<td><a href="#" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-tag"></span> Bid</a></td>
+			</tr>
+<%
+			}
+%>
+		</tbody>
+	</table>
+</div>
 	<!-- END PAGE -->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
