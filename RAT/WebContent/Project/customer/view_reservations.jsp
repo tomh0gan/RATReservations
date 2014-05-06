@@ -53,7 +53,7 @@
         java.sql.ResultSet rs = stmt.executeQuery("SELECT R.resrCreated, R.totalFare, R.resrNum FROM Reservation R"
 			    							   + " WHERE EXISTS (SELECT * FROM reservation_legs S"
 			   								   + " WHERE R.ResrNum = S.ResrNum AND S.DepTime > NOW() AND S.depDate > NOW())"
-			   								   + " AND R.AccountNum=1008;");
+			   								   + " AND R.AccountNum="+session.getAttribute("accountNum")+";");
 %>
 	<div class="container">
 		<legend>Current Reservations</legend>
@@ -86,7 +86,7 @@
 		rs = stmt.executeQuery("SELECT R.resrCreated, R.totalFare, R.resrNum FROM Reservation R"
 						    + " WHERE EXISTS (SELECT * FROM reservation_legs S"
 						    + " WHERE R.ResrNum = S.ResrNum AND S.DepTime < NOW() AND S.depDate < NOW())"
-						    + " AND R.AccountNum=1008;");
+						    + " AND R.AccountNum="+session.getAttribute("accountNum")+";");
 %>
 	<div class="container">
 		<legend>Reservation History</legend>

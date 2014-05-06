@@ -8,6 +8,7 @@
 	
 	String username = request.getParameter("username");
 	String password = request.getParameter("password");
+	String confirmPassword = request.getParameter("confirmpassword");
 	String email = request.getParameter("email");
 	String firstName = request.getParameter("firstName");
 	String lastName = request.getParameter("lastName");
@@ -17,50 +18,64 @@
 	String zipcode = request.getParameter("zipcode");
 	String creditCard = request.getParameter("creditCard");
 	
+	request.setAttribute("username", username);
+	request.setAttribute("email", email);
+	request.setAttribute("firstName", firstName);
+	request.setAttribute("lastName", lastName);
+	request.setAttribute("address", address);
+	request.setAttribute("city", city);
+	request.setAttribute("state", state);
+	request.setAttribute("zipcode", zipcode);
+	request.setAttribute("creditCard", creditCard);
+	
 	// check if input in "valid"
 	if(!username.matches("[\\w]{1,20}")){	
-		invalidInputs += "- Invalid Username, should be non-empty and at most 20 letters/digits<BR>";
+		request.setAttribute("usernameError", "Invalid Username, should be non-empty and at most 20 letters/digits!");
 		invalidInput = true;
 	}
 	if(!password.matches("[\\w]{1,20}")){				
-		invalidInputs += "- Invalid Password, should be non-empty and at most 20 letters/digits<BR>";
+		request.setAttribute("passwordError", "Invalid Password, should be non-empty and at most 20 letters/digits!");
+		invalidInput = true;
+	}
+	else if(!password.equals(confirmPassword)){
+		request.setAttribute("passwordError", "Confirmation password does not match!");
 		invalidInput = true;
 	}
 	if(!email.matches("[\\w]{1,34}@[\\w]{1,10}.[\\w]{3,}")){			
-		invalidInputs += "- Invalid Email, should be in the format email@host.com<BR>";
+		request.setAttribute("emailError", "Invalid Email, should be in the format email@host.com");
 		invalidInput = true;
 	}
 	if(!firstName.matches("[a-zA-Z]{1,50}")){
-		invalidInputs += "- Invalid First Name, should be non-empty and at most 50 letters<BR>";
+		request.setAttribute("firstNameError", "Invalid First Name, should be non-empty and at most 50 letters");
 		invalidInput = true;
 	}
 	if(!lastName.matches("[a-zA-Z]{1,50}")){
-		invalidInputs += "- Invalid Last Name, should be non-empty and at most 50 letters<BR>";
+		request.setAttribute("lastNameError", "Invalid Last Name, should be non-empty and at most 50 letters");
 		invalidInput = true;
 	}
-	if(!address.matches("[\\w ]{1,100}")){
-		invalidInputs += "- Invalid Address, should be non-empty and at most 100 letters/digits<BR>";
+	if(!address.matches("[\\w ]{1,100}.")){
+		request.setAttribute("addressError", "Invalid Address, should be non-empty and at most 100 letters/digits");
 		invalidInput = true;
 	}
 	if(!city.matches("[a-zA-Z ]{1,50}")){
-		invalidInputs += "- Invalid City, should be non-empty and at most 50 letters<BR>";
+		request.setAttribute("cityError", "Invalid City, should be non-empty and at most 50 letters");
 		invalidInput = true;
 	}
 	if(!state.matches("[a-zA-Z ]{1,50}")){
-		invalidInputs += "- Invalid State, should non-empty and at most 50 letters<BR>";
+		request.setAttribute("stateError", "Invalid State, should be non-empty!");
 		invalidInput = true;
 	}
-	if(!zipcode.matches("[0-9]{5,}")){
-		invalidInputs += "- Invalid ZIP code, should be 5 digits<BR>";
+	if(!zipcode.matches("[0-9]{5,5}")){
+		request.setAttribute("zipcodeError", "Invalid ZIP code, should be 5 digits");
 		invalidInput = true;
 	}
-	if(!creditCard.matches("[0-9]{16,}")){
-		invalidInputs += "- Invalid Credit Card Number, should be 16 digits<BR>";
+	if(!creditCard.matches("[0-9]{16,16}")){
+		request.setAttribute("creditCardError", "Invalid Credit Card Number, should be 16 digits");
 		invalidInput = true;
 	}
 	if(invalidInput == true){
-		session.setAttribute("error", invalidInputs);
-		response.sendRedirect("errors/register_error.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
+		rd.forward(request, response);
 		return;
 	}
 	

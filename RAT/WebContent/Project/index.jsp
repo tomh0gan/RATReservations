@@ -25,6 +25,7 @@
         <h2 class="form-signin-heading">Login</h2>
         <input name="username" type="text" class="form-control" placeholder="Username" required autofocus>
         <input name="password" type="password" class="form-control" placeholder="Password" required>
+        <span style="color: red;" id="loginError">${loginError}</span>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         <br> Don't have an account? <a href="register.jsp">Register</a>
       </form>

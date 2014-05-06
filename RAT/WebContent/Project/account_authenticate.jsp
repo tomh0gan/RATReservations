@@ -49,7 +49,9 @@
 		}
 		else{
 			// Invalid login info
-			response.sendRedirect("errors/login_error.html");
+			request.setAttribute("loginError", "Invalid Login Info!");
+			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+			rd.forward(request, response);
 		}
 	} catch(Exception e){}
 	finally{
