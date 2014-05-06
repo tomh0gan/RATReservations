@@ -49,7 +49,7 @@
 	<br>
 	<!-- START PAGE -->
 	<div class="container">
-		<form class="form-horizontal" action="generate_oneway.jsp" method="post">
+		<form class="form-horizontal" action="generate.jsp" method="post">
 			<fieldset>
 				<legend>Search Flights</legend>
 				
