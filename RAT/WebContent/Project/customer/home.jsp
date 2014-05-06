@@ -43,7 +43,7 @@
 <!-- START PAGE -->
 <%
 	String mysJDBCDriver = "com.mysql.jdbc.Driver"; 
-	String mysURL = "jdbc:mysql://localhost:3306/rat"; 
+	String mysURL = "jdbc:mysql://localhost:3306/rat_schema"; 
 	String mysUserID = "tester"; 
 	String mysPassword = "test";
 	
