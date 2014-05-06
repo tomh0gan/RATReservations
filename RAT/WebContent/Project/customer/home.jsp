@@ -7,9 +7,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
 <!-- START SCRIPT -->
-<script>
-	
-</script>
+ <script type="text/javascript">
+	function dtable(){
+		if(document.getElementById('type-0').checked){
+			document.getElementById('returning_div').style.display = "none";
+			document.getElementById('multiple_destinations_div').style.display = "none";
+		}
+		if(document.getElementById('type-1').checked){
+			document.getElementById('returning_div').style.display = "block";
+			document.getElementById('multiple_destinations_div').style.display = "none";
+		}
+		if(document.getElementById('type-2').checked){
+			document.getElementById('returning_div').style.display = "none";
+			document.getElementById('multiple_destinations_div').style.display = "block";
+		}
+	}
+  </script>
 <!-- END SCRIPT -->
 </head>
 <body>
@@ -58,17 +71,18 @@
 					<label class="col-md-4 control-label" for="flightType"></label>
 					<div class="col-md-4">
 						<label class="radio-inline" for="type-0"> 
-							<input type="radio" name="flightType" id="type-0" value="oneway" checked> One way
+							<input type="radio" name="flightType" id="type-0" value="oneway" onclick="dtable()" checked> One way
 						</label> 
 						<label class="radio-inline" for="type-1"> 
-							<input type="radio" name="flightType" id="type-1" value="roundtrip"> Round-trip
+							<input type="radio" name="flightType" id="type-1" value="roundtrip" onclick="dtable()"> Round-trip
 						</label> 
 						<label class="radio-inline" for="type-2"> 
-							<input type="radio" name="flightType" id="type-2" value="multdest"> Multiple destinations
+							<input type="radio" name="flightType" id="type-2" value="multdest" onclick="dtable()"> Multiple destinations
 						</label>
 					</div>
 				</div>
 				
+			<div class="well">
 				<!-- DEPATURE AIRPORT -->
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="depAirportId">Flying
@@ -119,9 +133,16 @@
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="depDate">Departing</label>
 					<div class="col-md-3">
-						<input id="depDate" name="depDate" type="date"
-							class="form-control input-md" required>
+						<input id="depDate" name="depDate" type="date" class="form-control input-md" required>
 							<!-- min="<%=((new SimpleDateFormat("yyyy-MM-dd")).format((new GregorianCalendar()).getTime()))%>" -->
+					</div>
+				</div>
+				
+				<!-- RETURNING -->
+				<div id="returning_div" class="form-group" style="display:none">
+					<label class="col-md-4 control-label" for="retDate">Returning</label>
+					<div class="col-md-3">
+						<input id="retDate" name="retDate" type="date" class="form-control input-md" required>
 					</div>
 				</div>
 
@@ -148,7 +169,7 @@
 						<button id="search" name="search" class="btn btn-warning">Search</button>
 					</div>
 				</div>
-
+			</div>
 			</fieldset>
 		</form>
 	</div>
