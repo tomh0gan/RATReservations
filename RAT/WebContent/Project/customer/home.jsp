@@ -177,15 +177,77 @@
 						</select>
 					</div>
 				</div>
+			</div>
+				<!-- MULTI -->
+				<div id="multiple_destinations_div" style="display:none">
+<% 
+				for(int i = 2; i < 5; i++) { 
+%>					
+				<div class="well">
+					<legend><h4><b>Flight <%= i %></b></h4></legend>
+					
+					<!-- MULT DEPATURE AIRPORT -->
+					<div class="form-group">
+					<label class="col-md-4 control-label" for="flyingfrom">Flying from</label>
+					<div class="col-md-5">
+							<select id="flyingfrom<%= i %>" name="flyingfrom<%= i %>" class="form-control">
+							<option value="" style="display:none">Choose Airport</option>
+							<option value="BTL">Berlin Tegel (Berlin, Germany)</option>
+							<option value="COI">Chicago O'Hare International (Chicago, USA)</option>
+							<option value="HJA">Hartsfield-Jackson Atlanta Int (Atlanta, USA)</option>
+							<option value="IIL">Ivato International (Antananarivo, Madagascar)</option>
+							<option value="JFK">John F. Kennedy International (New York, USA)</option>
+							<option value="LAI">Los Angeles International (Los Angeles, USA)</option>
+							<option value="LGA">LaGuardia (New York, USA)</option>
+							<option value="LNH">London Heathrow (London, United Kingdom)</option>
+							<option value="LNI">Logan International (Boston, USA)</option>
+							<option value="SFI">San Francisco International (San Francisco, USA)</option>
+							<option value="TYI">Tokyo International (Tokyo, Japan)</option>
+							</select>
+						</div>
+					</div>
+					
+					<!-- MULT ARRIVAL AIRPORT -->
+					<div class="form-group">
+					<label class="col-md-4 control-label" for="flyingto">Flying to</label>
+						<div class="col-md-5">
+							<select id="flyingto<%= i %>" name="flyingto<%= i %>" class="form-control">
+							<option value="" style="display:none">Choose Airport</option>
+							<option value="BTL">Berlin Tegel (Berlin, Germany)</option>
+							<option value="COI">Chicago O'Hare International (Chicago, USA)</option>
+							<option value="HJA">Hartsfield-Jackson Atlanta Int (Atlanta, USA)</option>
+							<option value="IIL">Ivato International (Antananarivo, Madagascar)</option>
+							<option value="JFK">John F. Kennedy International (New York, USA)</option>
+							<option value="LAI">Los Angeles International (Los Angeles, USA)</option>
+							<option value="LGA">LaGuardia (New York, USA)</option>
+							<option value="LNH">London Heathrow (London, United Kingdom)</option>
+							<option value="LNI">Logan International (Boston, USA)</option>
+							<option value="SFI">San Francisco International (San Francisco, USA)</option>
+							<option value="TYI">Tokyo International (Tokyo, Japan)</option></select>
+						</div>
+					</div>
+					
+					<!-- MULT DEPARTING -->
+					<div class="form-group">
+					<label class="col-md-4 control-label" for="depDate">Departing</label>
+					<div class="col-md-3">
+						<input id="depDate<%= i %>" name="depDate<%= i %>" type="date" class="form-control input-md" min="<%=((new SimpleDateFormat("yyyy-MM-dd")).format((new GregorianCalendar()).getTime()))%>">
+					</div>
+				</div>
+				</div>
+<%
+				}
+%>		
+				</div>
 				
 				<!-- SEARCH BUTTON -->
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="search"></label>
 					<div class="col-md-4">
-						<button id="search" name="search" class="btn btn-warning">Search</button>
+						<button id="search" name="search" class="btn btn-block btn-warning">Search</button>
 					</div>
 				</div>
-			</div>
+			<br><br><br><br><br><br><br>
 			</fieldset>
 		</form>
 	</div>
