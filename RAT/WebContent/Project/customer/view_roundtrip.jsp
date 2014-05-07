@@ -48,6 +48,7 @@
 	<br>
 	<br>
 	<!-- START PAGE -->
+	<form action="passengers_mult_info.jsp?type=roundtrip" method=post>
 <%
 	DecimalFormat df = new DecimalFormat("#.00");
 	ArrayList<Res>dep_results = (ArrayList<Res>)session.getAttribute("dep_results");
@@ -68,7 +69,7 @@
 			<th>Arrival</th>
 			<th>Stops</th>
 			<th>Price</th>
-			<th> </th>
+			<th>Select</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -88,7 +89,14 @@
 				</td>
 				<td><%=dep_results.get(dep_index).getPassengers().get(0).getLegs().size()-1 %></td>
 				<td><%= "$" + df.format(dep_results.get(dep_index).getCost()) %></td>
-				<td><b>RADIO BUTTON?</b></td>
+				<td><%
+					if(dep_index==0){
+						%><input type="radio" name=depIndex value="<%= dep_index %>" checked /><%
+					}
+					else{
+						%><input type="radio" name=depIndex value="<%= dep_index %>" /><%
+					}
+				%></td>
 			</tr>
 <%
 				dep_index++;
@@ -112,7 +120,7 @@
 			<th>Arrival</th>
 			<th>Stops</th>
 			<th>Price</th>
-			<th> </th>
+			<th>Select</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -132,7 +140,14 @@
 				</td>
 				<td><%=ret_results.get(ret_index).getPassengers().get(0).getLegs().size()-1 %></td>
 				<td><%= "$" + df.format(ret_results.get(ret_index).getCost()) %></td>
-				<td><b>RADIO BUTTON?</b></td>
+				<td><%
+					if(ret_index==0){
+						%><input type="radio" name=retIndex value="<%= ret_index %>" checked /><%
+					}
+					else{
+						%><input type="radio" name=retIndex value="<%= ret_index %>" /><%
+					}
+				%></td>
 			</tr>
 <%
 				ret_index++;
@@ -143,8 +158,9 @@
 </div>
 <div class="container">
 	<br><br><br><br>
-	<p class="text-right"><a href="#" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-check"></span> Select</a></p>
+	<p class="text-right"><button type=submit class="btn btn-sm btn-success"><span class="glyphicon glyphicon-check"></span> Select</button></p>
 </div>
+</form>
 	<!-- END PAGE -->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
