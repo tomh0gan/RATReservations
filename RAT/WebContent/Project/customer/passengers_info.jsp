@@ -71,7 +71,7 @@
 		conn = java.sql.DriverManager.getConnection(mysURL,sysprops);
 	%>
 	<div class="container">
-		<form action="confirm_checkout.jsp" class="form-horizontal" method="post">
+		<form action="confirm_reservation.jsp" class="form-horizontal" method="post">
 			<fieldset>
 				<legend>Checkout</legend>
 				<%
@@ -120,6 +120,7 @@
 							<label class="col-md-4 control-label" for="passSeatNum<%= i %><%= j %>">Seat Number: </label>
 							<div class="col-md-5">
 								<span class="help-block" id="passSeatNum<%= i %><%= j %>" ><%= ++maxSeat + " - " + resLegs.get(i).getLClass().toUpperCase() %></span>
+								<% resLegs.get(i).setSeatNum(maxSeat); %>
 								<input type=hidden name="passSeatNum<%= i %><%= j %>" value="<%= maxSeat%>"  />	
 							</div>
 						</div>
@@ -155,6 +156,7 @@
 					<div class="form-group">
 						<%
 						double bookingFee = selected.getCost() * 0.1;
+						selected.setBookingFee(bookingFee);
 						%>
 						<label class="col-md-4 control-label" for="totalFare">Total Fare: </label>
 						<div class="col-md-5">
@@ -163,6 +165,7 @@
 						<label class="col-md-4 control-label" for="bookingFee">Booking Fee: </label>
 						<div class="col-md-5">
 							<span class="help-block" name="bookingFee"><%= "$" + df.format(bookingFee) %></span>
+							<input type=hidden name=bookingFee value=<%= bookingFee %> />
 						</div>
 						<label class="col-md-4 control-label" for="total">Total: </label>
 						<div class="col-md-5">
@@ -181,7 +184,8 @@
 		</form>	
 	</div>
 	
-<%		
+<%	
+	session.setAttribute("selectedFlight", selected);
 	} catch(Exception e){
 		System.out.println(e);
 	} finally {
