@@ -17,4 +17,12 @@ public class Res_Passenger {
 	public ArrayList<Res_Leg> getLegs() { return legs; }
 	public void setLegs(ArrayList<Res_Leg> legs) { this.legs = legs; }
 	
+	public double getCost() {
+		double cost = 0;
+		for(Res_Leg l : legs){
+			cost += l.getCost();
+		}
+		return cost;
+	}
+	
 }

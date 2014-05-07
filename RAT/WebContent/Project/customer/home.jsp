@@ -145,7 +145,19 @@
 						<input id="retDate" name="retDate" type="date" class="form-control input-md">
 					</div>
 				</div>
-
+				
+				<!-- CLASS -->
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="class">Class</label>
+					<div class="col-md-2">
+						<select id="class" name="class" class="form-control">
+							<option value="economy">Economy</option>
+							<option value="business">Business</option>
+							<option value="first">First</option>
+						</select>
+					</div>
+				</div>
+	
 				<!-- NUM OF PASSENGERS -->
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="numOfPassengers">Passengers</label>

@@ -100,6 +100,7 @@
 <%
 	String flightType = request.getParameter("flightType");
 	int numOfPassengers = Integer.parseInt(request.getParameter("numOfPassengers"));
+	System.out.println(request.getParameter("class"));
 	
 	if(flightType.equals("oneway")){
 		String depAirportId = request.getParameter("depAirportId");
@@ -108,7 +109,24 @@
 		ArrayList<ArrayList<Leg>> paths = findPaths(depAirportId, arrAirportId, depDate);
 		if(paths.isEmpty()){
 			response.sendRedirect("home.jsp");
-		}else{
+		}else{ 
+			ArrayList<Res> results = new ArrayList<Res>();
+			
+			int pathNum = 0;
+			for(ArrayList<Leg> path : paths){
+				Res r = new Res(pathNum);
+				double cost = 0;
+				boolean correctClass = true;
+				
+				for(int i = 1; i <= numOfPassengers; i++){
+					Res_Passenger rp = new Res_Passenger(i);
+					for(Leg l : path){
+
+					}
+				}
+			}
+			
+			/*
 			ArrayList<Res> results = new ArrayList<Res>();
 			
 			for(ArrayList<Leg> path : paths){
@@ -129,7 +147,9 @@
 			}
 			
 			session.setAttribute("results", results);
-			response.sendRedirect("view_oneway.jsp");
+			response.sendRedirect("view_oneway.jsp"); */
+			
+			
 		}
 	}
 	else if(flightType.equals("roundtrip")){
