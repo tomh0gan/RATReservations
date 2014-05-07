@@ -30,6 +30,9 @@
 		  padding-top: 19px;
 		  border-top: 1px solid #e5e5e5;
 		}
+		button{
+			width: 350px;
+		}
 		
     </style>
 </head>
@@ -37,6 +40,7 @@
   <div class="container">
 	<div class="header">
         <ul class="nav nav-pills pull-right">
+          <li><a href="employee_help.jsp?help=navEmpHomScr">Help</a></li>
           <li><a href="../logout.jsp">Logout</a></li>
         </ul>
         <h3>RAT Reservations - Employee</h3>
