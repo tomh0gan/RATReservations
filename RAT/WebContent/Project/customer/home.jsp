@@ -82,7 +82,7 @@
 					</div>
 				</div>
 				
-			<div class="well">
+			<div class="well">				
 				<!-- DEPATURE AIRPORT -->
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="depAirportId">Flying
@@ -126,6 +126,7 @@
 							<option value="SFI">SFI</option>
 							<option value="TYI">TYI</option>
 						</select>
+						<span class="redText">${depArrSameError}</span>
 					</div>
 				</div>
 

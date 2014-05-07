@@ -107,6 +107,13 @@
 		String arrAirportId = request.getParameter("arrAirportId");
 		String depDate = request.getParameter("depDate");
 		
+		if(depAirportId.equals(arrAirportId)){
+			request.setAttribute("depArrSameError", "Departure and arrival airports must be different.");
+			RequestDispatcher rs = request.getRequestDispatcher("home.jsp");
+			rs.forward(request, response);
+			return;
+		}
+		
 		ArrayList<ArrayList<Leg>> paths = findPaths(depAirportId, arrAirportId, depDate);
 		
 		if(paths.isEmpty()){
