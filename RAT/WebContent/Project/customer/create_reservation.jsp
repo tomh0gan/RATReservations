@@ -74,7 +74,12 @@
 		}
 		resrStmt.executeBatch();
 		
-		response.sendRedirect("view_reservations.jsp");
+		if(request.getParameter("bid").equals("true")){
+			response.sendRedirect("view_bids.jsp");
+		}
+		else{
+			response.sendRedirect("view_reservations.jsp");	
+		}
 		
 		
 	} catch(Exception e){

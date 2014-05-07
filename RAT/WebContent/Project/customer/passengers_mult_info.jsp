@@ -16,6 +16,17 @@
 			}	
 		}
 	}
+	
+	function updateForm(way){
+		if(way == "bid"){
+			document.infoForm.action='make_bid_mult.jsp';
+			return true;
+		}
+		else{
+			document.infoForm.action='confirm_mult_reservation.jsp';
+			return true;
+		}
+	}
 </script>
 <!-- END SCRIPT --> 
 </head>
@@ -108,7 +119,7 @@
 		conn = java.sql.DriverManager.getConnection(mysURL,sysprops);
 	%>
 	<div class="container">
-		<form action="confirm_mult_reservation.jsp" class="form-horizontal" method="post">
+		<form name=infoForm action="confirm_mult_reservation.jsp" class="form-horizontal" method="post">
 			<fieldset>
 				<legend>Checkout</legend>
 				<div class="container">
@@ -234,7 +245,8 @@
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="buy"></label>
 					<div class="col-md-8">
-						<button type=submit id="buy" name="buy" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-ok"></span> Continue </button>
+						<button type=submit id="buy" name="buy" class="btn btn-primary btn-lg" onclick="return updateForm('buy');"><span class="glyphicon glyphicon-ok"></span> Buy </button>&nbsp;&nbsp;
+						<button type="submit" id="bid" name="bid" class="btn btn-info btn-lg" onclick="return updateForm('bid');"><span class="glyphicon glyphicon-thumbs-up"></span>Bid</button>&nbsp;&nbsp;
 						<button type="reset" id="buy" name="buy" class="btn btn-danger btn-lg" onclick="window.history.back()"> Back </button>
 					</div>
 				</div>

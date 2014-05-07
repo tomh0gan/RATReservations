@@ -59,22 +59,31 @@
 <%
 	DecimalFormat df = new DecimalFormat("#.00");
 
-	Res res = (Res) session.getAttribute("selectedFlight");
+	ArrayList<Res> res = (ArrayList<Res>) session.getAttribute("selectedFlight");
 	
-	ArrayList<Res_Passenger> passengers = res.getPassengers();
+	ArrayList<Res_Passenger> passengers = res.get(0).getPassengers();
 	ArrayList<Res_Leg> resLegs = passengers.get(0).getLegs();
 			
 	//Enter in the meals
-	for(int i = 0; i < resLegs.size(); i++){
-		for(int j = 0; j < passengers.size(); j++){
-			passengers.get(j).getLegs().get(i).setMeal(request.getParameter("passMeal"+i+""+j));
-		}
+	for(int k = 0; k < res.size(); k++){
+		Res current = res.get(k);
+		for(int i = 0; i < resLegs.size(); i++){
+			for(int j = 0; j < passengers.size(); j++){
+				current.getPassengers().get(j).getLegs().get(i).setMeal(request.getParameter("passMeal"+k+""+i+""+j));
+			}
+		}	
 	}
 	
 	//Enter the names
 	for(int j = 0; j < passengers.size(); j++){
 		passengers.get(j).setPassName(request.getParameter("passName"+j));
 	}
+	
+	//Booking Fee
+	double bookingFee = Double.parseDouble(request.getParameter("bookingFee"));
+	
+	//Total Fare
+	double totalFare = Double.parseDouble(request.getParameter("totalFare"));
 	
 	String mysJDBCDriver = "com.mysql.jdbc.Driver"; 
 	String mysURL = "jdbc:mysql://localhost:3306/rat_schema"; 
@@ -90,7 +99,7 @@
 		
 		conn = java.sql.DriverManager.getConnection(mysURL,sysprops);
 	%>
-	<form action="create_reservation.jsp?bid=true" method=post onsubmit="return checkBid();" >
+	<form action="create_reservation_mult.jsp?bid=true" method=post onsubmit="return checkBid();">
 	<div class="container">
 		<h3>Flight: <%= resLegs.get(0).getL().getDepAirportId() + " " %><span class="glyphicon glyphicon-arrow-right"></span><%= " " +  resLegs.get(resLegs.size()-1).getL().getArrAirportId()%></h3>
 		<h3>Departure: <%= resLegs.get(0).getL().getDepDate() + " At " + resLegs.get(0).getL().getDepTime() %></h3>
@@ -104,16 +113,18 @@
 	<div class="container">
 			<label class="col-md-4 control-label" for="totalFare">Total Fare: </label>
 				<div class="col-md-5">
-					<span class="help-block" ><%= "$" + df.format(res.getCost()) %></span>
+					<span class="help-block" ><%= "$" + df.format(totalFare) %></span>
+					<input type=hidden name=totalFare value=<%= totalFare %> />
 				</div>
 				<label class="col-md-4 control-label" for="bookingFee">Booking Fee: </label>
 				<div class="col-md-5">
-					<span class="help-block"><%= "$" + df.format(res.getBookingFee()) %></span>
+					<span class="help-block"><%= "$" + df.format(bookingFee) %></span>
+					<input type=hidden name=bookingFee value=<%= bookingFee %> />
 				</div>
 				<label class="col-md-4 control-label" for="total">Total: </label>
 				<div class="col-md-5">
-					<span class="help-block"><%= "$" + df.format(res.getBookingFee() + res.getCost()) %></span>
-					<input type=hidden id=total value="<%= res.getBookingFee() + res.getCost() %>" />
+					<span class="help-block"><%= "$" + df.format(bookingFee + totalFare) %></span>
+					<input type=hidden id=total value="<%= bookingFee + totalFare %>" />
 				</div>
 				<label class="col-md-4 control-label" for="bidPrice">Your bid: </label>
 				<div class="col-md-5">
@@ -128,12 +139,11 @@
 		<div class="container">
 			<label class="col-md-4 control-label" for="buy"></label>
 			<div class="col-md-8">
-				<button type=submit id="buy" name="buy" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-ok"></span> Confirm Bid </button>
+				<button type=submit id="buy" name="buy" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-ok"></span> Confirm </button>
 				<button type="reset" id="buy" name="buy" class="btn btn-danger btn-lg" onclick="window.history.back();"><span class="glyphicon glyphicon-remove"></span> Back </button>
 			</div>
 		</div>
-		</form>
-	
+	</form>
 <%		
 	} catch(Exception e){
 		System.out.println(e);

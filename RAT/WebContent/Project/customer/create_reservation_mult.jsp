@@ -13,10 +13,18 @@
 </head>
 <body>
 <%
+
 	ArrayList<Res> resrs = (ArrayList<Res>) session.getAttribute("selectedFlight");
 	
 	ArrayList<Res_Passenger> allPassengers = resrs.get(0).getPassengers();
-	ArrayList<Res_Leg> resLegs = allPassengers.get(0).getLegs();			
+	ArrayList<Res_Leg> resLegs = allPassengers.get(0).getLegs();
+	
+	String bidQuery = "";
+	if(request.getParameter("bid") != null && request.getParameter("bid").equals("true")){
+		String bid = request.getParameter("bidPrice");
+		bidQuery = "INSERT INTO reverse_bid (resrNum, accountNum, bid) VALUES ((SELECT MAX(resrNum) from Reservation), "+session.getAttribute("accountNum")+", "+bid+");";
+		
+	}
 	
 	String mysJDBCDriver = "com.mysql.jdbc.Driver"; 
 	String mysURL = "jdbc:mysql://localhost:3306/rat_schema"; 
@@ -40,6 +48,10 @@
 		String resr = "INSERT INTO Reservation (accountNum, totalFare, bookingFee) VALUES ("+session.getAttribute("accountNum")+", "+request.getParameter("totalFare")+", "+request.getParameter("bookingFee")+");";
 		System.out.println(resr);
 		resrStmt.addBatch(resr);
+		
+		if(request.getParameter("bid").equals("true")){
+			resrStmt.addBatch(bidQuery);
+		}
 		
 		for(int i = 0; i < allPassengers.size(); i++){
 			
@@ -71,7 +83,12 @@
 		}
 		resrStmt.executeBatch();
 		
-		response.sendRedirect("view_reservations.jsp");
+		if(request.getParameter("bid").equals("true")){
+			response.sendRedirect("view_bids.jsp");
+		}
+		else{
+			response.sendRedirect("view_reservations.jsp");	
+		}
 		
 		
 	} catch(Exception e){
