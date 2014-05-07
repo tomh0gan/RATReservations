@@ -1,4 +1,4 @@
-<%@ page import="Flights.*, java.sql.*, java.util.ArrayList" %>
+<%@ page import="Flights.*, java.sql.*, java.text.SimpleDateFormat, java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -96,6 +96,8 @@
 		} finally {try {conn.close();} catch(Exception ee){}}
 		return paths;
 	}
+
+	
 %>
 <%
 	String flightType = request.getParameter("flightType");
@@ -117,7 +119,10 @@
 		ArrayList<ArrayList<Leg>> paths = findPaths(depAirportId, arrAirportId, depDate);
 		
 		if(paths.isEmpty()){
-			response.sendRedirect("home.jsp");
+			request.setAttribute("searchFlightError", "No flights found.");
+			RequestDispatcher rs = request.getRequestDispatcher("home.jsp");
+			rs.forward(request, response);
+			return;
 		}else{ 
 			ArrayList<Res> results = new ArrayList<Res>();
 			
@@ -179,7 +184,10 @@
 			finally {try {conn.close();} catch(Exception ee){}}
 			
 			if(results.isEmpty()){
-				response.sendRedirect("home.jsp");
+				request.setAttribute("searchFlightError", "Flights found, but "+classType+" class not available.");
+				RequestDispatcher rs = request.getRequestDispatcher("home.jsp");
+				rs.forward(request, response);
+				return;
 			}else{
 				session.setAttribute("results", results);
 				response.sendRedirect("view_oneway.jsp"); 
@@ -187,19 +195,40 @@
 		}
 	}
 	else if(flightType.equals("roundtrip")){
-		response.sendRedirect("home.jsp");
-		/*
 		String depAirportId = request.getParameter("depAirportId");
 		String arrAirportId = request.getParameter("arrAirportId");
 		String depDate = request.getParameter("depDate");
-		String retDate = request.getParameter("retDate"); // check if this is null!
+		String retDate = request.getParameter("retDate");
+		
+		if(depAirportId.equals(arrAirportId)){
+			/* ERROR NOT HANDLED; Departure airport and Arrival Airport are the same */
+			response.sendRedirect("home.jsp");
+			return;
+		}
+		if(retDate.isEmpty()){
+			/* ERROR NOT HANDLED; Return date is empty */
+			response.sendRedirect("home.jsp");
+			return;
+		}
+		java.util.Date depDateCompare = new SimpleDateFormat("yyyy-MM-dd").parse(depDate);
+		java.util.Date retDateCompare = new SimpleDateFormat("yyyy-MM-dd").parse(retDate);
+		if(retDateCompare.before(depDateCompare)){
+			/* ERROR NOT HANDLED; Return date is before the departure date */
+			response.sendRedirect("home.jsp");
+			return;
+		}
+		
 		ArrayList<ArrayList<Leg>> dep_paths = findPaths(depAirportId, arrAirportId, depDate);
 		ArrayList<ArrayList<Leg>> ret_paths = findPaths(arrAirportId, depAirportId, retDate);
+		
 		if(dep_paths.isEmpty() || ret_paths.isEmpty()){
+			/* ERROR NOT HANDLED;  There is no depature path or There is no return path*/
 			response.sendRedirect("home.jsp");
+			return;
 		}else{
 			
-		}*/
+		}
+		
 	}
 	else if(flightType.equals("multdest")){
 		response.sendRedirect("home.jsp");
