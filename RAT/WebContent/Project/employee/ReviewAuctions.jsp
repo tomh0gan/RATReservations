@@ -55,15 +55,11 @@
 	<table class="table table-striped">
 		<thead>
             <tr>
+                <th>Reservation Number</th>
                 <th>Account Number</th>
-                <th>Airline Id</th>
-                <th>Flight Number</th>
-                <th>Class</th>
-                <th>Date</th>
-                <th>NYOP</th>
-                <th>Accept</th>
-                <th>Reject</th>
-                
+                <th>Customer Bid</th>
+				<th>Minimum Bid</th>
+
             </tr>
        </thead> 
       <tbody>  
@@ -72,7 +68,8 @@
 		String mysURL = "jdbc:mysql://localhost:3306/rat_schema"; 
      	String mysUserID = "tester"; 
     	String mysPassword = "test";
-        
+    	
+    	
         String stuId = ""+session.getValue("login");
   			java.sql.Connection conn=null;
 			try 
@@ -88,19 +85,18 @@
             
             	java.sql.Statement stmt1=conn.createStatement();
         
-				java.sql.ResultSet rs = stmt1.executeQuery("SELECT * FROM auctions A " +
-															"WHERE A.accepted IS NULL");
+				java.sql.ResultSet rs = stmt1.executeQuery("SELECT * FROM reverse_bid A, reservation R " +
+															"WHERE A.status = 'pending' AND A.resrNum = R.resrNum");
 	
 				 while(rs.next())
-		          {			
+		          {  String s = rs.getString(9);
+					 double i = Double.parseDouble(s) * .8;
 		%>
 		                    <tr>
 		                      <td><%=rs.getString(1)%></td>
 		                      <td><%=rs.getString(2)%></td>
 		                      <td><%=rs.getString(3)%></td>
-		                      <td><%=rs.getString(4)%></td>
-		                      <td><%=rs.getString(5)%></td>
-		                      <td><%=rs.getString(6)%></td>
+							  <td><%=i%></td>
 		                      <td><button type="button" class="btn btn-sm btn-info"  onclick="return acceptBid()">Accept</button></td>
 		                      <td><button type="button" class="btn btn-sm btn-danger"  onclick="return rejectBid()">Reject</button></td> 
 		                                               		
@@ -109,20 +105,29 @@
 <script language="javascript" type="text/javascript">
 function acceptBid(){
 	if (confirm('Are you sure that you want to accept the bid?') == true){
-		window.open('AcceptBid.jsp?accNum=<%=rs.getString(1)%>&airId=<%=rs.getString(2)%>&flightNum=<%=rs.getString(3)%>&classType=<%=rs.getString(4)%>','_self')
+		window.open('AcceptBid.jsp?resrNum=<%=rs.getString(1)%>&accountNum=<%=rs.getString(2)%>','_self')
 	}
+}
+</script>
+
+<script language="javascript" type="text/javascript">
+function minBid(x){
+	var y = parseInt(x);
+	return y*.8
 }
 </script>
 
 <script language="javascript" type="text/javascript">
 function rejectBid(){
 	if (confirm('Are you sure that you want to reject the bid?') == true){
-		window.open('RejectBid.jsp?accNum=<%=rs.getString(1)%>&airId=<%=rs.getString(2)%>&flightNum=<%=rs.getString(3)%>&classType=<%=rs.getString(4)%>','_self')
+		window.open('RejectBid.jsp?resrNum=<%=rs.getString(1)%>&accountNum=<%=rs.getString(2)%>','_self')
 	}
 }
 </script>
 		<%      		
-		        	}
+		        	
+
+        }
 		  			} catch(Exception e)
 					{
 						e.printStackTrace();

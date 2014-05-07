@@ -1,8 +1,6 @@
 <%
-		String accNum = request.getParameter("accNum");
-		String airlineId = request.getParameter("airId");
-		String flightNum = request.getParameter("flightNum");
-		String classType = request.getParameter("classType");
+		String resrNum = request.getParameter("resrNum");
+		String accountNum = request.getParameter("accountNum");
 		String mysJDBCDriver = "com.mysql.jdbc.Driver"; 
 		String mysURL = "jdbc:mysql://localhost:3306/rat_schema"; 
 		String mysUserID = "tester"; 
@@ -32,7 +30,7 @@
             	System.out.println("Connected successfully to database using JConnect");
             
             	java.sql.Statement stmt1=conn.createStatement();
-				stmt1.executeUpdate("UPDATE Auctions SET accepted = '1' WHERE accountNum = '"+accNum+"' AND airlineId = '"+airlineId+"' AND flightNum = '"+flightNum+"' AND class = '"+classType+"'");
+				stmt1.executeUpdate("UPDATE reverse_bid SET status = 'accepted' WHERE resrNum = '"+resrNum+"' AND accountNum = '"+accountNum+"'");
 			} catch(Exception e)
 			{
 				e.printStackTrace();

@@ -48,7 +48,7 @@
 	<button type="button" class="btn btn-lg btn-primary" onclick="window.open('EmployeeViewCustomers.jsp','_self');" />View Customers</button>
 	<br />
 	<br />
-	<button type="button" class="btn btn-lg btn-primary" onclick="window.open('Jsp file here','_self');" />Record A Reservation</button>
+	<button type="button" class="btn btn-lg btn-primary" onclick="window.open('RecordReservation.jsp','_self');" />Record A Reservation</button>
 	<br />
 	<br />
 	<button type="button" class="btn btn-lg btn-primary" onclick="window.open('EmployeeMailingList.jsp','_self');" />Produce Mailing List</button>
