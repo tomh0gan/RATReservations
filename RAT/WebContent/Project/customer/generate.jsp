@@ -1,4 +1,4 @@
-<%@ page import="Flights.*, java.sql.*, java.text.SimpleDateFormat, java.util.ArrayList" %>
+<%@ page import="Flights.*, java.sql.*, java.text.SimpleDateFormat, java.util.ArrayList, java.util.Calendar" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -174,9 +174,16 @@
 		String arrAirportId = request.getParameter("arrAirportId");		// arrival airport
 		String depDate = request.getParameter("depDate");				// departure date
 		
+		if(depDate.isEmpty()){
+			/* ERROR NOT HANDLED; depature date is empty */
+			System.out.println("O1"); // for debuging 
+			response.sendRedirect("home.jsp");
+			return;
+		}
+		
 		if(depAirportId.equals(arrAirportId)){
 			/* ERROR NOT HANDLED; departure airport and arrival airport are the same */
-			System.out.println("O1"); // for debuging 
+			System.out.println("O2"); // for debuging 
 			response.sendRedirect("home.jsp");
 			return;
 		}
@@ -186,14 +193,14 @@
 		
 		if(paths.isEmpty()){
 			/* ERROR NOT HANDLED;  there is no path path */
-			System.out.println("O2"); // for debuging 
+			System.out.println("O3"); // for debuging 
 			response.sendRedirect("home.jsp");
 			return;
 		}else{
 			ArrayList<Res> results = generateReservations(paths, flightType, classType, numOfPassengers);
 			if(results.isEmpty()){
 				/* ERROR NOT HANDLED;  flights were found, but not in the requested class */
-				System.out.println("O3"); // for debuging 
+				System.out.println("O4"); // for debuging 
 				response.sendRedirect("home.jsp");
 				return;
 			}else{
@@ -216,8 +223,8 @@
 			response.sendRedirect("home.jsp");
 			return;
 		}
-		if(retDate.isEmpty()){
-			/* ERROR NOT HANDLED; return date is empty */
+		if(depDate.isEmpty() || retDate.isEmpty()){
+			/* ERROR NOT HANDLED; depart date or return date is empty */
 			System.out.println("R2"); // for debuging 
 			response.sendRedirect("home.jsp");
 			return;
@@ -334,7 +341,59 @@
 		}
 	}
 	else if(flightType.equals("flex")){
-		System.out.println("hey");
+		String depAirportId = request.getParameter("depAirportId");
+		String arrAirportId = request.getParameter("arrAirportId");
+		String flexDateStart = request.getParameter("flexDateStart");
+		String flexDateEnd = request.getParameter("flexDateEnd");
+
+		if(flexDateStart.isEmpty() || flexDateEnd.isEmpty()){
+			/* ERROR NOT HANDLED; flex start or flex end date is empty */
+			System.out.println("F1"); // for debuging 
+			response.sendRedirect("home.jsp");
+			return;
+		}
+		
+		Calendar startCal = Calendar.getInstance();
+		Calendar endCal = Calendar.getInstance();
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	    startCal.setTime(sdf.parse(flexDateStart));
+	    endCal.setTime(sdf.parse(flexDateEnd));
+
+		if(endCal.before(startCal)){
+			/* ERROR NOT HANDLED; flex end date is before flex start date */
+			System.out.println("F2"); // for debuging 
+			response.sendRedirect("home.jsp");
+			return;
+		}
+		
+		
+		
+		ArrayList<ArrayList<Res>> flexResults = new ArrayList<ArrayList<Res>>();
+		
+		while(startCal.before(endCal)){
+			ArrayList<ArrayList<Leg>> paths = findPaths(depAirportId, arrAirportId, sdf.format(startCal.getTime()));
+			System.out.println(startCal.getTime());
+			if(!paths.isEmpty()){
+				ArrayList<Res> results = generateReservations(paths, flightType, classType, numOfPassengers);
+				if(!results.isEmpty()){
+					flexResults.add(results);
+				}
+			}
+			
+			startCal.add(Calendar.DATE, 1);
+		}
+		
+		if(flexResults.isEmpty()){
+			/* ERROR NOT HANDLED;  no flights were found */
+			response.sendRedirect("home.jsp");
+			System.out.println("F3"); // for debuging 
+			return;
+		}
+		else {
+			// otherwise, send it to the mult flight page
+			session.setAttribute("flexResults", flexResults);
+			response.sendRedirect("view_flex.jsp");
+		}
 	}
 	
 %>
