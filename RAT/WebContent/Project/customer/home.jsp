@@ -11,15 +11,31 @@
 	function dtable(){
 		if(document.getElementById('type-0').checked){
 			document.getElementById('returning_div').style.display = "none";
+			document.getElementById('flight1_div').style.display = "none";
 			document.getElementById('multiple_destinations_div').style.display = "none";
+			document.getElementById('departing_div').style.display = "block";
+			document.getElementById('flex_div').style.display = "none";
 		}
 		if(document.getElementById('type-1').checked){
 			document.getElementById('returning_div').style.display = "block";
+			document.getElementById('flight1_div').style.display = "none";
 			document.getElementById('multiple_destinations_div').style.display = "none";
+			document.getElementById('departing_div').style.display = "block";
+			document.getElementById('flex_div').style.display = "none";
 		}
 		if(document.getElementById('type-2').checked){
 			document.getElementById('returning_div').style.display = "none";
+			document.getElementById('flight1_div').style.display = "block";
 			document.getElementById('multiple_destinations_div').style.display = "block";
+			document.getElementById('departing_div').style.display = "block";
+			document.getElementById('flex_div').style.display = "none";
+		}
+		if(document.getElementById('type-3').checked){
+			document.getElementById('returning_div').style.display = "none";
+			document.getElementById('flight1_div').style.display = "none";
+			document.getElementById('multiple_destinations_div').style.display = "none";
+			document.getElementById('departing_div').style.display = "none";
+			document.getElementById('flex_div').style.display = "block";
 		}
 	}
 	
@@ -76,22 +92,28 @@
 				<!-- SEARCH TYPE -->
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="flightType"></label>
-					<div class="col-md-4">
+					<div class="col-md-6">
 						<label class="radio-inline" for="type-0"> 
-							<input type="radio" name="flightType" id="type-0" value="oneway" onclick="dtable()" checked> One way
+							<input type="radio" name="flightType" id="type-0" value="oneway" onclick="dtable()" checked> One-Way
 						</label> 
 						<label class="radio-inline" for="type-1"> 
-							<input type="radio" name="flightType" id="type-1" value="roundtrip" onclick="dtable()"> Round-trip
+							<input type="radio" name="flightType" id="type-1" value="roundtrip" onclick="dtable()"> Round-Trip
 						</label> 
 						<label class="radio-inline" for="type-2"> 
-							<input type="radio" name="flightType" id="type-2" value="multdest" onclick="dtable()"> Multiple destinations
+							<input type="radio" name="flightType" id="type-2" value="multdest" onclick="dtable()"> Multi-City
+						</label>
+						<label class="radio-inline" for="type-3"> 
+							<input type="radio" name="flightType" id="type-3" value="flex" onclick="dtable()"> Flexible Date
 						</label>
 					</div>
 				</div>
 
-
-
-			<div class="well">				
+			<div class="well">	
+			
+			<div id="flight1_div" style="display:none">
+			<legend><h4><b>Flight 1</b></h4></legend>
+			</div>			
+			
 				<!-- DEPATURE AIRPORT -->
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="depAirportId">Flying from</label>
@@ -135,11 +157,29 @@
 				</div>
 
 				<!-- DEPARTING -->
-				<div class="form-group">
+				<div id="departing_div" class="form-group">
 					<label class="col-md-4 control-label" for="depDate">Departing</label>
 					<div class="col-md-3">
 						<input id="depDate" name="depDate" type="date" class="form-control input-md" min="<%=((new SimpleDateFormat("yyyy-MM-dd")).format((new GregorianCalendar()).getTime()))%>" required>
 					</div>
+				</div>
+				
+				<!-- FLEX START -->
+				<div id="flex_div" style="display:none">
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="flexDateStart">Between</label>
+					<div class="col-md-3">
+						<input id="flexDateStart" name="flexDateStart" type="date" class="form-control input-md" min="<%=((new SimpleDateFormat("yyyy-MM-dd")).format((new GregorianCalendar()).getTime()))%>">
+					</div>
+				</div>
+				
+				<!-- FLEX END -->
+				<div class="form-group" >
+					<label class="col-md-4 control-label" for="flexDateEnd">and</label>
+					<div class="col-md-3">
+						<input id="flexDateEnd" name="flexDateEnd" type="date" class="form-control input-md" min="<%=((new SimpleDateFormat("yyyy-MM-dd")).format((new GregorianCalendar()).getTime()))%>">
+					</div>
+				</div>
 				</div>
 				
 				<!-- RETURNING -->

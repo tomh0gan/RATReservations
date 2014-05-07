@@ -328,6 +328,7 @@
 			session.setAttribute("results", multResults.get(0));
 			response.sendRedirect("view_oneway.jsp"); 
 		} else {
+			// otherwise, send it to the mult flight page
 			session.setAttribute("multResults", multResults);
 			response.sendRedirect("view_multdest.jsp");
 		}
