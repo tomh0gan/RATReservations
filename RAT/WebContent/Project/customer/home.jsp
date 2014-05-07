@@ -50,7 +50,7 @@
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="#">Find Flights</a></li>
 						<li><a href="view_reservations.jsp">View Reservations</a></li>
-						<li><a href="#">View Bids</a></li>
+						<li><a href="view_bids.jsp">View Bids</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="get_account_info.jsp">My Account (<%=session.getAttribute("username")%>)
@@ -97,18 +97,18 @@
 					<label class="col-md-4 control-label" for="depAirportId">Flying from</label>
 					<div class="col-md-6">
 						<select id="depAirportId" name="depAirportId" class="form-control" required>
-							<option value="">pick departure airport</option>
-							<option value="BTL">BTL</option>
-							<option value="COI">COI</option>
-							<option value="HJA">HJA</option>
-							<option value="IIL">IIL</option>
-							<option value="JFK">JFK</option>
-							<option value="LAI">LAI</option>
-							<option value="LGA">LGA</option>
-							<option value="LNH">LNH</option>
-							<option value="LNI">LNI</option>
-							<option value="SFI">SFI</option>
-							<option value="TYI">TYI</option>
+							<option value="" style="display:none">Choose Airport</option>
+							<option value="BTL">Berlin Tegel (Berlin, Germany)</option>
+							<option value="COI">Chicago O'Hare International (Chicago, USA)</option>
+							<option value="HJA">Hartsfield-Jackson Atlanta Int (Atlanta, USA)</option>
+							<option value="IIL">Ivato International (Antananarivo, Madagascar)</option>
+							<option value="JFK">John F. Kennedy International (New York, USA)</option>
+							<option value="LAI">Los Angeles International (Los Angeles, USA)</option>
+							<option value="LGA">LaGuardia (New York, USA)</option>
+							<option value="LNH">London Heathrow (London, United Kingdom)</option>
+							<option value="LNI">Logan International (Boston, USA)</option>
+							<option value="SFI">San Francisco International (San Francisco, USA)</option>
+							<option value="TYI">Tokyo International (Tokyo, Japan)</option>
 						</select>
 					</div>
 				</div>
@@ -118,18 +118,18 @@
 					<label class="col-md-4 control-label" for="arrAirportId">Flying to</label>
 					<div class="col-md-6">
 						<select id="arrAirportId" name="arrAirportId" class="form-control" required>
-							<option value="">pick arrival airport</option>
-							<option value="BTL">BTL</option>
-							<option value="COI">COI</option>
-							<option value="HJA">HJA</option>
-							<option value="IIL">IIL</option>
-							<option value="JFK">JFK</option>
-							<option value="LAI">LAI</option>
-							<option value="LGA">LGA</option>
-							<option value="LNH">LNH</option>
-							<option value="LNI">LNI</option>
-							<option value="SFI">SFI</option>
-							<option value="TYI">TYI</option>
+							<option value="" style="display:none">Choose Airport</option>
+							<option value="BTL">Berlin Tegel (Berlin, Germany)</option>
+							<option value="COI">Chicago O'Hare International (Chicago, USA)</option>
+							<option value="HJA">Hartsfield-Jackson Atlanta Int (Atlanta, USA)</option>
+							<option value="IIL">Ivato International (Antananarivo, Madagascar)</option>
+							<option value="JFK">John F. Kennedy International (New York, USA)</option>
+							<option value="LAI">Los Angeles International (Los Angeles, USA)</option>
+							<option value="LGA">LaGuardia (New York, USA)</option>
+							<option value="LNH">London Heathrow (London, United Kingdom)</option>
+							<option value="LNI">Logan International (Boston, USA)</option>
+							<option value="SFI">San Francisco International (San Francisco, USA)</option>
+							<option value="TYI">Tokyo International (Tokyo, Japan)</option>
 						</select>
 					</div>
 				</div>

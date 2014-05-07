@@ -1,3 +1,4 @@
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +6,7 @@
 <title>RAT - View Bids</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
 	 <div class="container">
@@ -35,6 +37,8 @@
      </div>
 	<br>
 <%
+	String resrNum = request.getParameter("resrNum");
+
 	String mysJDBCDriver = "com.mysql.jdbc.Driver"; 
 	String mysURL = "jdbc:mysql://localhost:3306/rat_schema"; 
 	String mysUserID = "tester"; 
@@ -49,41 +53,61 @@
     
         conn=java.sql.DriverManager.getConnection(mysURL,sysprops);
         java.sql.Statement stmt=conn.createStatement();
-
-        java.sql.ResultSet rs = stmt.executeQuery("SELECT resrCreated, bid, reverse_bid.resrNum, status" + 
-        								" FROM reservation JOIN reverse_bid on reservation.resrNum = reverse_bid.resrNum" +
-        								" AND reverse_bid.accountNum = "+session.getAttribute("accountNum")+";");
+		
+        ArrayList<String> passengers = new ArrayList<String>();
+        ArrayList<String> names = new ArrayList<String>();
+        java.sql.ResultSet rs = stmt.executeQuery("SELECT DISTINCT passengerId, name FROM reservation_passengers WHERE resrNum="+resrNum+";");
+        while(rs.next()){
+        	passengers.add(rs.getString(1));
+        	names.add(rs.getString(2));
+        }
+        for(int i = 0; i < passengers.size(); i++){
 %>
-	<div class="container">
-		<legend>Bids</legend>
-		<div class="well">
-			<table class="table table-striped">
-				<thead>
-					<tr>
-					<th>Reservation Date</th>
-					<th>Bid</th>
-					<th>View</th>
-					<th>Status</th>
-					</tr>
-				</thead>
-				<tbody>
-<% 
-				while(rs.next()){
-%>
-					<tr>
-					<td><%=rs.getString(1)%></td>
-					<td><%=rs.getString(2)%></td>
-					<td><button type="button" class="btn btn-sm btn-primary" onclick="window.open('customer_bid.jsp?resrNum=<%=rs.getString(3) %>', '_self')" >View</button></td>
-					<td><%=rs.getString(4)%></td>
-					</tr>
-<%
-				}
-%>
-				</tbody>
-			</table>
-		</div>
-	</div>
-<%
+        	<div class="container">
+        		<legend>Passenger <%= i+1 %>: <%= names.get(i) %></legend>
+        		<div class="well">
+        			<table class="table table-striped">
+        				<thead>
+        					<tr>
+	        					<th>AirlineId</th>
+	        					<th>Flight Number</th>
+	        					<th>Leg Number</th>
+	        					<th>Departing Airport</th>
+	        					<th>Departure Time</th>
+	        					<th>Arriving Airport</th>
+	        					<th>Arrival Time</th>
+	        					<th>Class</th>
+        					</tr>
+        				</thead>
+        				<tbody>
+						<% 
+						java.sql.Statement stmt2=conn.createStatement();
+						java.sql.ResultSet rs2 = stmt2.executeQuery("SELECT L.airlineId, L.flightNum, L.legNum, L.depAirportId, L.depDate, L.depTime, L.arrAirportId, L.arrDate, L.arrTime, R.class"
+																  + " FROM leg L, reservation_legs R"
+																  + " WHERE R.resrNum="+resrNum+" AND R.passengerId="+passengers.get(i)+" AND R.airlineId=L.airlineId AND R.flightNum=L.flightNum AND R.legNum=L.legNum AND R.depDate=L.depDate AND R.depTime=L.depTime;");
+						
+						
+        				while(rs2.next()){
+						%>
+        					<tr>
+        						<td><%= rs2.getString(1) %></<td>
+	        					<td><%= rs2.getString(2) %></td>
+	        					<td><%= rs2.getString(3) %></td>
+	        					<td><%= rs2.getString(4) %></td>
+	        					<td><%= rs2.getString(5) + " AT " + rs2.getString(6) %></td>
+	        					<td><%= rs2.getString(7) %></td>
+	        					<td><%= rs2.getString(8) + "AT" + rs2.getString(9)%></td>
+	        					<td><%= rs2.getString(10) %></td>
+        					</tr>
+						<%
+        				}
+						%>
+        				</tbody>
+        			</table>
+        		</div>
+        	</div>
+<%	
+        }
 	} catch(Exception e){
 		out.print(e.toString());
 	}

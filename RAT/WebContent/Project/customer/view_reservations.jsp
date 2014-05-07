@@ -53,7 +53,8 @@
         java.sql.ResultSet rs = stmt.executeQuery("SELECT R.resrCreated, R.totalFare, R.resrNum FROM Reservation R"
 			    							   + " WHERE EXISTS (SELECT * FROM reservation_legs S"
 			   								   + " WHERE R.ResrNum = S.ResrNum AND concat(S.depDate,' ',S.depTime) > NOW())"
-			   								   + " AND R.AccountNum="+session.getAttribute("accountNum")+";");
+			   								   + " AND R.AccountNum="+session.getAttribute("accountNum")
+			   								   + " AND r.resrNum NOT IN (SELECT B.resrNum FROM reverse_bid B);");
 %>
 	<div class="container">
 		<legend>Current Reservations</legend>
@@ -83,10 +84,11 @@
 		</div>
 	</div>
 <%
-		rs = stmt.executeQuery("SELECT R.resrCreated, R.totalFare, R.resrNum FROM Reservation R"
-						    + " WHERE EXISTS (SELECT * FROM reservation_legs S"
-						    + " WHERE R.ResrNum = S.ResrNum AND concat(S.depDate,' ',S.depTime) < NOW())"
-						    + " AND R.AccountNum="+session.getAttribute("accountNum")+";");
+			rs = stmt.executeQuery("SELECT R.resrCreated, R.totalFare, R.resrNum FROM Reservation R"
+		  		 + " WHERE EXISTS (SELECT * FROM reservation_legs S"
+		  		 + " WHERE R.ResrNum = S.ResrNum AND concat(S.depDate,' ',S.depTime) <= NOW())"
+		   		 + " AND R.AccountNum="+session.getAttribute("accountNum")
+		   		 + " AND r.resrNum NOT IN (SELECT B.resrNum FROM reverse_bid B);");
 %>
 	<div class="container">
 		<legend>Reservation History</legend>
