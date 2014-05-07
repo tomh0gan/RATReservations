@@ -4,6 +4,7 @@ public class Res_Leg {
 	private Leg l;
 	private String lClass;
 	private String lType;
+	private String meal;
 	private int seatNum;
 	private double cost;
 	
@@ -28,5 +29,8 @@ public class Res_Leg {
 
 	public double getCost() { return cost; }
 	public void setCost(double cost) { this.cost = cost; }
+	
+	public String getMeal(){ return meal; }
+	public void setMeal(String meal){ this.meal = meal; }
 	
 }

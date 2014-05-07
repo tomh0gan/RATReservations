@@ -52,6 +52,7 @@
 
 	ArrayList<Res> results = (ArrayList<Res>)session.getAttribute("results");
 	Res selected = results.get(Integer.parseInt(request.getParameter("index")));
+	session.setAttribute("selectedFlight", selected);
 	
 	ArrayList<Res_Passenger> passengers = selected.getPassengers();
 	ArrayList<Res_Leg> resLegs = passengers.get(0).getLegs();
@@ -71,7 +72,7 @@
 		conn = java.sql.DriverManager.getConnection(mysURL,sysprops);
 	%>
 	<div class="container">
-		<form action="confirm_checkout.jsp" class="form-horizontal" method="post">
+		<form action="confirm_reservation.jsp" class="form-horizontal" method="post">
 			<fieldset>
 				<legend>Checkout</legend>
 				<%
@@ -120,6 +121,7 @@
 							<label class="col-md-4 control-label" for="passSeatNum<%= i %><%= j %>">Seat Number: </label>
 							<div class="col-md-5">
 								<span class="help-block" id="passSeatNum<%= i %><%= j %>" ><%= ++maxSeat + " - " + resLegs.get(i).getLClass().toUpperCase() %></span>
+								<% resLegs.get(i).setSeatNum(maxSeat); %>
 								<input type=hidden name="passSeatNum<%= i %><%= j %>" value="<%= maxSeat%>"  />	
 							</div>
 						</div>
@@ -163,6 +165,7 @@
 						<label class="col-md-4 control-label" for="bookingFee">Booking Fee: </label>
 						<div class="col-md-5">
 							<span class="help-block" name="bookingFee"><%= "$" + df.format(bookingFee) %></span>
+							<input type=hidden name=bookingFee value=<%= bookingFee %> />
 						</div>
 						<label class="col-md-4 control-label" for="total">Total: </label>
 						<div class="col-md-5">
