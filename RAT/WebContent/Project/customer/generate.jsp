@@ -100,56 +100,83 @@
 <%
 	String flightType = request.getParameter("flightType");
 	int numOfPassengers = Integer.parseInt(request.getParameter("numOfPassengers"));
-	System.out.println(request.getParameter("class"));
+	String classType = request.getParameter("class");
 	
 	if(flightType.equals("oneway")){
 		String depAirportId = request.getParameter("depAirportId");
 		String arrAirportId = request.getParameter("arrAirportId");
 		String depDate = request.getParameter("depDate");
+		
 		ArrayList<ArrayList<Leg>> paths = findPaths(depAirportId, arrAirportId, depDate);
+		
 		if(paths.isEmpty()){
 			response.sendRedirect("home.jsp");
 		}else{ 
 			ArrayList<Res> results = new ArrayList<Res>();
 			
-			int pathNum = 0;
-			for(ArrayList<Leg> path : paths){
-				Res r = new Res(pathNum);
-				double cost = 0;
-				boolean correctClass = true;
+			String mysJDBCDriver = "com.mysql.jdbc.Driver"; 
+			String mysURL = "jdbc:mysql://localhost:3306/rat_schema"; 
+			String mysUserID = "tester"; 
+			String mysPassword = "test";
+			
+			Connection conn = null;
+			try{
+				Class.forName(mysJDBCDriver).newInstance();
+				java.util.Properties sysprops = System.getProperties();
+				sysprops.put("user", mysUserID);
+				sysprops.put("password", mysPassword);
+				conn = java.sql.DriverManager.getConnection(mysURL, sysprops);
+				Statement stmt = conn.createStatement();
 				
-				for(int i = 1; i <= numOfPassengers; i++){
-					Res_Passenger rp = new Res_Passenger(i);
-					for(Leg l : path){
-
+				boolean correctClass;
+				int id = 0;
+				for(ArrayList<Leg> path : paths){
+					correctClass = true;
+					Res r = new Res(id);
+					for(int i = 1; i <= numOfPassengers; i++){
+						Res_Passenger rp = new Res_Passenger(i);
+						for(Leg l : path){
+							ResultSet rs = stmt.executeQuery("SELECT mult FROM fare_classtype WHERE airlineId='"+l.getAirlineId()+"' AND type='"+classType+"';");
+							if(rs.next()){
+								Res_Leg rl = new Res_Leg(l, classType, "oneway", -1);
+							
+								double class_mult = rs.getDouble("mult");
+								double res_mult = 100.00;
+								double adv_mult = 0.00;
+								rs = stmt.executeQuery("SELECT mult FROM fare_restype WHERE airlineId='"+l.getAirlineId()+"' AND type='oneway';");
+								if(rs.next()){
+									res_mult = rs.getDouble("mult");
+								}
+								rs = stmt.executeQuery("SELECT MAX(mult) FROM fare_advpurchase WHERE airlineId='"+l.getAirlineId()+"' AND days <= (DATEDIFF(STR_TO_DATE('"+l.getDepDate()+"', '%Y-%m-%d'),CURDATE()));");
+								if(rs.next()){
+									adv_mult = rs.getDouble("MAX(mult)");
+								}
+							
+								double cost = (l.getBaseFare()*(class_mult/100.00))*(res_mult/100.00);
+								cost = cost - (cost*(adv_mult/100.00));
+							
+								rl.setCost(cost);
+								rp.getLegs().add(rl);
+							}else{
+								correctClass = false;
+							}
+						}
+						r.getPassengers().add(rp);
+					}
+					if(correctClass){
+						results.add(r);
+						id++;
 					}
 				}
+			}catch(Exception e){ System.out.println(e);} 
+			finally {try {conn.close();} catch(Exception ee){}}
+			
+			if(results.isEmpty()){
+				response.sendRedirect("home.jsp");
+			}else{
+				session.setAttribute("results", results);
+				response.sendRedirect("view_oneway.jsp"); 
 			}
-			
-			/*
-			ArrayList<Res> results = new ArrayList<Res>();
-			
-			for(ArrayList<Leg> path : paths){
-				Res r = new Res(paths.indexOf(path));
-				double cost = 0;
-				for(int i = 1; i <= numOfPassengers; i++){
-					Res_Passenger rp = new Res_Passenger(i);
-					for(Leg l : path){
-						Res_Leg rl = new Res_Leg(l, "economy", "oneway", -1);
-						cost += l.getBaseFare();
-						rp.getLegs().add(rl);
-					}
-					r.getPassengers().add(rp);
-				}
-				cost = cost + (cost*0.10);	// add booking fee
-				r.setCost(cost);			// set default cost for reservation
-				results.add(r);
-			}
-			
-			session.setAttribute("results", results);
-			response.sendRedirect("view_oneway.jsp"); */
-			
-			
 		}
 	}
 	else if(flightType.equals("roundtrip")){

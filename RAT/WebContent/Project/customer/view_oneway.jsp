@@ -54,6 +54,7 @@
 <div class="container">
 	<h1><%= results.get(0).getPassengers().get(0).getLegs().get(0).getL().getDepAirportId() %>
 	to <%= results.get(0).getPassengers().get(0).getLegs().get(results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrAirportId() %></h1>
+	
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -72,16 +73,16 @@
 %>
 			<tr>
 				<td>
-				<%= r.getPassengers().get(0).getLegs().get(0).getL().getDepDate() %>
-				<%= r.getPassengers().get(0).getLegs().get(0).getL().getDepTime() %>
+				<%= results.get(0).getPassengers().get(0).getLegs().get(0).getL().getDepDate() %>
+				<%= results.get(0).getPassengers().get(0).getLegs().get(0).getL().getDepTime()  %>
 				</td>
 				<td><span class="glyphicon glyphicon-arrow-right"></span></td>
 				<td>
-				<%= r.getPassengers().get(0).getLegs().get(r.getPassengers().get(0).getLegs().size()-1).getL().getArrDate() %>
-				<%= r.getPassengers().get(0).getLegs().get(r.getPassengers().get(0).getLegs().size()-1).getL().getArrTime() %>
+				<%= results.get(0).getPassengers().get(0).getLegs().get(results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrDate() %>
+				<%= results.get(0).getPassengers().get(0).getLegs().get(results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrTime()  %>
 				</td>
-				<td><%= r.getPassengers().get(0).getLegs().size()-1 %></td>
-				<td><%= r.getCost() %></td>
+				<td><%= results.get(0).getPassengers().get(0).getLegs().size()-1 %></td>
+				<td><%= results.get(0).getCost() %></td>
 				<td><a href="passenger_info.jsp?index=<%=index %>" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-check"></span> Select</a></td>
 			</tr>
 <%
