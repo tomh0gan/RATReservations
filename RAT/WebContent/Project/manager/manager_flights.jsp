@@ -163,7 +163,7 @@
             java.sql.Statement stmt1=conn.createStatement();
         
             if(request.getParameter("filter") != null && request.getParameter("filter").equals("MostActive")){
-            	stmt1.execute("CREATE VIEW FlightReservation(airlineId, flightNum, ResrCount) AS SELECT I.airlineId, I.flightNum, COUNT(DISTINCT I.resrNum) FROM Includes I GROUP BY I.airlineId, I.flightNum;");
+            	stmt1.execute("CREATE VIEW FlightReservation(airlineId, flightNum, ResrCount) AS SELECT I.airlineId, I.flightNum, COUNT(DISTINCT I.resrNum) FROM reservation_legs I GROUP BY I.airlineId, I.flightNum;");
             	java.sql.ResultSet rs = stmt1.executeQuery("SELECT * FROM FlightReservation WHERE ResrCount >= (SELECT MAX(ResrCount) FROM FlightReservation)"); 	            	
           	    while(rs.next())
                 {
@@ -198,7 +198,7 @@
             	}
             }
             else if(request.getParameter("filter") != null && request.getParameter("filter").equals("OnTime")){
-            	java.sql.ResultSet rs = stmt1.executeQuery("SELECT * FROM Flight F WHERE NOT EXISTS ( SELECT * FROM Leg L WHERE F.airlineId = L.airlineId AND F.flightNum = L.flightNum AND (actArrTime > arrTime OR actDepTime > depTime)) ");
+            	java.sql.ResultSet rs = stmt1.executeQuery("SELECT * FROM Flight F WHERE NOT EXISTS ( SELECT * FROM Leg L WHERE F.airlineId = L.airlineId AND F.flightNum = L.flightNum AND (actDepDateTime > concat(depDate,' ',depTime) OR actArrDateTime > concat(arrDate,' ',arrTime)));");
           	    while(rs.next())
                 {
     %>
@@ -216,7 +216,7 @@
             	}
             }
             else if(request.getParameter("filter") != null && request.getParameter("filter").equals("Delayed")){
-            	java.sql.ResultSet rs = stmt1.executeQuery("SELECT * FROM Flight F WHERE EXISTS ( SELECT * FROM Leg L WHERE F.airlineId = L.airlineId AND F.flightNum = L.flightNum AND (actArrTime > arrTime OR actDepTime > depTime)) ");
+            	java.sql.ResultSet rs = stmt1.executeQuery("SELECT * FROM Flight F WHERE EXISTS ( SELECT * FROM Leg L WHERE F.airlineId = L.airlineId AND F.flightNum = L.flightNum AND (actArrDateTime > concat(arrDate,' ',arrTime) OR actDepDateTime > concat(depDate,' ',depTime)));");
           	    while(rs.next())
                 {
     %>
