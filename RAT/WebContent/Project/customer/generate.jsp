@@ -333,6 +333,9 @@
 			response.sendRedirect("view_multdest.jsp");
 		}
 	}
+	else if(flightType.equals("flex")){
+		System.out.println("hey");
+	}
 	
 %>
 </body>
