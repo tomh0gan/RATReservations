@@ -47,10 +47,14 @@
 	<!-- END NAV -->
 	<br>
 	<br>
+	
 	<!-- START PAGE -->
+	
+	<form action="passengers_mult_info.jsp?type=multDest" method=post>
 <%
 	DecimalFormat df = new DecimalFormat("#.00");
 	ArrayList<ArrayList<Res>> multResults = (ArrayList<ArrayList<Res>>)session.getAttribute("multResults");
+	int outerIndex = 0;
 	for(ArrayList<Res> results : multResults){
 %>
 <div class="container">
@@ -68,42 +72,51 @@
 			<th>Arrival</th>
 			<th>Stops</th>
 			<th>Price</th>
-			<th> </th>
+			<th>Select</th>
 			</tr>
 		</thead>
 		<tbody>
 <%
-			int index = 0;
+			int innerIndex = 0;
 			for(Res r : results) {
 %>
 			<tr>
 				<td>
-				<%= results.get(index).getPassengers().get(0).getLegs().get(0).getL().getDepDate() %>
-				<%= results.get(index).getPassengers().get(0).getLegs().get(0).getL().getDepTime()  %>
+				<%= results.get(innerIndex).getPassengers().get(0).getLegs().get(0).getL().getDepDate() %>
+				<%= results.get(innerIndex).getPassengers().get(0).getLegs().get(0).getL().getDepTime()  %>
 				</td>
 				<td><span class="glyphicon glyphicon-arrow-right"></span> </td>
 				<td>
-				<%= results.get(index).getPassengers().get(0).getLegs().get(results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrDate() %>
-				<%= results.get(index).getPassengers().get(0).getLegs().get(results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrTime()  %>
+				<%= results.get(innerIndex).getPassengers().get(0).getLegs().get(results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrDate() %>
+				<%= results.get(innerIndex).getPassengers().get(0).getLegs().get(results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrTime()  %>
 				</td>
-				<td><%= results.get(index).getPassengers().get(0).getLegs().size()-1 %></td>
-				<td><%= "$" + df.format(results.get(index).getCost()) %></td>
-				<td><b>RADIO BUTTON?</b></td>
+				<td><%= results.get(innerIndex).getPassengers().get(0).getLegs().size()-1 %></td>
+				<td><%= "$" + df.format(results.get(innerIndex).getCost()) %></td>
+				<td><%
+					if(innerIndex==0){
+						%><input type="radio" name=index<%= outerIndex %> value="<%= innerIndex %>" checked /><%
+					}
+					else{
+						%><input type="radio" name=index<%= outerIndex %> value="<%= innerIndex %>" /><%
+					}
+				%></td>
 			</tr>
 <%
-				index++;
+			innerIndex++;
 			}
 %>
 		</tbody>
 	</table>
 </div>
 <%
+	outerIndex++;
 	}
 %>
 <div class="container">
 	<br><br><br><br>
-	<p class="text-right"><a href="#" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-check"></span> Select</a></p>
+	<p class="text-right"><button type=submit class="btn btn-sm btn-success"><span class="glyphicon glyphicon-check"></span> Select</button></p>
 </div>
+</form>
 	<!-- END PAGE -->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
