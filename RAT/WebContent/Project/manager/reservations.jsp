@@ -144,10 +144,10 @@
 			
             java.sql.ResultSet rs = null;
             if(request.getParameter("view") != null && request.getParameter("view").equals("flights")){
-            	rs = stmt1.executeQuery("SELECT DISTINCT R.resrNum, R.resrDate, R.totalFare, R.bookingFee, R.represSSN, P.firstName, P.lastName FROM Reservation R, Customer C, Includes I, Person P WHERE R.accountNum = C.accountNum AND C.id = P.id AND I.resrNum = R.resrNum AND I.airlineId='"+request.getParameter("airId")+"' AND I.flightNum = '"+request.getParameter("flightNum")+"'");	
+            	rs = stmt1.executeQuery("SELECT DISTINCT R.resrNum, R.resrCreated, R.totalFare, R.bookingFee, R.represSSN, P.firstName, P.lastName FROM Reservation R, Customer C, reservation_legs I, Person P WHERE R.accountNum = C.accountNum AND C.id = P.id AND I.resrNum = R.resrNum AND I.airlineId='"+request.getParameter("airId")+"' AND I.flightNum = '"+request.getParameter("flightNum")+"'");	
             }
             else{
-            	rs = stmt1.executeQuery("SELECT DISTINCT R.resrNum, R.resrDate, R.totalFare, R.bookingFee, R.represSSN, P.firstName, P.lastName FROM Reservation R, Customer C, Person P WHERE R.accountNum = C.accountNum AND C.id = P.id  AND P.firstName = '"+request.getParameter("fname")+"' AND P.lastName = '"+request.getParameter("lname")+"'");	 
+            	rs = stmt1.executeQuery("SELECT DISTINCT R.resrNum, R.resrCreated, R.totalFare, R.bookingFee, R.represSSN, P.firstName, P.lastName FROM Reservation R, Customer C, Person P WHERE R.accountNum = C.accountNum AND C.id = P.id  AND P.firstName = '"+request.getParameter("fname")+"' AND P.lastName = '"+request.getParameter("lname")+"'");	 
             }
              	            	
           	while(rs.next())
