@@ -8,12 +8,6 @@
 <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
 <!-- START SCRIPT --> 
 <script>
-	function updateName(nameId, size, index){
-		var val = document.getElementById(nameId).value;
-		for(var i = 0; i < size; i++){
-			document.getElementById("passName"+i+""+index).value = val;
-		}
-	}
 </script>
 <!-- END SCRIPT --> 
 </head>
@@ -62,6 +56,11 @@
 		}
 	}
 	
+	//Enter the names
+	for(int j = 0; j < passengers.size(); j++){
+		passengers.get(j).setPassName(request.getParameter("passName"+j));
+	}
+	
 	String mysJDBCDriver = "com.mysql.jdbc.Driver"; 
 	String mysURL = "jdbc:mysql://localhost:3306/rat_schema"; 
 	String mysUserID = "tester"; 
@@ -77,8 +76,40 @@
 		conn = java.sql.DriverManager.getConnection(mysURL,sysprops);
 	%>
 	<div class="container">
-
+		<h3>Flight: <%= resLegs.get(0).getL().getDepAirportId() + " " %><span class="glyphicon glyphicon-arrow-right"></span><%= " " +  resLegs.get(resLegs.size()-1).getL().getArrAirportId()%></h3>
+		<h3>Departure: <%= resLegs.get(0).getL().getDepDate() + " At " + resLegs.get(0).getL().getDepTime() %></h3>
+		
+		<br />
+		<br />
+		<h4>Summary: </h4>
 	</div>
+	<br />
+	<br />
+	<div class="container">
+			<label class="col-md-4 control-label" for="totalFare">Total Fare: </label>
+				<div class="col-md-5">
+					<span class="help-block" ><%= "$" + df.format(res.getCost()) %></span>
+				</div>
+				<label class="col-md-4 control-label" for="bookingFee">Booking Fee: </label>
+				<div class="col-md-5">
+					<span class="help-block"><%= "$" + df.format(res.getBookingFee()) %></span>
+				</div>
+				<label class="col-md-4 control-label" for="total">Total: </label>
+				<div class="col-md-5">
+					<span class="help-block"><%= "$" + df.format(res.getBookingFee() + res.getCost()) %></span>
+			</div>
+	</div>
+	<br />
+	<br />
+	<br />
+	<br />
+		<div class="container">
+			<label class="col-md-4 control-label" for="buy"></label>
+			<div class="col-md-8">
+				<button type=submit id="buy" name="buy" class="btn btn-primary btn-lg" onclick="window.open('create_reservation.jsp','_self');"><span class="glyphicon glyphicon-ok"></span> Confirm </button>
+				<button type="reset" id="buy" name="buy" class="btn btn-danger btn-lg" onclick="window.open('passengers_info.jsp','_self');"><span class="glyphicon glyphicon-remove"></span> Back </button>
+			</div>
+		</div>
 	
 <%		
 	} catch(Exception e){

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Res_Passenger {
 	private int id;
+	private String passName;
 	private ArrayList<Res_Leg> legs;
 	
 	public Res_Passenger(int id){
@@ -24,5 +25,8 @@ public class Res_Passenger {
 		}
 		return cost;
 	}
+	
+	public String getPassName(){ return passName; }
+	public void setPassName(String passName){ this.passName = passName; }
 	
 }

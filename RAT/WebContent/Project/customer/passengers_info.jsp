@@ -77,7 +77,7 @@
 				<%
 				for(int i = 0; i < resLegs.size(); i++){
 				%>
-				<legend>Leg <%= i+1 + " " + resLegs.get(i).getL().getDepAirportId() + " -> " + resLegs.get(i).getL().getArrAirportId() + " - Departs " + resLegs.get(i).getL().getDepDate() + " At " +  resLegs.get(i).getL().getDepTime() %></legend>
+				<legend>Leg <%= i+1 + " " + resLegs.get(i).getL().getDepAirportId() + " "%><span class="glyphicon glyphicon-arrow-right"></span><%=" " + resLegs.get(i).getL().getArrAirportId() + " - Departs " + resLegs.get(i).getL().getDepDate() + " At " +  resLegs.get(i).getL().getDepTime() %></legend>
 						<%
 						int numberOfClasses = 0;
 						Statement numOfClassesStmt = conn.createStatement();
@@ -120,7 +120,7 @@
 							<label class="col-md-4 control-label" for="passSeatNum<%= i %><%= j %>">Seat Number: </label>
 							<div class="col-md-5">
 								<span class="help-block" id="passSeatNum<%= i %><%= j %>" ><%= ++maxSeat + " - " + resLegs.get(i).getLClass().toUpperCase() %></span>
-								<% resLegs.get(i).setSeatNum(maxSeat); %>
+								<% passengers.get(j).getLegs().get(i).setSeatNum(maxSeat); %>
 								<input type=hidden name="passSeatNum<%= i %><%= j %>" value="<%= maxSeat%>"  />	
 							</div>
 						</div>
