@@ -54,6 +54,9 @@
 <div class="container">
 	<h1><%= results.get(0).getPassengers().get(0).getLegs().get(0).getL().getDepAirportId() %>
 	to <%= results.get(0).getPassengers().get(0).getLegs().get(results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrAirportId() %></h1>
+	<h3>For <%= results.get(0).getPassengers().size() %>
+	<%= Character.toString(results.get(0).getPassengers().get(0).getLegs().get(0).getLClass().charAt(0)).toUpperCase()+results.get(0).getPassengers().get(0).getLegs().get(0).getLClass().substring(1) %> Class 
+	Passenger(s)</h3>
 	
 	<table class="table table-hover">
 		<thead>

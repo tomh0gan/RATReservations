@@ -133,8 +133,7 @@
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="depDate">Departing</label>
 					<div class="col-md-3">
-						<input id="depDate" name="depDate" type="date" class="form-control input-md" required>
-							<!-- min="<%=((new SimpleDateFormat("yyyy-MM-dd")).format((new GregorianCalendar()).getTime()))%>" -->
+						<input id="depDate" name="depDate" type="date" class="form-control input-md" min="<%=((new SimpleDateFormat("yyyy-MM-dd")).format((new GregorianCalendar()).getTime()))%>" required>
 					</div>
 				</div>
 				
