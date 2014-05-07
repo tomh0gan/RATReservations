@@ -9,6 +9,7 @@
 <!-- START SCRIPT -->
  <script type="text/javascript">
 	function dtable(){
+		clearErrorMsg('searchFlightError');
 		if(document.getElementById('type-0').checked){
 			document.getElementById('returning_div').style.display = "none";
 			document.getElementById('multiple_destinations_div').style.display = "none";
@@ -22,7 +23,14 @@
 			document.getElementById('multiple_destinations_div').style.display = "block";
 		}
 	}
+	
+	function clearErrorMsg(errorMsgTagId){
+		document.getElementById(errorMsgTagId).innerHTML = "";
+	}
   </script>
+  <style>
+	.redText{ color: red; }
+  </style>
 <!-- END SCRIPT -->
 </head>
 <body>
@@ -173,7 +181,16 @@
 						</select>
 					</div>
 				</div>
-
+				
+				<!-- FLIGHT ERRORS -->
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="search"></label>
+					<div class="col-md-4">
+						<span class="redText" id="searchFlightError">${searchFlightError}</span>
+					</div>
+				</div>
+				
+				
 				<!-- SEARCH BUTTON -->
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="search"></label>

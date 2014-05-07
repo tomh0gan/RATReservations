@@ -117,7 +117,10 @@
 		ArrayList<ArrayList<Leg>> paths = findPaths(depAirportId, arrAirportId, depDate);
 		
 		if(paths.isEmpty()){
-			response.sendRedirect("home.jsp");
+			request.setAttribute("searchFlightError", "No flights found.");
+			RequestDispatcher rs = request.getRequestDispatcher("home.jsp");
+			rs.forward(request, response);
+			return;
 		}else{ 
 			ArrayList<Res> results = new ArrayList<Res>();
 			
@@ -179,7 +182,10 @@
 			finally {try {conn.close();} catch(Exception ee){}}
 			
 			if(results.isEmpty()){
-				response.sendRedirect("home.jsp");
+				request.setAttribute("searchFlightError", "No "+classType+" class flights found.");
+				RequestDispatcher rs = request.getRequestDispatcher("home.jsp");
+				rs.forward(request, response);
+				return;
 			}else{
 				session.setAttribute("results", results);
 				response.sendRedirect("view_oneway.jsp"); 
