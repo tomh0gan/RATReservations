@@ -182,7 +182,7 @@
 			finally {try {conn.close();} catch(Exception ee){}}
 			
 			if(results.isEmpty()){
-				request.setAttribute("searchFlightError", "No "+classType+" class flights found.");
+				request.setAttribute("searchFlightError", "Flights found, but "+classType+" class not available.");
 				RequestDispatcher rs = request.getRequestDispatcher("home.jsp");
 				rs.forward(request, response);
 				return;
@@ -193,19 +193,29 @@
 		}
 	}
 	else if(flightType.equals("roundtrip")){
-		response.sendRedirect("home.jsp");
-		/*
 		String depAirportId = request.getParameter("depAirportId");
 		String arrAirportId = request.getParameter("arrAirportId");
+		
+		if(depAirportId.equals(arrAirportId)){
+			request.setAttribute("depArrSameError", "Departure and arrival airports must be different.");
+			RequestDispatcher rs = request.getRequestDispatcher("home.jsp");
+			rs.forward(request, response);
+			return;
+		}
+		
 		String depDate = request.getParameter("depDate");
-		String retDate = request.getParameter("retDate"); // check if this is null!
+		String retDate = request.getParameter("retDate");
+		System.out.println(retDate);
+		
 		ArrayList<ArrayList<Leg>> dep_paths = findPaths(depAirportId, arrAirportId, depDate);
 		ArrayList<ArrayList<Leg>> ret_paths = findPaths(arrAirportId, depAirportId, retDate);
+		
 		if(dep_paths.isEmpty() || ret_paths.isEmpty()){
 			response.sendRedirect("home.jsp");
 		}else{
 			
-		}*/
+		}
+		
 	}
 	else if(flightType.equals("multdest")){
 		response.sendRedirect("home.jsp");

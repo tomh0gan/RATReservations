@@ -10,6 +10,8 @@
  <script type="text/javascript">
 	function dtable(){
 		clearErrorMsg('searchFlightError');
+		clearErrorMsg('depArrSameError'); 
+		
 		if(document.getElementById('type-0').checked){
 			document.getElementById('returning_div').style.display = "none";
 			document.getElementById('multiple_destinations_div').style.display = "none";
@@ -93,11 +95,9 @@
 			<div class="well">				
 				<!-- DEPATURE AIRPORT -->
 				<div class="form-group">
-					<label class="col-md-4 control-label" for="depAirportId">Flying
-						from</label>
+					<label class="col-md-4 control-label" for="depAirportId">Flying from</label>
 					<div class="col-md-6">
-						<select id="depAirportId" name="depAirportId" class="form-control"
-							required>
+						<select id="depAirportId" name="depAirportId" class="form-control" onclick="clearErrorMsg('depArrSameError')" required>
 							<option value="">pick departure airport</option>
 							<option value="BTL">BTL</option>
 							<option value="COI">COI</option>
@@ -116,11 +116,9 @@
 
 				<!-- ARRIVAL AIRPORT -->
 				<div class="form-group">
-					<label class="col-md-4 control-label" for="arrAirportId">Flying
-						to</label>
+					<label class="col-md-4 control-label" for="arrAirportId">Flying to</label>
 					<div class="col-md-6">
-						<select id="arrAirportId" name="arrAirportId" class="form-control"
-							required>
+						<select id="arrAirportId" name="arrAirportId" class="form-control" onclick="clearErrorMsg('depArrSameError')" required>
 							<option value="">pick arrival airport</option>
 							<option value="BTL">BTL</option>
 							<option value="COI">COI</option>
@@ -134,7 +132,7 @@
 							<option value="SFI">SFI</option>
 							<option value="TYI">TYI</option>
 						</select>
-						<span class="redText">${depArrSameError}</span>
+						<span class="redText" id="depArrSameError">${depArrSameError}</span>
 					</div>
 				</div>
 
@@ -150,7 +148,7 @@
 				<div id="returning_div" class="form-group" style="display:none">
 					<label class="col-md-4 control-label" for="retDate">Returning</label>
 					<div class="col-md-3">
-						<input id="retDate" name="retDate" type="date" class="form-control input-md">
+						<input id="retDate" name="retDate" type="date" class="form-control input-md" min="<%=((new SimpleDateFormat("yyyy-MM-dd")).format((new GregorianCalendar()).getTime()))%>">
 					</div>
 				</div>
 				
@@ -182,7 +180,7 @@
 					</div>
 				</div>
 				
-				<!-- FLIGHT ERRORS -->
+				<!-- SEARCH ERRORS -->
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="search"></label>
 					<div class="col-md-4">
