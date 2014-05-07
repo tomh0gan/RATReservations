@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 public class Res {
 	private int id;
+	private double bookingFee;
 	private ArrayList<Res_Passenger> passengers;
 	
 	public Res(int id){
 		this.id = id;
 		passengers = new ArrayList<Res_Passenger>();
+		this.bookingFee = -1;
 	}
 	
 	public int getId() { return id; }
@@ -24,4 +26,7 @@ public class Res {
 		}
 		return cost;
 	}
+	
+	public double getBookingFee(){ return bookingFee; }
+	public void setBookingFee(double bookingFee){ this.bookingFee = bookingFee; }
 }

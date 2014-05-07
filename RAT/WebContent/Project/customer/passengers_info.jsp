@@ -52,7 +52,6 @@
 
 	ArrayList<Res> results = (ArrayList<Res>)session.getAttribute("results");
 	Res selected = results.get(Integer.parseInt(request.getParameter("index")));
-	session.setAttribute("selectedFlight", selected);
 	
 	ArrayList<Res_Passenger> passengers = selected.getPassengers();
 	ArrayList<Res_Leg> resLegs = passengers.get(0).getLegs();
@@ -157,6 +156,7 @@
 					<div class="form-group">
 						<%
 						double bookingFee = selected.getCost() * 0.1;
+						selected.setBookingFee(bookingFee);
 						%>
 						<label class="col-md-4 control-label" for="totalFare">Total Fare: </label>
 						<div class="col-md-5">
@@ -184,7 +184,8 @@
 		</form>	
 	</div>
 	
-<%		
+<%	
+	session.setAttribute("selectedFlight", selected);
 	} catch(Exception e){
 		System.out.println(e);
 	} finally {
