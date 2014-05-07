@@ -161,20 +161,16 @@
   	  	<h1>Navigating the Record Reservation Page</h1>
   	  	<br />
   	  	<p>
-	    	  	TBD
+	    	  	The Record Reservation page allows you to search a for any kind of flight and fill in all of the customer's details.
+	    	  	Right before confirmation of a reservation you will be asked for the customers account number and your own SSN number.
+	    	  	Once confirmed the reservation is created.
   	  	</p>
   	    <br />
    	    <br />
-  	  	
-  	  	<p>
-  	  		TBD
-  	  	</p>
+  
   	  	<br />
    	    <br />
-  	  	
-  	  	<p>
-  	  		TBD
-  	  	</p>
+  	 
   	  <%  
       }else if(request.getParameter("help").equals("prodMail")){
        %>
