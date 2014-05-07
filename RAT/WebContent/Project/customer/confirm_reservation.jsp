@@ -29,7 +29,7 @@
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="home.jsp">Find Flights</a></li>
 					<li><a href="view_reservations.jsp">View Reservations</a></li>
-					<li><a href="#">View Bids</a></li>
+					<li><a href="view_bids.jsp">View Bids</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="get_account_info.jsp">My Account (<%=session.getAttribute("username")%>)</a></li>

@@ -9,9 +9,6 @@
 <!-- START SCRIPT -->
  <script type="text/javascript">
 	function dtable(){
-		clearErrorMsg('searchFlightError');
-		clearErrorMsg('depArrSameError'); 
-		
 		if(document.getElementById('type-0').checked){
 			document.getElementById('returning_div').style.display = "none";
 			document.getElementById('multiple_destinations_div').style.display = "none";
@@ -99,7 +96,7 @@
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="depAirportId">Flying from</label>
 					<div class="col-md-6">
-						<select id="depAirportId" name="depAirportId" class="form-control" onclick="clearErrorMsg('depArrSameError')" required>
+						<select id="depAirportId" name="depAirportId" class="form-control" required>
 							<option value="">pick departure airport</option>
 							<option value="BTL">BTL</option>
 							<option value="COI">COI</option>
@@ -120,7 +117,7 @@
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="arrAirportId">Flying to</label>
 					<div class="col-md-6">
-						<select id="arrAirportId" name="arrAirportId" class="form-control" onclick="clearErrorMsg('depArrSameError')" required>
+						<select id="arrAirportId" name="arrAirportId" class="form-control" required>
 							<option value="">pick arrival airport</option>
 							<option value="BTL">BTL</option>
 							<option value="COI">COI</option>
@@ -134,7 +131,6 @@
 							<option value="SFI">SFI</option>
 							<option value="TYI">TYI</option>
 						</select>
-						<span class="redText" id="depArrSameError">${depArrSameError}</span>
 					</div>
 				</div>
 
@@ -181,15 +177,6 @@
 						</select>
 					</div>
 				</div>
-				
-				<!-- SEARCH ERRORS -->
-				<div class="form-group">
-					<label class="col-md-4 control-label" for="search"></label>
-					<div class="col-md-4">
-						<span class="redText" id="searchFlightError">${searchFlightError}</span>
-					</div>
-				</div>
-				
 				
 				<!-- SEARCH BUTTON -->
 				<div class="form-group">

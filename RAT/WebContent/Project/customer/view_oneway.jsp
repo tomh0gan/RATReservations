@@ -1,4 +1,4 @@
-<%@ page import="Flights.*, java.util.ArrayList"%>
+<%@ page import="Flights.*, java.util.ArrayList, java.text.DecimalFormat"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,6 +49,7 @@
 	<br>
 	<!-- START PAGE -->
 <%
+	DecimalFormat df = new DecimalFormat("#.00");
 	ArrayList<Res> results = (ArrayList<Res>)session.getAttribute("results");
 %>
 <div class="container">
@@ -79,13 +80,13 @@
 				<%= results.get(0).getPassengers().get(0).getLegs().get(0).getL().getDepDate() %>
 				<%= results.get(0).getPassengers().get(0).getLegs().get(0).getL().getDepTime()  %>
 				</td>
-				<td><span class="glyphicon glyphicon-arrow-right"></span></td>
+				<td><span class="glyphicon glyphicon-arrow-right"></span> </td>
 				<td>
 				<%= results.get(0).getPassengers().get(0).getLegs().get(results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrDate() %>
 				<%= results.get(0).getPassengers().get(0).getLegs().get(results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrTime()  %>
 				</td>
 				<td><%= results.get(0).getPassengers().get(0).getLegs().size()-1 %></td>
-				<td><%= results.get(0).getCost() %></td>
+				<td><%= "$" + df.format(results.get(index).getCost()) %></td>
 				<td><a href="passengers_info.jsp?index=<%= index %>" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-check"></span> Select</a></td>
 			</tr>
 <%
