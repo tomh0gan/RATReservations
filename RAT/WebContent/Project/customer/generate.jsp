@@ -372,14 +372,13 @@
 		
 		while(startCal.before(endCal)){
 			ArrayList<ArrayList<Leg>> paths = findPaths(depAirportId, arrAirportId, sdf.format(startCal.getTime()));
-			System.out.println(startCal.getTime());
+			
 			if(!paths.isEmpty()){
 				ArrayList<Res> results = generateReservations(paths, flightType, classType, numOfPassengers);
 				if(!results.isEmpty()){
 					flexResults.add(results);
 				}
 			}
-			
 			startCal.add(Calendar.DATE, 1);
 		}
 		
