@@ -67,6 +67,7 @@
 		</thead>
 		<tbody>
 <%
+			int index = 0;
 			for(Res r : results) {
 %>
 			<tr>
@@ -81,9 +82,10 @@
 				</td>
 				<td><%= r.getPassengers().get(0).getLegs().size()-1 %></td>
 				<td><%= r.getCost() %></td>
-				<td><a href="#" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-check"></span> Select</a></td>
+				<td><a href="passenger_info.jsp?index=<%=index %>" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-check"></span> Select</a></td>
 			</tr>
 <%
+				index++;
 			}
 %>
 		</tbody>
