@@ -235,7 +235,7 @@
 					<label class="col-md-4 control-label" for="buy"></label>
 					<div class="col-md-8">
 						<button type=submit id="buy" name="buy" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-ok"></span> Continue </button>
-						<button type="reset" id="buy" name="buy" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-remove"></span> Cancel </button>
+						<button type="reset" id="buy" name="buy" class="btn btn-danger btn-lg" onclick="window.history.back()"> Back </button>
 					</div>
 				</div>
 			</fieldset>

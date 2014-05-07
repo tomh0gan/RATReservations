@@ -107,7 +107,7 @@
 			<label class="col-md-4 control-label" for="buy"></label>
 			<div class="col-md-8">
 				<button type=submit id="buy" name="buy" class="btn btn-primary btn-lg" onclick="window.open('create_reservation.jsp','_self');"><span class="glyphicon glyphicon-ok"></span> Confirm </button>
-				<button type="reset" id="buy" name="buy" class="btn btn-danger btn-lg" onclick="window.open('passengers_info.jsp','_self');"><span class="glyphicon glyphicon-remove"></span> Back </button>
+				<button type="reset" id="buy" name="buy" class="btn btn-danger btn-lg" onclick="window.history.back();"><span class="glyphicon glyphicon-remove"></span> Back </button>
 			</div>
 		</div>
 	

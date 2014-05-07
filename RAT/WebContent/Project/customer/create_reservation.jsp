@@ -13,10 +13,19 @@
 </head>
 <body>
 <%
+	DecimalFormat df = new DecimalFormat("#.00");
+
 	Res res = (Res) session.getAttribute("selectedFlight");
 	
 	ArrayList<Res_Passenger> passengers = res.getPassengers();
-	ArrayList<Res_Leg> resLegs = passengers.get(0).getLegs();			
+	ArrayList<Res_Leg> resLegs = passengers.get(0).getLegs();	
+	
+	String bidQuery = "";
+	if(request.getParameter("bid") != null && request.getParameter("bid").equals("true")){
+		String bid = request.getParameter("bidPrice");
+		bidQuery = "INSERT INTO reverse_bid (resrNum, accountNum, bid) VALUES ((SELECT MAX(resrNum) from Reservation), "+session.getAttribute("accountNum")+", "+bid+");";
+		
+	}
 	
 	String mysJDBCDriver = "com.mysql.jdbc.Driver"; 
 	String mysURL = "jdbc:mysql://localhost:3306/rat_schema"; 
@@ -37,9 +46,13 @@
 		Statement legStmt = conn.createStatement();
 		
 		//Reservation
-		String resr = "INSERT INTO Reservation (accountNum, totalFare, bookingFee) VALUES ("+session.getAttribute("accountNum")+", "+res.getCost()+", "+res.getBookingFee()+");";
+		String resr = "INSERT INTO Reservation (accountNum, totalFare, bookingFee) VALUES ("+session.getAttribute("accountNum")+", "+df.format(res.getCost())+", "+df.format(res.getBookingFee())+");";
 		System.out.println(resr);
 		resrStmt.addBatch(resr);
+		
+		if(request.getParameter("bid").equals("true")){
+			resrStmt.addBatch(bidQuery);
+		}
 		
 		for(int i = 0; i < passengers.size(); i++){
 			

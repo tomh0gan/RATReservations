@@ -333,7 +333,7 @@
           	    stmt1.execute("DROP VIEW CustomerRevenue;");
             }
             else if(request.getParameter("filter") != null && request.getParameter("filter").equals("MostCustRep")){
-            	stmt1.execute("CREATE VIEW CRRevenue(SSN, TotalRevenue) AS SELECT represSSN, SUM(bookingFee) FROM Reservation GROUP BY represSSN ");
+            	stmt1.execute("CREATE VIEW CRRevenue(SSN, TotalRevenue) AS SELECT represSSN, SUM(bookingFee) FROM Reservation WHERE represSSN <> '' GROUP BY represSSN ");
 	            java.sql.ResultSet rs = stmt1.executeQuery("SELECT C.SSN, C.TotalRevenue, P.firstName, P.lastName FROM CRRevenue C, Person P, Employee E WHERE TotalRevenue >= (SELECT MAX(TotalRevenue) FROM CRRevenue) AND E.id=P.id AND E.ssn=C.SSN;");
 			   while(rs.next())
                 {
@@ -402,7 +402,7 @@
         		
         		java.text.DateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
         
-				java.sql.ResultSet rs = stmt1.executeQuery("SELECT R.resrNum, R.resrCreated, R.totalFare, R.bookingFee, R.represSSN, P.firstName, P.lastName FROM Reservation R, Customer C, Person P WHERE R.resrCreated > '" + sdf.format(date1) + "' AND R.resrCreated < '" + sdf.format(date2) + "'  AND R.accountNum = C.accountNum AND C.id = P.id");   	       	  
+				java.sql.ResultSet rs = stmt1.executeQuery("SELECT R.resrNum, R.resrCreated, R.totalFare, R.bookingFee, R.represSSN, P.firstName, P.lastName FROM Reservation R, Customer C, Person P WHERE R.resrCreated > '" + sdf.format(date1) + "' AND R.resrCreated < '" + sdf.format(date2) + "'  AND R.accountNum = C.accountNum AND C.id = P.id AND R.resrNum NOT IN (SELECT B.resrNum FROM reverse_bid B WHERE B.status='pending' OR B.status='denied')");   	       	  
       	 		while(rs.next())
                 {
     %>
