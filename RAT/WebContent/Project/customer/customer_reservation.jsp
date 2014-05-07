@@ -86,7 +86,7 @@
 						java.sql.Statement stmt2=conn.createStatement();
 						java.sql.ResultSet rs2 = stmt2.executeQuery("SELECT L.airlineId, L.flightNum, L.legNum, L.depAirportId, L.depDate, L.depTime, L.arrAirportId, L.arrDate, L.arrTime, R.class, R.seatNum, R.total"
 																  + " FROM leg L, reservation_legs R"
-																  + " WHERE R.resrNum="+resrNum+" AND R.passengerId="+passengers.get(i)+" AND R.airlineId=L.airlineId AND R.flightNum=L.flightNum AND R.legNum=L.legNum AND R.depDate=L.depDate AND R.depTime=L.depTime;");
+																  + " WHERE R.resrNum="+resrNum+" AND R.passengerId="+passengers.get(i)+" AND R.airlineId=L.airlineId AND R.flightNum=L.flightNum AND R.legNum=L.legNum AND R.depDate=L.depDate AND R.depTime=L.depTime ORDER BY depDate;");
 						
 						
         				while(rs2.next()){

@@ -108,7 +108,7 @@
 		conn = java.sql.DriverManager.getConnection(mysURL,sysprops);
 	%>
 	<div class="container">
-		<form action="confirm_reservation.jsp" class="form-horizontal" method="post">
+		<form action="confirm_mult_reservation.jsp" class="form-horizontal" method="post">
 			<fieldset>
 				<legend>Checkout</legend>
 				<div class="container">
@@ -217,16 +217,17 @@
 						%>
 						<label class="col-md-4 control-label" for="totalFare">Total Fare: </label>
 						<div class="col-md-5">
-							<span class="help-block" name="totalFare"><%= "$" + df.format(totalFare) %></span>
+							<span class="help-block""><%= "$" + df.format(totalFare) %></span>
+							<input type=hidden name=totalFare value=<%= totalFare %> />
 						</div>
 						<label class="col-md-4 control-label" for="bookingFee">Booking Fee: </label>
 						<div class="col-md-5">
-							<span class="help-block" name="bookingFee"><%= "$" + df.format(bookingFee) %></span>
+							<span class="help-block""><%= "$" + df.format(bookingFee) %></span>
 							<input type=hidden name=bookingFee value=<%= bookingFee %> />
 						</div>
 						<label class="col-md-4 control-label" for="total">Total: </label>
 						<div class="col-md-5">
-							<span class="help-block" name="total"><%= "$" + df.format(bookingFee + totalFare) %></span>
+							<span class="help-block"><%= "$" + df.format(bookingFee + totalFare) %></span>
 						</div>
 					</div>
 				</div>
