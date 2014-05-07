@@ -52,6 +52,7 @@
 	<table class="table table-striped">
 		<thead>
             <tr>
+            	<td>#</td>
                 <td>Airline ID</td>
                 <td>Flight Number</td>
             </tr>   
@@ -81,21 +82,24 @@
             	java.sql.Statement stmt1=conn.createStatement();
             	
             	stmt1.executeUpdate("CREATE VIEW FlightReservation(AirlineID, FlightNum, ResrCount) AS SELECT" +
-            						" airlineID, flightNum, COUNT(DISTINCT resrNum) FROM Includes GROUP BY AirlineID, FlightNum");
+            						" airlineID, flightNum, COUNT(DISTINCT resrNum) FROM reservation_legs GROUP BY AirlineID, FlightNum");
         
-				java.sql.ResultSet rs = stmt1.executeQuery("SELECT * FROM FlightReservation FR WHERE NOT EXISTS (SELECT * FROM Reservation R, Includes I WHERE " +
+				java.sql.ResultSet rs = stmt1.executeQuery("SELECT * FROM FlightReservation FR WHERE NOT EXISTS (SELECT * FROM Reservation R, reservation_legs I WHERE " +
 														"R.ResrNum = I.ResrNum AND FR.AirlineID = I.AirlineID AND FR.FlightNum = I.FlightNum AND R.AccountNum = "+accNum+" ) ORDER BY FR.ResrCount DESC");
-	
+				
+				int i = 1;
 				 while(rs.next())
 		          {			
 		%>
 		                    <tr>
+		                    	<td><%=i%></td>
 		                    	<td><%=rs.getString(1)%></td>
 		                      	<td><%=rs.getString(2)%></td>
 		                    </tr>
 		<%      		
 		        	
 		          
+		          i++;
 		          }
 				 stmt1.executeUpdate("DROP VIEW FlightReservation");
 		  			} catch(Exception e)
