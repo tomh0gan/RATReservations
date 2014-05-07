@@ -8,6 +8,12 @@
 <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
 <!-- START SCRIPT --> 
 <script>
+	function updateName(nameId, size, index){
+		var val = document.getElementById(nameId).value;
+		for(var i = 0; i < size; i++){
+			document.getElementById("passName"+i+""+index).value = val;
+		}
+	}
 </script>
 <!-- END SCRIPT --> 
 </head>
@@ -27,12 +33,12 @@
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Find Flights</a></li>
-					<li><a href="#">View Reservations</a></li>
+					<li class="active"><a href="home.jsp">Find Flights</a></li>
+					<li><a href="view_reservations.jsp">View Reservations</a></li>
 					<li><a href="#">View Bids</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">My Account (<%=session.getAttribute("username")%>)</a></li>
+					<li><a href="get_account_info.jsp">My Account (<%=session.getAttribute("username")%>)</a></li>
 					<li><div><a class="btn btn-default navbar-btn" href="../logout.jsp">Log out</a></div></li>
 				</ul>
 			</div>
@@ -42,12 +48,14 @@
 <!-- END NAV --><br><br>
 <!-- START PAGE -->
 <%
+	DecimalFormat df = new DecimalFormat("#.00");
 
 	ArrayList<Res> results = (ArrayList<Res>)session.getAttribute("results");
 	Res selected = results.get(Integer.parseInt(request.getParameter("index")));
 	
 	ArrayList<Res_Passenger> passengers = selected.getPassengers();
-	
+	ArrayList<Res_Leg> resLegs = passengers.get(0).getLegs();
+			
 	String mysJDBCDriver = "com.mysql.jdbc.Driver"; 
 	String mysURL = "jdbc:mysql://localhost:3306/rat_schema"; 
 	String mysUserID = "tester"; 
@@ -67,65 +75,52 @@
 			<fieldset>
 				<legend>Checkout</legend>
 				<%
-				int seatCount = 1;
-				for(int i = 1; i <= passengers.size(); i++){
-					ArrayList<Res_Leg> legs = passengers.get(0).getLegs();
+				for(int i = 0; i < resLegs.size(); i++){
 				%>
-				<legend>Passenger <%= i %></legend>
-					<div class = "well">
+				<legend>Leg <%= i+1 + " " + resLegs.get(i).getL().getDepAirportId() + " -> " + resLegs.get(i).getL().getArrAirportId() + " - Departs " + resLegs.get(i).getL().getDepDate() + " At " +  resLegs.get(i).getL().getDepTime() %></legend>
+						<%
+						int numberOfClasses = 0;
+						Statement numOfClassesStmt = conn.createStatement();
+						String numOfClassesQuery = "SELECT type FROM fare_classtype WHERE airlineId='"+resLegs.get(i).getL().getAirlineId()+"';";
+						ResultSet numOfClassesRs = numOfClassesStmt.executeQuery(numOfClassesQuery);
+						while(numOfClassesRs.next()){
+							numberOfClasses++;
+						}
+						int numOfSeats = 0;
+						Statement numOfSeatsStmt = conn.createStatement();
+						String numOfSeatsQuery = "SELECT numOfSeats FROM Flight WHERE airlineId='"+resLegs.get(i).getL().getAirlineId()+"' AND flightNum="+resLegs.get(i).getL().getFlightNum()+";";
+						ResultSet numOfSeatsRs = numOfSeatsStmt.executeQuery(numOfSeatsQuery);
+						if(numOfSeatsRs.next()){
+							numOfSeats = Integer.parseInt(numOfSeatsRs.getString(1));
+						}
+						int maxSeat = 0;
+						Statement stmt = conn.createStatement();
+						String getMaxSeat = "SELECT max(seatNum) FROM reservation_legs WHERE airlineId='"+resLegs.get(i).getL().getAirlineId()+"' AND flightNum="+resLegs.get(i).getL().getFlightNum()+" AND legNum="+resLegs.get(i).getL().getLegNum()+" AND depDate='"+resLegs.get(i).getL().getDepDate()+"' AND class='"+resLegs.get(i).getLClass()+"';";
+						ResultSet maxSeatRs = stmt.executeQuery(getMaxSeat);
+						if(maxSeatRs.next()){
+							maxSeat = maxSeatRs.getInt(1);
+						}
+						if((maxSeat)+passengers.size() > (numOfSeats/numberOfClasses)){
+							//No seats remain
+							response.sendRedirect("home.jsp");
+						}
+						for(int j = 0; j < passengers.size(); j++){
+						%>
+						<div class = "well">
+						<h5>Passenger <%= j+1 %></h5>					
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="passName<%= i %>">Passenger Name: </label>
+							<label class="col-md-4 control-label" for="passName<%= j %>">Passenger Name: </label>
 							<div class="col-md-5">
-								<input class="form-control" name="passName<%= i %>" type="text" required />
+								<input class="form-control" id="passName<%= i %><%= j %>" name="passName<%= j %>" onkeyup="updateName('passName<%= i %><%= j %>', <%= resLegs.size() %>, <%= j %>)" type="text" required />
 							</div>
 						</div>
 						<br />
-
-						<%
-						for(int j = 0; j < legs.size(); j++){
-							legs.get(j).getL().getDepDate();
-						%>
-						<h3>Leg <%= j+1 + " " + legs.get(j).getL().getDepAirportId() + " -> " + legs.get(j).getL().getArrAirportId() + " - Departs " + legs.get(j).getL().getDepDate() + " At " +  legs.get(j).getL().getDepTime() %></h3>					
 						<br />
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="passSeatNum<%= i %><%= j %>">Seat Number: </label>
 							<div class="col-md-5">
-								<select class="form-control" name="passSeatNum<%= i %><%= j %>" required>
-								<%
-								int numberOfClasses = 0;
-								Statement numOfClassesStmt = conn.createStatement();
-								String numOfClassesQuery = "SELECT type FROM fare_classtype WHERE airlineId='"+legs.get(j).getL().getAirlineId()+"';";
-								ResultSet numOfClassesRs = numOfClassesStmt.executeQuery(numOfClassesQuery);
-								while(numOfClassesRs.next()){
-									numberOfClasses++;
-								}
-								int numOfSeats = 0;
-								Statement numOfSeatsStmt = conn.createStatement();
-								String numOfSeatsQuery = "SELECT numOfSeats FROM Flight WHERE airlineId='"+legs.get(j).getL().getAirlineId()+"' AND flightNum="+legs.get(j).getL().getFlightNum()+";";
-								ResultSet numOfSeatsRs = numOfSeatsStmt.executeQuery(numOfSeatsQuery);
-								if(numOfSeatsRs.next()){
-									numOfSeats = Integer.parseInt(numOfSeatsRs.getString(1));
-								}
-								ArrayList<Integer> seatNumbers = new ArrayList<Integer>();
-								Statement seatNumStmt = conn.createStatement();
-								String seatNumQuery = "SELECT seatNum FROM reservation_legs WHERE airlineId='"+legs.get(j).getL().getAirlineId()+"' AND class='"+legs.get(j).getLClass()+"' AND flightNum="+legs.get(j).getL().getFlightNum()+" AND legNum="+legs.get(j).getL().getLegNum()+" AND depDate='"+legs.get(j).getL().getDepDate()+"';";
-								ResultSet seatNumRs = seatNumStmt.executeQuery(seatNumQuery);
-								while(seatNumRs.next()){
-									System.out.println(seatNumRs.getString(1));
-									seatNumbers.add(Integer.parseInt(seatNumRs.getString(1)));
-								}
-								for(int k = 1; k <= (numOfSeats/numberOfClasses); k++){
-									if(!seatNumbers.contains(k)){
-										if(seatCount == i){
-											%><option selected value="<%= k %>"><%= legs.get(j).getLClass() + " - " + k %></option> <%	
-										}
-										else{
-											%><option value="<%= k %>"><%= legs.get(j).getLClass() + " - " + k %></option> <%	
-										}
-									}
-								}
-								%>		
-								</select>
+								<span class="help-block" id="passSeatNum<%= i %><%= j %>" ><%= ++maxSeat + " - " + resLegs.get(i).getLClass().toUpperCase() %></span>
+								<input type=hidden name="passSeatNum<%= i %><%= j %>" value="<%= maxSeat%>"  />	
 							</div>
 						</div>
 						<div class="form-group">
@@ -141,26 +136,24 @@
 								</select>
 							</div>
 						</div>
-						<%
-						}
-						%>
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="passFare<%= i %>">Price: </label>
 							<div class="col-md-5">
-								<span class="help-block" id="passFare<%= i %>" ><%= "TO DO: PRICE FOR EACH LEG" %></span>
-								<input type=hidden name="passFare<%= i %>" value="<%= "TO DO: PRICE FOR EACH LEG" %>"  />
+								<span class="help-block" id="passFare<%= i %>" ><%= "$" + df.format(resLegs.get(i).getCost()) %></span>
+								<input type=hidden name="passFare<%= i %>" value="<%= "$" + df.format(resLegs.get(i).getCost())  %>"  />
 							</div>	
 						</div>
-					</div>
+						</div>
+						<%
+						}
+						%>
 					<%
-					seatCount++;
 					}
 					%>
 				<legend>Total</legend>
 				<div class = "well">
 					<div class="form-group">
 						<%
-						DecimalFormat df = new DecimalFormat("#.00");
 						double bookingFee = selected.getCost() * 0.1;
 						%>
 						<label class="col-md-4 control-label" for="totalFare">Total Fare: </label>

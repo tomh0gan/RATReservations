@@ -86,7 +86,7 @@
 				</td>
 				<td><%= results.get(0).getPassengers().get(0).getLegs().size()-1 %></td>
 				<td><%= results.get(0).getCost() %></td>
-				<td><a href="passenger_info.jsp?index=<%=index %>" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-check"></span> Select</a></td>
+				<td><a href="passengers_info.jsp?index=<%= index %>" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-check"></span> Select</a></td>
 			</tr>
 <%
 				index++;
