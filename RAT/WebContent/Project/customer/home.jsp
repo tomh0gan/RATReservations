@@ -75,7 +75,7 @@
 		<form class="form-horizontal" action="generate.jsp" method="post">
 			<fieldset>
 				<legend>Search Flights</legend>
-				
+
 				<!-- SEARCH TYPE -->
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="flightType"></label>
@@ -91,7 +91,9 @@
 						</label>
 					</div>
 				</div>
-				
+
+
+
 			<div class="well">				
 				<!-- DEPATURE AIRPORT -->
 				<div class="form-group">
