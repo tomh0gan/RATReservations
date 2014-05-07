@@ -176,6 +176,7 @@
 		
 		if(depAirportId.equals(arrAirportId)){
 			/* ERROR NOT HANDLED; departure airport and arrival airport are the same */
+			System.out.println("O1"); // for debuging 
 			response.sendRedirect("home.jsp");
 			return;
 		}
@@ -185,12 +186,14 @@
 		
 		if(paths.isEmpty()){
 			/* ERROR NOT HANDLED;  there is no path path */
+			System.out.println("O2"); // for debuging 
 			response.sendRedirect("home.jsp");
 			return;
 		}else{
 			ArrayList<Res> results = generateReservations(paths, flightType, classType, numOfPassengers);
 			if(results.isEmpty()){
 				/* ERROR NOT HANDLED;  flights were found, but not in the requested class */
+				System.out.println("O3"); // for debuging 
 				response.sendRedirect("home.jsp");
 				return;
 			}else{
@@ -209,13 +212,13 @@
 		
 		if(depAirportId.equals(arrAirportId)){
 			/* ERROR NOT HANDLED; departure airport and arrival airport are the same */
-			System.out.println("1");
+			System.out.println("R1"); // for debuging 
 			response.sendRedirect("home.jsp");
 			return;
 		}
 		if(retDate.isEmpty()){
 			/* ERROR NOT HANDLED; return date is empty */
-			System.out.println("2");
+			System.out.println("R2"); // for debuging 
 			response.sendRedirect("home.jsp");
 			return;
 		}
@@ -223,7 +226,7 @@
 		java.util.Date retDateCompare = new SimpleDateFormat("yyyy-MM-dd").parse(retDate);
 		if(retDateCompare.before(depDateCompare)){
 			/* ERROR NOT HANDLED; return date is before the departure date */
-			System.out.println("3");
+			System.out.println("R3"); // for debuging 
 			response.sendRedirect("home.jsp");
 			return;
 		}
@@ -236,7 +239,7 @@
 		
 		if(dep_paths.isEmpty() || ret_paths.isEmpty()){
 			/* ERROR NOT HANDLED;  there is no depature path or there is no return path */
-			System.out.println("4");
+			System.out.println("R4"); // for debuging 
 			response.sendRedirect("home.jsp");
 			return;
 		}else{
@@ -246,7 +249,7 @@
 			if(dep_results.isEmpty() || ret_results.isEmpty()){
 				/* ERROR NOT HANDLED;  flights were found, but not in the requested class */
 				response.sendRedirect("home.jsp");
-				System.out.println("5");
+				System.out.println("R5"); // for debuging 
 				return;
 			}else{
 				session.setAttribute("dep_results", dep_results);
@@ -256,10 +259,78 @@
 		}
 		
 	}
-	// multi destination flights
+	// multi destination flights (returns what we can; if at least one flight is valid it will show results)
 	else if(flightType.equals("multdest")){
-		response.sendRedirect("home.jsp");
-
+		String[] depAirportIds = new String[4];
+		String[] arrAirportIds = new String[4];
+		String[] depDates = new String[4];
+		
+		depAirportIds[0] = request.getParameter("depAirportId");
+		arrAirportIds[0] = request.getParameter("arrAirportId");	
+		depDates[0] = request.getParameter("depDate");
+		
+		for(int i = 1; i < 4; i++){
+			depAirportIds[i] = request.getParameter("depAirportId"+i);
+			arrAirportIds[i] = request.getParameter("arrAirportId"+i);	
+			depDates[i] = request.getParameter("depDate"+i);
+		}
+		
+		boolean[] invalidInput = new boolean[4];
+		for(int i = 0; i < 4; i++){
+			if(depAirportIds[i].isEmpty()){
+				invalidInput[i] = true;
+			}
+			if(arrAirportIds[i].isEmpty()){
+				invalidInput[i] = true;
+			}
+			if(depDates[i].isEmpty()){
+				invalidInput[i] = true;
+			}
+			if(depAirportIds[i].equals(arrAirportIds[i])){
+				invalidInput[i] = true;
+			}
+		}
+		
+		int count = 0;
+		for(int i = 0; i < 4; i++){
+			if(invalidInput[i]){
+				count++;
+			}
+		}
+		
+		if(count == 4){
+			/* ERROR NOT HANDLED;  all inputs were invalid, meaning either empty or the arr/dep were the same */
+			response.sendRedirect("home.jsp");
+			System.out.println("M1"); // for debuging 
+			return;
+		}
+		
+		ArrayList<ArrayList<Res>> multResults = new ArrayList<ArrayList<Res>>();
+		for(int i = 0; i < 4; i++){
+			ArrayList<ArrayList<Leg>> paths = findPaths(depAirportIds[i], arrAirportIds[i], depDates[i]);
+			
+			if(!paths.isEmpty()){
+				ArrayList<Res> results = generateReservations(paths, flightType, classType, numOfPassengers);
+				if(!results.isEmpty()){
+					multResults.add(results);
+				}
+			}
+		}
+		
+		if(multResults.isEmpty()){
+			/* ERROR NOT HANDLED;  no flights were found */
+			response.sendRedirect("home.jsp");
+			System.out.println("M2"); // for debuging 
+			return;
+		}
+		if(multResults.size() == 1){
+			// if the results of a mult flight search is just one flight, send to view_oneway.jsp page
+			session.setAttribute("results", multResults.get(0));
+			response.sendRedirect("view_oneway.jsp"); 
+		} else {
+			session.setAttribute("multResults", multResults);
+			response.sendRedirect("view_multdest.jsp");
+		}
 	}
 	
 %>

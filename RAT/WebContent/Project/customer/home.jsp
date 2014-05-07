@@ -181,16 +181,16 @@
 				<!-- MULTI -->
 				<div id="multiple_destinations_div" style="display:none">
 <% 
-				for(int i = 2; i < 5; i++) { 
+				for(int i = 1; i < 4; i++) { 
 %>					
 				<div class="well">
-					<legend><h4><b>Flight <%= i %></b></h4></legend>
+					<legend><h4><b>Flight <%= i+1 %></b></h4></legend>
 					
 					<!-- MULT DEPATURE AIRPORT -->
 					<div class="form-group">
-					<label class="col-md-4 control-label" for="flyingfrom">Flying from</label>
+					<label class="col-md-4 control-label" for="depAirportId">Flying from</label>
 					<div class="col-md-5">
-							<select id="flyingfrom<%= i %>" name="flyingfrom<%= i %>" class="form-control">
+							<select id="depAirportId<%= i %>" name="depAirportId<%= i %>" class="form-control">
 							<option value="" style="display:none">Choose Airport</option>
 							<option value="BTL">Berlin Tegel (Berlin, Germany)</option>
 							<option value="COI">Chicago O'Hare International (Chicago, USA)</option>
@@ -209,9 +209,9 @@
 					
 					<!-- MULT ARRIVAL AIRPORT -->
 					<div class="form-group">
-					<label class="col-md-4 control-label" for="flyingto">Flying to</label>
+					<label class="col-md-4 control-label" for="arrAirportId">Flying to</label>
 						<div class="col-md-5">
-							<select id="flyingto<%= i %>" name="flyingto<%= i %>" class="form-control">
+							<select id="arrAirportId<%= i %>" name="arrAirportId<%= i %>" class="form-control">
 							<option value="" style="display:none">Choose Airport</option>
 							<option value="BTL">Berlin Tegel (Berlin, Germany)</option>
 							<option value="COI">Chicago O'Hare International (Chicago, USA)</option>
