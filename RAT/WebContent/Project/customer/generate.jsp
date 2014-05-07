@@ -259,27 +259,7 @@
 	// multi destination flights
 	else if(flightType.equals("multdest")){
 		response.sendRedirect("home.jsp");
-		/*
-		String depAirportId1 = request.getParameter("depAirportId1");
-		String arrAirportId1 = request.getParameter("arrAirportId1");
-		String depDate1 = request.getParameter("depDate1");
-		ArrayList<ArrayList<Leg>> paths1 = findPaths(depAirportId1, arrAirportId1, depDate1);
-		
-		String depAirportId2 = request.getParameter("depAirportId2");
-		String arrAirportId2 = request.getParameter("arrAirportId2");
-		String depDate2 = request.getParameter("depDate2");
-		ArrayList<ArrayList<Leg>> paths2 = findPaths(depAirportId2, arrAirportId2, depDate2);
-		
-		String depAirportId3 = request.getParameter("depAirportId3");
-		String arrAirportId3 = request.getParameter("arrAirportId3");
-		String depDate3 = request.getParameter("depDate3");
-		ArrayList<ArrayList<Leg>> paths3 = findPaths(depAirportId3, arrAirportId3, depDate3);
-		
-		String depAirportId4 = request.getParameter("depAirportId4");
-		String arrAirportId4 = request.getParameter("arrAirportId4");
-		String depDate4 = request.getParameter("depDate4");
-		ArrayList<ArrayList<Leg>> paths4 = findPaths(depAirportId4, arrAirportId4, depDate4);
-		*/
+
 	}
 	
 %>

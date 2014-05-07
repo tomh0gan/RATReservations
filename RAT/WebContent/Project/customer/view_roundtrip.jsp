@@ -78,15 +78,15 @@
 %>
 			<tr>
 				<td>
-				<%=dep_results.get(0).getPassengers().get(0).getLegs().get(0).getL().getDepDate() %>
-				<%=dep_results.get(0).getPassengers().get(0).getLegs().get(0).getL().getDepTime()  %>
+				<%=dep_results.get(dep_index).getPassengers().get(0).getLegs().get(0).getL().getDepDate() %>
+				<%=dep_results.get(dep_index).getPassengers().get(0).getLegs().get(0).getL().getDepTime()  %>
 				</td>
 				<td><span class="glyphicon glyphicon-arrow-right"></span> </td>
 				<td>
-				<%=dep_results.get(0).getPassengers().get(0).getLegs().get(dep_results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrDate() %>
-				<%=dep_results.get(0).getPassengers().get(0).getLegs().get(dep_results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrTime()  %>
+				<%=dep_results.get(dep_index).getPassengers().get(0).getLegs().get(dep_results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrDate() %>
+				<%=dep_results.get(dep_index).getPassengers().get(0).getLegs().get(dep_results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrTime()  %>
 				</td>
-				<td><%=dep_results.get(0).getPassengers().get(0).getLegs().size()-1 %></td>
+				<td><%=dep_results.get(dep_index).getPassengers().get(0).getLegs().size()-1 %></td>
 				<td><%= "$" + df.format(dep_results.get(dep_index).getCost()) %></td>
 				<td><b>RADIO BUTTON?</b></td>
 			</tr>
@@ -122,15 +122,15 @@
 %>
 			<tr>
 				<td>
-				<%=ret_results.get(0).getPassengers().get(0).getLegs().get(0).getL().getDepDate() %>
-				<%=ret_results.get(0).getPassengers().get(0).getLegs().get(0).getL().getDepTime()  %>
+				<%=ret_results.get(ret_index).getPassengers().get(0).getLegs().get(0).getL().getDepDate() %>
+				<%=ret_results.get(ret_index).getPassengers().get(0).getLegs().get(0).getL().getDepTime()  %>
 				</td>
 				<td><span class="glyphicon glyphicon-arrow-right"></span> </td>
 				<td>
-				<%=ret_results.get(0).getPassengers().get(0).getLegs().get(ret_results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrDate() %>
-				<%=ret_results.get(0).getPassengers().get(0).getLegs().get(ret_results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrTime()  %>
+				<%=ret_results.get(ret_index).getPassengers().get(0).getLegs().get(ret_results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrDate() %>
+				<%=ret_results.get(ret_index).getPassengers().get(0).getLegs().get(ret_results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrTime()  %>
 				</td>
-				<td><%=ret_results.get(0).getPassengers().get(0).getLegs().size()-1 %></td>
+				<td><%=ret_results.get(ret_index).getPassengers().get(0).getLegs().size()-1 %></td>
 				<td><%= "$" + df.format(ret_results.get(ret_index).getCost()) %></td>
 				<td><b>RADIO BUTTON?</b></td>
 			</tr>

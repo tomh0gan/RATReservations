@@ -77,15 +77,15 @@
 %>
 			<tr>
 				<td>
-				<%= results.get(0).getPassengers().get(0).getLegs().get(0).getL().getDepDate() %>
-				<%= results.get(0).getPassengers().get(0).getLegs().get(0).getL().getDepTime()  %>
+				<%= results.get(index).getPassengers().get(0).getLegs().get(0).getL().getDepDate() %>
+				<%= results.get(index).getPassengers().get(0).getLegs().get(0).getL().getDepTime()  %>
 				</td>
 				<td><span class="glyphicon glyphicon-arrow-right"></span> </td>
 				<td>
-				<%= results.get(0).getPassengers().get(0).getLegs().get(results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrDate() %>
-				<%= results.get(0).getPassengers().get(0).getLegs().get(results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrTime()  %>
+				<%= results.get(index).getPassengers().get(0).getLegs().get(results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrDate() %>
+				<%= results.get(index).getPassengers().get(0).getLegs().get(results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrTime()  %>
 				</td>
-				<td><%= results.get(0).getPassengers().get(0).getLegs().size()-1 %></td>
+				<td><%= results.get(index).getPassengers().get(0).getLegs().size()-1 %></td>
 				<td><%= "$" + df.format(results.get(index).getCost()) %></td>
 				<td><a href="passengers_info.jsp?index=<%= index %>" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-check"></span> Select</a></td>
 			</tr>
