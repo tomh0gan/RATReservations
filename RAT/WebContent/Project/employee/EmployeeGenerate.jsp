@@ -175,16 +175,20 @@
 		String depDate = request.getParameter("depDate");				// departure date
 		
 		if(depDate.isEmpty()){
-			/* ERROR NOT HANDLED; depature date is empty */
-			System.out.println("O1"); // for debuging 
-			response.sendRedirect("RecordReservation.jsp");
+			/* ERROR HANDLED; depature date is empty */
+			request.setAttribute("ReturnedFlightType", "oneway");
+			request.setAttribute("SearchError", "Departure date must be selected.");
+			RequestDispatcher rd = request.getRequestDispatcher("RecordReservation.jsp");
+			rd.forward(request, response);
 			return;
 		}
 		
 		if(depAirportId.equals(arrAirportId)){
-			/* ERROR NOT HANDLED; departure airport and arrival airport are the same */
-			System.out.println("O2"); // for debuging 
-			response.sendRedirect("RecordReservation.jsp");
+			/* ERROR HANDLED; departure airport and arrival airport are the same */
+			request.setAttribute("ReturnedFlightType", "oneway");
+			request.setAttribute("SearchError", "Departure airport and arrival airport must be different.");
+			RequestDispatcher rd = request.getRequestDispatcher("RecordReservation.jsp");
+			rd.forward(request, response);
 			return;
 		}
 		
@@ -192,16 +196,20 @@
 		ArrayList<ArrayList<Leg>> paths = findPaths(depAirportId, arrAirportId, depDate);
 		
 		if(paths.isEmpty()){
-			/* ERROR NOT HANDLED;  there is no path path */
-			System.out.println("O3"); // for debuging 
-			response.sendRedirect("RecordReservation.jsp");
+			/* ERROR HANDLED;  there is no path path */
+			request.setAttribute("ReturnedFlightType", "oneway");
+			request.setAttribute("SearchError", "No flights found.");
+			RequestDispatcher rd = request.getRequestDispatcher("RecordReservation.jsp");
+			rd.forward(request, response);
 			return;
 		}else{
 			ArrayList<Res> results = generateReservations(paths, flightType, classType, numOfPassengers);
 			if(results.isEmpty()){
-				/* ERROR NOT HANDLED;  flights were found, but not in the requested class */
-				System.out.println("O4"); // for debuging 
-				response.sendRedirect("RecordReservation.jsp");
+				/* ERROR HANDLED;  flights were found, but not in the requested class */
+				request.setAttribute("ReturnedFlightType", "oneway");
+				request.setAttribute("SearchError", "No flights found.");
+				RequestDispatcher rd = request.getRequestDispatcher("RecordReservation.jsp");
+				rd.forward(request, response);
 				return;
 			}else{
 				session.setAttribute("results", results);
@@ -218,23 +226,29 @@
 		String retDate = request.getParameter("retDate");
 		
 		if(depAirportId.equals(arrAirportId)){
-			/* ERROR NOT HANDLED; departure airport and arrival airport are the same */
-			System.out.println("R1"); // for debuging 
-			response.sendRedirect("RecordReservation.jsp");
+			/* ERROR HANDLED; departure airport and arrival airport are the same */
+			request.setAttribute("ReturnedFlightType", "roundtrip");
+			request.setAttribute("SearchError", "Departure airport and arrival airport must be different.");
+			RequestDispatcher rd = request.getRequestDispatcher("RecordReservation.jsp");
+			rd.forward(request, response);
 			return;
 		}
 		if(depDate.isEmpty() || retDate.isEmpty()){
-			/* ERROR NOT HANDLED; depart date or return date is empty */
-			System.out.println("R2"); // for debuging 
-			response.sendRedirect("RecordReservation.jsp");
+			/* ERROR HANDLED; depart date or return date is empty */
+			request.setAttribute("ReturnedFlightType", "roundtrip");
+			request.setAttribute("SearchError", "Departure date and return date must be selected.");
+			RequestDispatcher rd = request.getRequestDispatcher("RecordReservation.jsp");
+			rd.forward(request, response);
 			return;
 		}
 		java.util.Date depDateCompare = new SimpleDateFormat("yyyy-MM-dd").parse(depDate);
 		java.util.Date retDateCompare = new SimpleDateFormat("yyyy-MM-dd").parse(retDate);
 		if(retDateCompare.before(depDateCompare)){
-			/* ERROR NOT HANDLED; return date is before the departure date */
-			System.out.println("R3"); // for debuging 
-			response.sendRedirect("RecordReservation.jsp");
+			/* ERROR HANDLED; return date is before the departure date */
+			request.setAttribute("ReturnedFlightType", "roundtrip");
+			request.setAttribute("SearchError", "Departure date must be before return date.");
+			RequestDispatcher rd = request.getRequestDispatcher("RecordReservation.jsp");
+			rd.forward(request, response);
 			return;
 		}
 		
@@ -246,8 +260,10 @@
 		
 		if(dep_paths.isEmpty() || ret_paths.isEmpty()){
 			/* ERROR NOT HANDLED;  there is no depature path or there is no return path */
-			System.out.println("R4"); // for debuging 
-			response.sendRedirect("RecordReservation.jsp");
+			request.setAttribute("ReturnedFlightType", "roundtrip");
+			request.setAttribute("SearchError", "No flights found.");
+			RequestDispatcher rd = request.getRequestDispatcher("RecordReservation.jsp");
+			rd.forward(request, response);
 			return;
 		}else{
 			ArrayList<Res> dep_results = generateReservations(dep_paths, flightType, classType, numOfPassengers);
@@ -255,8 +271,10 @@
 			
 			if(dep_results.isEmpty() || ret_results.isEmpty()){
 				/* ERROR NOT HANDLED;  flights were found, but not in the requested class */
-				response.sendRedirect("RecordReservation.jsp");
-				System.out.println("R5"); // for debuging 
+				request.setAttribute("ReturnedFlightType", "roundtrip");
+				request.setAttribute("SearchError", "No flights found.");
+				RequestDispatcher rd = request.getRequestDispatcher("RecordReservation.jsp");
+				rd.forward(request, response);
 				return;
 			}else{
 				session.setAttribute("dep_results", dep_results);
@@ -307,8 +325,10 @@
 		
 		if(count == 4){
 			/* ERROR NOT HANDLED;  all inputs were invalid, meaning either empty or the arr/dep were the same */
-			response.sendRedirect("RecordReservation.jsp");
-			System.out.println("M1"); // for debuging 
+			request.setAttribute("ReturnedFlightType", "multdest");
+			request.setAttribute("SearchError", "All input invalid.");
+			RequestDispatcher rd = request.getRequestDispatcher("RecordReservation.jsp");
+			rd.forward(request, response);
 			return;
 		}
 		
@@ -326,8 +346,10 @@
 		
 		if(multResults.isEmpty()){
 			/* ERROR NOT HANDLED;  no flights were found */
-			response.sendRedirect("RecordReservation.jsp");
-			System.out.println("M2"); // for debuging 
+			request.setAttribute("ReturnedFlightType", "multdest");
+			request.setAttribute("SearchError", "No flights found.");
+			RequestDispatcher rd = request.getRequestDispatcher("RecordReservation.jsp");
+			rd.forward(request, response);
 			return;
 		}
 		if(multResults.size() == 1){
@@ -347,9 +369,11 @@
 		String flexDateEnd = request.getParameter("flexDateEnd");
 
 		if(flexDateStart.isEmpty() || flexDateEnd.isEmpty()){
-			/* ERROR NOT HANDLED; flex start or flex end date is empty */
-			System.out.println("F1"); // for debuging 
-			response.sendRedirect("RecordReservation.jsp");
+			/* ERROR HANDLED; flex start or flex end date is empty */
+			request.setAttribute("ReturnedFlightType", "flex");
+			request.setAttribute("SearchError", "Start date and end date must be selected.");
+			RequestDispatcher rd = request.getRequestDispatcher("RecordReservation.jsp");
+			rd.forward(request, response);
 			return;
 		}
 		
@@ -360,9 +384,11 @@
 	    endCal.setTime(sdf.parse(flexDateEnd));
 
 		if(endCal.before(startCal)){
-			/* ERROR NOT HANDLED; flex end date is before flex start date */
-			System.out.println("F2"); // for debuging 
-			response.sendRedirect("RecordReservation.jsp");
+			/* ERROR HANDLED; flex end date is before flex start date */
+			request.setAttribute("ReturnedFlightType", "flex");
+			request.setAttribute("SearchError", "Start date must be before end date.");
+			RequestDispatcher rd = request.getRequestDispatcher("RecordReservation.jsp");
+			rd.forward(request, response);
 			return;
 		}
 		
@@ -384,8 +410,10 @@
 		
 		if(flexResults.isEmpty()){
 			/* ERROR NOT HANDLED;  no flights were found */
-			response.sendRedirect("RecordReservation.jsp");
-			System.out.println("F3"); // for debuging 
+			request.setAttribute("ReturnedFlightType", "flex");
+			request.setAttribute("SearchError", "No flights found.");
+			RequestDispatcher rd = request.getRequestDispatcher("RecordReservation.jsp");
+			rd.forward(request, response);
 			return;
 		}
 		else {

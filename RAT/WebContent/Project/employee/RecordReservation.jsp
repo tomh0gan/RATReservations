@@ -39,6 +39,26 @@
 		}
 	}
 	
+	function selectCheckBox(flightType){
+		System.out.println(flightType);
+		if(flightType == 'oneway'){
+			document.getElementById('type-0').checked = true;
+		}
+		else if(flightType == 'roundtrip'){
+			document.getElementById('type-1').checked = true;
+		}
+		else if(flightType == 'multdest'){
+			document.getElementById('type-2').checked = true;
+		}
+		else if(flightType == 'flex'){
+			document.getElementById('type-3').checked = true;
+		}
+		else{
+			document.getElementById('type-0').checked = true;
+		}
+		dtable();
+	}
+	
 	function clearErrorMsg(errorMsgTagId){
 		document.getElementById(errorMsgTagId).innerHTML = "";
 	}
@@ -48,7 +68,7 @@
   </style>
 <!-- END SCRIPT -->
 </head>
-<body>
+<body onload="selectCheckBox('${ReturnedFlightType}');">
 	<!-- START NAV -->
 	<div class="container">
 		<div class="navbar navbar-default" style="margin-top: 20px;">
@@ -109,7 +129,7 @@
 				</div>
 
 			<div class="well">	
-			
+			<p class=redText id=searchErrs>${SearchError}</p>
 			<div id="flight1_div" style="display:none">
 			<legend><h4><b>Flight 1</b></h4></legend>
 			</div>			
