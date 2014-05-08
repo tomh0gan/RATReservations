@@ -62,6 +62,7 @@
 </div>
 	
 <%
+	int outerIndex = 0;
 	for(ArrayList<Res> results : flexResults){
 %>
 <div class="container">
@@ -79,31 +80,32 @@
 		</thead>
 		<tbody>
 <%
-			int index = 0;
+			int innerIndex = 0;
 			for(Res r : results) {
 %>
 			<tr>
 				<td>
-				<%= results.get(index).getPassengers().get(0).getLegs().get(0).getL().getDepDate() %>
-				<%= results.get(index).getPassengers().get(0).getLegs().get(0).getL().getDepTime()  %>
+				<%= results.get(innerIndex).getPassengers().get(0).getLegs().get(0).getL().getDepDate() %>
+				<%= results.get(innerIndex).getPassengers().get(0).getLegs().get(0).getL().getDepTime()  %>
 				</td>
 				<td><span class="glyphicon glyphicon-arrow-right"></span> </td>
 				<td>
-				<%= results.get(index).getPassengers().get(0).getLegs().get(results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrDate() %>
-				<%= results.get(index).getPassengers().get(0).getLegs().get(results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrTime()  %>
+				<%= results.get(innerIndex).getPassengers().get(0).getLegs().get(results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrDate() %>
+				<%= results.get(innerIndex).getPassengers().get(0).getLegs().get(results.get(0).getPassengers().get(0).getLegs().size()-1).getL().getArrTime()  %>
 				</td>
-				<td><%= results.get(index).getPassengers().get(0).getLegs().size()-1 %></td>
-				<td><%= "$" + df.format(results.get(index).getCost()) %></td>
-				<td><a href="passengers_mult_info.jsp?index=<%= index %>" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-check"></span> Select</a></td>
+				<td><%= results.get(innerIndex).getPassengers().get(0).getLegs().size()-1 %></td>
+				<td><%= "$" + df.format(results.get(innerIndex).getCost()) %></td>
+				<td><a href="passengers_info.jsp?OuterIndex=<%= outerIndex %>&InnerIndex=<%= innerIndex %>" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-check"></span> Select</a></td>
 			</tr>
 <%
-				index++;
+				innerIndex++;
 			}
 %>
 		</tbody>
 	</table>
 </div>
 <%
+	outerIndex++;
 	}
 %>
 <div class="container">

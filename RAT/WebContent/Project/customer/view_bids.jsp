@@ -113,10 +113,10 @@
 				while(rs2.next()){
 %>
 					<tr>
-					<td><%=rs.getString(1)%></td>
-					<td><%=rs.getString(2)%></td>
-					<td><button type="button" class="btn btn-sm btn-primary" onclick="window.open('customer_bid.jsp?resrNum=<%=rs.getString(3) %>', '_self')" >View</button></td>
-					<td><%=rs.getString(4)%></td>
+					<td><%=rs2.getString(1)%></td>
+					<td><%=rs2.getString(2)%></td>
+					<td><button type="button" class="btn btn-sm btn-primary" onclick="window.open('customer_bid.jsp?resrNum=<%=rs2.getString(3) %>', '_self')" >View</button></td>
+					<td><%=rs2.getString(4)%></td>
 					</tr>
 <%
 				}
