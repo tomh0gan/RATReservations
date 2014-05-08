@@ -52,7 +52,8 @@
 	for(int k = 0; k < res.size(); k++){
 		Res current = res.get(k);
 		for(int j = 0; j < passengers.size(); j++){
-			for(int i = 0; i < resLegs.size(); i++){
+			ArrayList<Res_Leg> temp = current.getPassengers().get(j).getLegs();
+			for(int i = 0; i < temp.size(); i++){
 				current.getPassengers().get(j).getLegs().get(i).setMeal(request.getParameter("passMeal"+k+""+i+""+j));
 			}	
 		}
@@ -83,7 +84,7 @@
 		
 		conn = java.sql.DriverManager.getConnection(mysURL,sysprops);
 	%>
-	<form action="create_reservation_mult.jsp" method=post>
+	<form action="EmployeeCreateResrMult.jsp" method=post>
 	<div class="container">
 		<h3>Flight: <%= resLegs.get(0).getL().getDepAirportId() + " " %><span class="glyphicon glyphicon-arrow-right"></span><%= " " +  resLegs.get(resLegs.size()-1).getL().getArrAirportId()%></h3>
 		<h3>Departure: <%= resLegs.get(0).getL().getDepDate() + " At " + resLegs.get(0).getL().getDepTime() %></h3>
@@ -116,26 +117,14 @@
 		<label class="col-md-4 control-label" for="totalFare">Account Number: </label>
 		<div class="col-sm-5">
         			<input value="" name=accNum type="text" class="form-control" placeholder="Account Number">
-        		</div>
-	
-	
-	<form name="accNumForm" action="EmployeeCreateReservation.jsp" method="post" class="form-horizontal">
-		<div class="form-group">  
-        		<label class="col-md-4 control-label" for="totalFare">Account Number: </label>
-        		<div class="col-sm-5">
-        			<input value="" name=accNum type="text" class="form-control" placeholder="Account Number">
-        		</div>
-        		<div class="col-sm-5">
-        			<input value="" name=ssn type="text" class="form-control" placeholder="SSN Number">
-        		</div>
-     	</div>
+        </div>
      </div>
 	<br />
 	<br />
 		<div class="container">
 			<label class="col-md-4 control-label" for="buy"></label>
 			<div class="col-md-8">
-				<button type=button id="buy" name="buy" class="btn btn-primary btn-lg" onclick="return Button1_onclick()"><span class="glyphicon glyphicon-ok"></span> Confirm </button>
+				<button type=submit id="buy" name="buy" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-ok"></span> Confirm </button>
 				<button type="reset" id="buy" name="buy" class="btn btn-danger btn-lg" onclick="window.open('RecordReservation.jsp','_self');"><span class="glyphicon glyphicon-remove"></span> Cancel </button>
 			</div>
 		</div>

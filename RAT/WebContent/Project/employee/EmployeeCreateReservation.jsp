@@ -63,7 +63,7 @@
 		}
 		resrStmt.executeBatch();
 		
-		response.sendRedirect("Employee.jsp");
+		response.sendRedirect("success.jsp");
 		
 		
 	} catch(Exception e){
