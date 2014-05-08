@@ -68,7 +68,7 @@
   </style>
 <!-- END SCRIPT -->
 </head>
-<body onload="selectCheckBox('${ReturnedFlightType}');" >
+<body onload="selectCheckBox('${ReturnedFlightType}');">
 	<!-- START NAV -->
 	<div class="container">
 		<div class="navbar navbar-default" style="margin-top: 20px;">
