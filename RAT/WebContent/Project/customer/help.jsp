@@ -101,7 +101,7 @@
       
     <br />
     <br />
-    
+    <div class="container">
     <%
       if(request.getParameter("help") == null || request.getParameter("help").equals("navCusHomScr")){
     	  %>
@@ -219,7 +219,7 @@
     	  <%
       }
       %>      
-      
+      </div>
       <br/>
       <br/>
       <br/>
