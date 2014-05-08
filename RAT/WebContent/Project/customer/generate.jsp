@@ -264,6 +264,7 @@
 				arrAirportId = rs.getString("L.arrAirportId");
 			}else{
 				response.sendRedirect("home.jsp");
+				return;
 			}
 		}catch(Exception e){ System.out.println(e);} 
 		finally {try {conn.close();} catch(Exception ee){}}
