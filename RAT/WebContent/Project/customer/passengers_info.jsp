@@ -40,13 +40,13 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">RAT Reservations</a>
+				<a class="navbar-brand" href="#">RAT Reservations<img width="30" height="30" class="img" src="../images/rat-md.png"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="home.jsp">Find Flights</a></li>
 					<li><a href="view_reservations.jsp">View Reservations</a></li>
-					<li><a href="#">View Bids</a></li>
+					<li><a href="view_bids.jsp">View Bids</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="help.jsp">Help</a></li>

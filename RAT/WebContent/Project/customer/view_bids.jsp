@@ -25,7 +25,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">RAT Reservations</a>
+            <a class="navbar-brand" href="#">RAT Reservations<img width="30" height="30" class="img" src="../images/rat-md.png"></a>
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">

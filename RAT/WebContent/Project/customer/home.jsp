@@ -39,6 +39,25 @@
 		}
 	}
 	
+	function selectCheckBox(flightType){
+		if(flightType == 'oneway'){
+			document.getElementById('type-0').checked = true;
+		}
+		else if(flightType == 'roundtrip'){
+			document.getElementById('type-1').checked = true;
+		}
+		if(flightType == 'multdest'){
+			document.getElementById('type-2').checked = true;
+		}
+		else if(flightType == 'flex'){
+			document.getElementById('type-3').checked = true;
+		}
+		else{
+			document.getElementById('type-0').checked = true;
+		}
+		dtable();
+	}
+	
 	function clearErrorMsg(errorMsgTagId){
 		document.getElementById(errorMsgTagId).innerHTML = "";
 	}
@@ -48,7 +67,7 @@
   </style>
 <!-- END SCRIPT -->
 </head>
-<body>
+<body onload="selectCheckBox('${ReturnedFlightType}');" >
 	<!-- START NAV -->
 	<div class="container">
 		<div class="navbar navbar-default" style="margin-top: 20px;">
@@ -60,7 +79,7 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">RAT Reservations</a>
+					<a class="navbar-brand" href="#">RAT Reservations<img width="30" height="30" class="img" src="../images/rat-md.png"></a>
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
