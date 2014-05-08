@@ -41,15 +41,14 @@
 		conn = java.sql.DriverManager.getConnection(mysURL,sysprops);
 
 		Statement resrStmt = conn.createStatement();
-		Statement passStmt = conn.createStatement();
-		Statement legStmt = conn.createStatement();
-		
+		resrStmt.execute("START TRANSACTION;");
 		//Reservation
+		
 		String resr = "INSERT INTO Reservation (accountNum, totalFare, bookingFee) VALUES ("+session.getAttribute("accountNum")+", "+request.getParameter("totalFare")+", "+request.getParameter("bookingFee")+");";
 		System.out.println(resr);
 		resrStmt.addBatch(resr);
 		
-		if(request.getParameter("bid").equals("true")){
+		if(request.getParameter("bid") != null && request.getParameter("bid").equals("true")){
 			resrStmt.addBatch(bidQuery);
 		}
 		
@@ -64,12 +63,11 @@
 			String pass = new String("INSERT INTO reservation_passengers VALUES((SELECT MAX(resrNum) from Reservation), "+(i+1)+", '"+allPassengers.get(i).getPassName()+"', "+costForPass+")");
 			System.out.println(pass);
 			resrStmt.addBatch(pass);
-			
 			for(int k = 0; k < resrs.size(); k++){
 				//Get resr
 				Res current = resrs.get(k);
-				
-				for(int j = 0; j < resLegs.size(); j++){
+				ArrayList<Res_Leg> temp = current.getPassengers().get(i).getLegs();
+				for(int j = 0; j < temp.size(); j++){
 					ArrayList<Res_Passenger> passengers = current.getPassengers();
 					//Reservation Leg
 					String resrLeg = new String("INSERT INTO reservation_legs VALUES((SELECT MAX(resrNum) from Reservation), "+(i+1)+", '"+passengers.get(i).getLegs().get(j).getL().getAirlineId()
@@ -82,8 +80,9 @@
 			}
 		}
 		resrStmt.executeBatch();
+		resrStmt.execute("COMMIT;");
 		
-		if(request.getParameter("bid").equals("true")){
+		if(request.getParameter("bid") != null && request.getParameter("bid").equals("true")){
 			response.sendRedirect("view_bids.jsp");
 		}
 		else{

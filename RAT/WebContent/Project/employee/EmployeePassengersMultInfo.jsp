@@ -107,7 +107,7 @@
 		conn = java.sql.DriverManager.getConnection(mysURL,sysprops);
 	%>
 	<div class="container">
-		<form action="EmployeeConfirmResrMult.jsp" class="form-horizontal" method="post">
+		<form action="EmployeeConfirmMultidest.jsp" class="form-horizontal" method="post">
 			<fieldset>
 				<legend>Checkout</legend>
 				<div class="container">

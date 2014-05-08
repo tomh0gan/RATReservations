@@ -43,10 +43,11 @@
       	}
       	%>
         <br /><br />
-        <div class="form-group">  
+        <div class="form-group">
+        	<input type=hidden name=id value="${EmployeeId}" />  
         	<label class="col-sm-2 control-label" for=firstName>First Name</label>
         	<div class="col-sm-5">
-        		<input value="${EmployeeFName}" name=firstName type="text" class="form-control" placeholder="First name" oninput="clearErrorMsg('fnameError')" required autofocus>
+        		<input name=firstName value="${EmployeeFName}" type="text" class="form-control" placeholder="First name" oninput="clearErrorMsg('fnameError')" required autofocus>
         		<span class="redText" id="fnameError">${EmployeeFNameError}</span>
         	</div>
         </div>

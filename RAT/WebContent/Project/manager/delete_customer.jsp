@@ -25,14 +25,17 @@
 		String id = request.getParameter("id");
 		
 		Statement stmt1 = conn.createStatement();
+		stmt1.execute("START TRANSACTION;");
 		String retrieve = "SELECT resrNum FROM Reservation WHERE accountNum='"+ accountNum +"'";
 		java.sql.ResultSet rs = stmt1.executeQuery(retrieve);
 		while(rs.next()){
 			String d = "DELETE FROM Reservation WHERE resrNum=" + rs.getString(1) + ";";
 			stmt1.execute(d);
 		}
+		stmt1.execute("COMMIT;");
 		
 		Statement stmt2 = conn.createStatement();
+		stmt2.execute("START TRANSACTION;");
 		String a,b,c;
 		a = "DELETE FROM Customer WHERE accountNum = '" + accountNum + "' ";
 		stmt2.execute(a);
@@ -42,6 +45,7 @@
 		stmt2.addBatch(c);
 		
 		stmt2.executeBatch();
+		stmt2.execute("COMMIT;");
 		response.sendRedirect("manager_customers.jsp");
 		
 	} catch(Exception e){

@@ -24,15 +24,21 @@
 		String id = request.getParameter("id");
 		String ssn = request.getParameter("ssn");
 		
+		
 		Statement stmt1 = conn.createStatement();
+		stmt1.execute("START TRANSACTION;");
 		String retrieve = "SELECT resrNum FROM Reservation WHERE represSSN='"+ ssn +"'";
 		java.sql.ResultSet rs = stmt1.executeQuery(retrieve);
 		while(rs.next()){
 			String u = "UPDATE Reservation SET represSSN=null WHERE resrNum=" + rs.getString(1) + " AND represSSN= " + ssn +";";
 			stmt1.addBatch(u);
 		}
+		stmt1.executeBatch();
+		stmt1.execute("COMMIT;");
+		
 		
 		Statement stmt2 = conn.createStatement();
+		stmt2.execute("START TRANSACTION;");
 		String a,b,c;
 		a = "DELETE FROM Employee WHERE id = '" + id + "' ";
 		stmt2.execute(a);
@@ -42,6 +48,7 @@
 		stmt2.addBatch(c);
 		
 		stmt2.executeBatch();
+		stmt2.execute("COMMIT;");
 		response.sendRedirect("manager_employee_page.jsp");
 		
 	} catch(Exception e){

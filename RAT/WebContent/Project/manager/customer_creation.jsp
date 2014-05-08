@@ -37,14 +37,15 @@
 		
 		Statement stmt2 = conn.createStatement();
 		String a,b,c;
+		stmt2.execute("START TRANSACTION;");
 		a = "INSERT INTO person (firstName, lastName, address, city, state, zipcode) VALUES ('"+firstName+"', '"+lastName+"', '"+address+"', '"+city+"', '"+state+"', '"+zipcode+"')";
 		stmt2.addBatch(a);
 		b = "INSERT INTO login (username, password, type, id) VALUES ('"+username+"', '"+password+"', 'customer', (SELECT MAX(id) from person))";
 		stmt2.addBatch(b);
 		c = "INSERT INTO customer (id, creditCardNum, email) VALUES ((SELECT MAX(id) from person), '"+creditCard+"', '"+email+"')";
-		stmt2.addBatch(c);
-		
+		stmt2.addBatch(c);	
 		stmt2.executeBatch();
+		stmt2.execute("COMMIT;");
 		response.sendRedirect("manager_customers.jsp");
 		
 	} catch(Exception e){
