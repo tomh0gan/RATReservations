@@ -286,12 +286,15 @@
 					<label class="col-md-4 control-label" for="search"></label>
 					<div class="col-md-4">
 						<button id="search" name="search" class="btn btn-block btn-warning">Search</button>
+						<a href="generate.jsp?flightType=bestSelling" class="btn btn-default btn-block">Best Selling Flights</a>
+						<a href="generate.jsp?flightType=suggest" class="btn btn-default btn-block">Personalized Suggestions</a>
 					</div>
 				</div>
-			<br><br><br><br><br><br><br>
+			
 			</fieldset>
 		</form>
 	</div>
+	<br><br><br><br><br><br><br>
 	<!-- END PAGE -->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

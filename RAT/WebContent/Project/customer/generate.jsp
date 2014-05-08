@@ -164,6 +164,75 @@
 <%
 	// get general information about search
 	String flightType = request.getParameter("flightType");									// 'oneway', 'roundtrip', 'multdest'
+	
+	// IS IT A PREDETERMINED SEARCH?
+	if(flightType.equals("bestSelling")){
+		String mysJDBCDriver = "com.mysql.jdbc.Driver"; 
+		String mysURL = "jdbc:mysql://localhost:3306/rat_schema"; 
+		String mysUserID = "tester"; 
+		String mysPassword = "test";
+		
+		String depAirportId = "";
+		String arrAirportId = "";
+		String depDate = "";
+		String newFlightType = "oneway";
+		String newClassType = "economy";
+		int numOfPassengers = 1;
+		
+		Connection conn = null;
+		try{
+			Class.forName(mysJDBCDriver).newInstance();
+			java.util.Properties sysprops = System.getProperties();
+			sysprops.put("user", mysUserID);
+			sysprops.put("password", mysPassword);
+			conn = java.sql.DriverManager.getConnection(mysURL, sysprops);
+			Statement stmt = conn.createStatement();
+			
+			ResultSet rs = stmt.executeQuery("SELECT RL.airLineId, RL.flightNum, COUNT(*) AS M, L.depDate, L.depAirportId, L.arrAirportId" +
+												" FROM reservation_legs RL, Leg L" +
+												" WHERE RL.depDate > NOW() AND L.airlineId=RL.airlineId AND L.flightNum=RL.flightNum AND L.legNum=RL.legNum AND L.depDate=RL.depDate" +
+												" GROUP BY RL.airLineId" +
+												" ORDER BY M DESC" +
+												" LIMIT 1;");
+			if(rs.next()){
+				depAirportId = rs.getString("L.depAirportId");
+				arrAirportId = rs.getString("L.arrAirportId");
+				depDate = rs.getString("L.depDate");
+			}else{
+				response.sendRedirect("home.jsp");
+			}
+		}catch(Exception e){ System.out.println(e);} 
+		finally {try {conn.close();} catch(Exception ee){}}
+		// handle it just like a one-way
+		// find the one way paths
+				ArrayList<ArrayList<Leg>> paths = findPaths(depAirportId, arrAirportId, depDate);
+				
+				if(paths.isEmpty()){
+					/* ERROR NOT HANDLED;  there is no path path */
+					System.out.println("O3"); // for debuging 
+					response.sendRedirect("home.jsp");
+					return;
+				}else{
+					ArrayList<Res> results = generateReservations(paths, newFlightType, newClassType, numOfPassengers);
+					if(results.isEmpty()){
+						response.sendRedirect("home.jsp");
+						return;
+					}else{
+						session.setAttribute("results", results);
+						response.sendRedirect("view_oneway.jsp"); 
+					}
+				}
+		
+		
+		return;
+	}
+	if(flightType.equals("suggest")){
+		System.out.println("suggest");
+		return;
+	}
+	else{
+	// OTHERWISE, IT'S A NORMAL SEARCH
+	
 	String classType = request.getParameter("class");										// 'first','business','economy'
 	int numOfPassengers = Integer.parseInt(request.getParameter("numOfPassengers"));		
 	
@@ -366,8 +435,6 @@
 			return;
 		}
 		
-		
-		
 		ArrayList<ArrayList<Res>> flexResults = new ArrayList<ArrayList<Res>>();
 		
 		while(startCal.before(endCal)){
@@ -393,8 +460,8 @@
 			session.setAttribute("flexResults", flexResults);
 			response.sendRedirect("view_flex.jsp");
 		}
+		}
 	}
-	
 %>
 </body>
 </html>
