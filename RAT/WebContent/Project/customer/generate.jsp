@@ -215,7 +215,8 @@
 				}else{
 					ArrayList<Res> results = generateReservations(paths, newFlightType, newClassType, numOfPassengers);
 					if(results.isEmpty()){
-						response.sendRedirect("home.jsp");
+						/* ERROR NOT HANDLED;  there is no path path */
+						System.out.println("S2"); // for debuging 
 						return;
 					}else{
 						session.setAttribute("results", results);
@@ -263,6 +264,8 @@
 				depAirportId = rs.getString("L.depAirportId");
 				arrAirportId = rs.getString("L.arrAirportId");
 			}else{
+				/* ERROR NOT HANDLED;  no flights were found */
+				System.out.println("S3");
 				response.sendRedirect("home.jsp");
 				return;
 			}
@@ -293,7 +296,7 @@
 		
 		if(flexResults.isEmpty()){
 			/* ERROR NOT HANDLED;  no flights were found */
-			System.out.println("S2");
+			System.out.println("S4");
 			response.sendRedirect("home.jsp"); 
 			return;
 		}
