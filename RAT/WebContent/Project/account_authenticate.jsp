@@ -41,6 +41,11 @@
 				rs.next();
 				session.setAttribute("accountNum", rs.getString("accountNum"));
 			}
+			else if(type.equals("employee")){
+				rs = stmt1.executeQuery("SELECT ssn FROM Employee WHERE id="+session.getAttribute("id"));
+				rs.next();
+				session.setAttribute("employeeSSN", rs.getString("ssn"));
+			}
 			else if(type.equals("manager")){
 				session.setAttribute("manager", "valid");
 			}
