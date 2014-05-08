@@ -19,7 +19,6 @@
 	ArrayList<Res_Leg> resLegs = passengers.get(0).getLegs();			
 	
 	String accNum = request.getParameter("accNum");
-	String ssn = request.getParameter("ssn");
 	String mysJDBCDriver = "com.mysql.jdbc.Driver"; 
 	String mysURL = "jdbc:mysql://localhost:3306/rat_schema"; 
 	String mysUserID = "tester"; 
@@ -39,7 +38,7 @@
 		Statement legStmt = conn.createStatement();
 		
 		//Reservation
-		String resr = "INSERT INTO Reservation (accountNum, totalFare, bookingFee, represSSN) VALUES ("+accNum+", "+res.getCost()+", "+res.getBookingFee()+", "+ssn+");";
+		String resr = "INSERT INTO Reservation (accountNum, totalFare, bookingFee, represSSN) VALUES ("+accNum+", "+res.getCost()+", "+res.getBookingFee()+", "+session.getAttribute("employeeSSN")+");";
 		System.out.println(resr);
 		resrStmt.addBatch(resr);
 		
