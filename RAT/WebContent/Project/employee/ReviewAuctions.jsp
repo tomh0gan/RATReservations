@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page import="java.text.DecimalFormat" %>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
@@ -57,9 +56,11 @@
             <tr>
                 <th>Reservation Number</th>
                 <th>Account Number</th>
-                <th>Customer Bid</th>
-				<th>Minimum Bid</th>
-
+                <th>Original Cost</th>
+				<th>Customer Bid</th>
+				<th>Recommended Minimum Cost</th>
+                <th>Accept</th>
+				<th>Reject</th>
             </tr>
        </thead> 
       <tbody>  
@@ -85,18 +86,22 @@
             
             	java.sql.Statement stmt1=conn.createStatement();
         
-				java.sql.ResultSet rs = stmt1.executeQuery("SELECT * FROM reverse_bid A, reservation R " +
-															"WHERE A.status = 'pending' AND A.resrNum = R.resrNum");
+				java.sql.ResultSet rs = stmt1.executeQuery("SELECT R.resrNum, R.accountNum, R.totalFare, R.bookingFee, A.bid FROM Reservation R, Reverse_bid A WHERE R.resrNum=A.resrNum AND R.accountNum=A.accountNum AND A.status = 'pending';");
 	
-				 while(rs.next())
-		          {  String s = rs.getString(9);
-					 double i = Double.parseDouble(s) * .8;
+				DecimalFormat df = new DecimalFormat("#.00");
+				
+				while(rs.next())
+				{ 
+					 String totalFare = rs.getString(3);
+					 String bookingFee = rs.getString(4);
+					 double total = Double.parseDouble(totalFare) + Double.parseDouble(bookingFee);
 		%>
 		                    <tr>
 		                      <td><%=rs.getString(1)%></td>
 		                      <td><%=rs.getString(2)%></td>
-		                      <td><%=rs.getString(3)%></td>
-							  <td><%=i%></td>
+		                      <td><%="$" + total %></td>
+							  <td><%="$" + rs.getString(5)%></td>
+							  <td><%= "$" + (total*.75) %></td>
 		                      <td><button type="button" class="btn btn-sm btn-info"  onclick="return acceptBid()">Accept</button></td>
 		                      <td><button type="button" class="btn btn-sm btn-danger"  onclick="return rejectBid()">Reject</button></td> 
 		                                               		
