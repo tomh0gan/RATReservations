@@ -35,9 +35,7 @@
 		conn = java.sql.DriverManager.getConnection(mysURL,sysprops);
 
 		Statement resrStmt = conn.createStatement();
-		Statement passStmt = conn.createStatement();
-		Statement legStmt = conn.createStatement();
-		
+		resrStmt.execute("START TRANSACTION;");
 		//Reservation
 		String resr = "INSERT INTO Reservation (accountNum, totalFare, bookingFee, represSSN) VALUES ("+accNum+", "+request.getParameter("totalFare")+", "+request.getParameter("bookingFee")+", "+ssn+");";
 		System.out.println(resr);
@@ -58,8 +56,8 @@
 			for(int k = 0; k < resrs.size(); k++){
 				//Get resr
 				Res current = resrs.get(k);
-				
-				for(int j = 0; j < resLegs.size(); j++){
+				ArrayList<Res_Leg> temp = current.getPassengers().get(i).getLegs();
+				for(int j = 0; j < temp.size(); j++){
 					ArrayList<Res_Passenger> passengers = current.getPassengers();
 					//Reservation Leg
 					String resrLeg = new String("INSERT INTO reservation_legs VALUES((SELECT MAX(resrNum) from Reservation), "+(i+1)+", '"+passengers.get(i).getLegs().get(j).getL().getAirlineId()
@@ -72,7 +70,7 @@
 			}
 		}
 		resrStmt.executeBatch();
-		
+		resrStmt.execute("COMMIT");
 		response.sendRedirect("Employee.jsp");
 		
 		

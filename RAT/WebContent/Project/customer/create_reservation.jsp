@@ -50,7 +50,7 @@
 		System.out.println(resr);
 		resrStmt.addBatch(resr);
 		
-		if(request.getParameter("bid").equals("true")){
+		if(request.getParameter("bid") != null && request.getParameter("bid").equals("true")){
 			resrStmt.addBatch(bidQuery);
 		}
 		
@@ -74,7 +74,7 @@
 		}
 		resrStmt.executeBatch();
 		
-		if(request.getParameter("bid").equals("true")){
+		if(request.getParameter("bid") != null && request.getParameter("bid").equals("true")){
 			response.sendRedirect("view_bids.jsp");
 		}
 		else{

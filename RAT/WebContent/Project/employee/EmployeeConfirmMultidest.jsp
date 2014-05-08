@@ -51,11 +51,11 @@
 	//Enter in the meals
 	for(int k = 0; k < res.size(); k++){
 		Res current = res.get(k);
-		for(int i = 0; i < resLegs.size(); i++){
-			for(int j = 0; j < passengers.size(); j++){
+		for(int j = 0; j < passengers.size(); j++){
+			for(int i = 0; i < resLegs.size(); i++){
 				current.getPassengers().get(j).getLegs().get(i).setMeal(request.getParameter("passMeal"+k+""+i+""+j));
-			}
-		}	
+			}	
+		}
 	}
 	
 	//Enter the names

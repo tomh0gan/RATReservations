@@ -22,6 +22,8 @@
 	String emplType = (String) request.getAttribute("EmployeeEmplType");
 	String hourlyRate = (String) request.getAttribute("EmployeeHourlyRate");
 	
+	System.out.println(firstName);
+	
 	java.util.Date date1 = new java.util.Date();
 	java.text.DateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
 	
@@ -44,6 +46,7 @@
 		
 		Statement stmt2 = conn.createStatement();
 		String a,b,c;
+
 		a = "UPDATE Person SET firstName='" + firstName + "', lastName='"+lastName+"', address='"+address+"', city='"+city+"', state='"+state+"', zipcode="+zipcode+" WHERE id="+id+";";
 		stmt2.addBatch(a);
 		b = "UPDATE Login SET type='" + emplType + "'WHERE id=" + id + ";";
