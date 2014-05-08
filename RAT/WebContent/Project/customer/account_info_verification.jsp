@@ -157,6 +157,12 @@ try{
 		}
 	} else if(updateType.equals("rating")){
 		String rating = request.getParameter("rating");
+		if(rating.isEmpty()){
+			request.setAttribute("ratingError", "Please select a valid rating!");
+			RequestDispatcher rd = request.getRequestDispatcher("get_account_info.jsp");
+			rd.forward(request, response);
+			return;
+		}
 		Statement stmt2 = conn.createStatement();
 		String updateCustomer = "UPDATE Customer SET rating='"+rating+"' WHERE id="+session.getAttribute("id")+" AND accountNum="+session.getAttribute("accountNum")+";";
 		stmt2.addBatch(updateCustomer);

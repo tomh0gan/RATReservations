@@ -291,7 +291,7 @@
 				<div class="well">
 					<p class=greenText id=successMessagePass>${successMessageRating}</p>
 					<div class="form-group">
-						<label class="col-md-4 control-label" for="rating">Rate Us!</label>
+						<label class="col-md-4 control-label" for="rating" oninput="clearErrorMsg('ratingError')">Rate Us!</label>
 						<div class="col-md-5">
 							<select id="rating" name="rating" class="form-control">
 								<option ${rating==""?"Selected=selected":""} value="">No Rating</option>
@@ -300,7 +300,7 @@
 								<option ${rating=="3"?"Selected=selected":""} value="3">Content</option>
 								<option ${rating=="4"?"Selected=selected":""} value="4">Amazing</option>
 								<option ${rating=="5"?"Selected=selected":""} value="5">Supercalifragilisticexpialidocious</option>
-							</select>
+							</select> <span class="redText" id="ratingError">${ratingError}</span>
 						</div>
 					</div>
 					<div class="form-group">
