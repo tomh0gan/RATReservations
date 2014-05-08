@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -55,6 +53,14 @@
 	<br />
 	<br />
 	<button type="button" class="btn btn-lg btn-primary" onclick="window.open('ReviewAuctions.jsp','_self');" />Review Auctions</button>
+	<br />
+	<br />
+	<button type="button" class="btn btn-lg btn-primary" onclick="window.open('EmployeeReceipts.jsp','_self');" />My Receipts</button>
+	<br />
+	<br />
+	<button type="button" class="btn btn-lg btn-primary" onclick="window.open('ViewEmployeePage.jsp','_self');" />View Employees</button>
+	<br />
+	<br />
 
     <footer class="footer">
         <p>RAT Reservations</p>

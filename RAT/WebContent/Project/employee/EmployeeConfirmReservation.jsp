@@ -102,19 +102,12 @@
 	
 	<br />
 	<br />
-	<div class="container">
-		
-	
-	
 	<form name="accNumForm" action="EmployeeCreateReservation.jsp" method="post" class="form-horizontal">
+	<div class="container">
 		<div class="form-group">  
         		<label class="col-md-4 control-label" for="totalFare">Account Number: </label>
         		<div class="col-sm-5">
         			<input value="" name=accNum type="text" class="form-control" placeholder="Account Number">
-        		</div>
-        		<label class="col-md-4 control-label" for="totalFare">Your SSN Number: </label>
-        		<div class="col-sm-5">
-        			<input value="" name=ssn type="text" class="form-control" placeholder="SSN Number">
         		</div>
      	</div>
      </div>
@@ -123,10 +116,11 @@
 		<div class="container">
 			<label class="col-md-4 control-label" for="buy"></label>
 			<div class="col-md-8">
-				<button type=button id="buy" name="buy" class="btn btn-primary btn-lg" onclick="return Button1_onclick()"><span class="glyphicon glyphicon-ok"></span> Confirm </button>
+				<button type=submit id="buy" name="buy" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-ok"></span> Confirm </button>
 				<button type="reset" id="buy" name="buy" class="btn btn-danger btn-lg" onclick="window.open('RecordReservation.jsp','_self');"><span class="glyphicon glyphicon-remove"></span> Cancel </button>
 			</div>
 		</div>
+	</form>
 	
 <%		
 	} catch(Exception e){

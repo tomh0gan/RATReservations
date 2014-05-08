@@ -48,12 +48,22 @@
 <%
 	DecimalFormat df = new DecimalFormat("#.00");
 
-	ArrayList<Res> results = (ArrayList<Res>)session.getAttribute("results");
-	Res selected = results.get(Integer.parseInt(request.getParameter("index")));
+	ArrayList<ArrayList<Res>> flexResults;
+	ArrayList<Res> results;
+	Res selected;
+
+	if(request.getParameter("type") != null && request.getParameter("type").equals("flex")){
+		flexResults = (ArrayList<ArrayList<Res>>) session.getAttribute("flexResults");
+		selected = flexResults.get(Integer.parseInt(request.getParameter("OuterIndex"))).get(Integer.parseInt(request.getParameter("InnerIndex")));
+	}
+	else{
+		results = (ArrayList<Res>)session.getAttribute("results");
+		selected = results.get(Integer.parseInt(request.getParameter("index")));
+	}
 	
 	ArrayList<Res_Passenger> passengers = selected.getPassengers();
 	ArrayList<Res_Leg> resLegs = passengers.get(0).getLegs();
-			
+
 	String mysJDBCDriver = "com.mysql.jdbc.Driver"; 
 	String mysURL = "jdbc:mysql://localhost:3306/rat_schema"; 
 	String mysUserID = "tester"; 
