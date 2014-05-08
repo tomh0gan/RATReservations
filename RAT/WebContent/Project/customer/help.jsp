@@ -4,14 +4,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Rat Reservations - Customer Help Menu</title>
+    <title>RAT - Help</title>
 
     <!-- Bootstrap -->
     <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
     
     <style>
 		body, html {
-		  padding-top: 20px;
 		  padding-bottom: 20px;
 		  text-align: center;
 		  background-color: #FFFFFF;
@@ -70,12 +69,12 @@
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="home.jsp">Find Flights</a></li>
+						<li><a href="home.jsp">Find Flights</a></li>
 						<li><a href="view_reservations.jsp">View Reservations</a></li>
 						<li><a href="view_bids.jsp">View Bids</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="help.jsp">Help</a></li>
+						<li class="active"><a href="help.jsp">Help</a></li>
 						<li><a href="get_account_info.jsp">My Account (<%=session.getAttribute("username")%>)
 						</a></li>
 						<li><div>

@@ -33,6 +33,7 @@
 						<li><a href="#">View Bids</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
+						<li><a href="help.jsp">Help</a></li>
 						<li><a href="get_account_info.jsp">My Account (<%=session.getAttribute("username")%>)
 						</a></li>
 						<li><div>
