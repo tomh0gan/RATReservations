@@ -197,6 +197,7 @@
 			<label class="col-md-4 control-label" for="submitEditInfo"></label>
 			<div class="col-md-4">
 				<button id="submitEditInfo" name="submitEditInfo" class="btn btn-primary">Submit</button>
+				&nbsp;&nbsp;&nbsp;<a href="index.html" class="btn btn-danger">Back</a>
 			</div>
 		</div>
 	</div>
