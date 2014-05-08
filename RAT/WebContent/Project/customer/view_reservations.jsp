@@ -5,6 +5,14 @@
 <title>RAT - View Reservations</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
+<script>
+ function deleteResr(resrNum){
+	 var resp=confirm("Are you sure you want to cancel this reservation?");
+	 if(resp == true){
+		 window.open('delete_active_reservation.jsp?resrNum='+resrNum+'', '_self');
+	 }
+ }
+</script>
 </head>
 <body>
 	 <div class="container">
@@ -65,6 +73,7 @@
 					<th>Reservation Date</th>
 					<th>Total Fare</th>
 					<th>View</th>
+					<th>Cancel</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -75,6 +84,7 @@
 					<td><%=rs.getString(1)%></td>
 					<td><%=rs.getString(2)%></td>
 					<td><button type="button" class="btn btn-sm btn-primary" onclick="window.open('customer_reservation.jsp?resrNum=<%=rs.getString(3) %>', '_self')" >View</button></td>
+					<td><button type="button" class="btn btn-sm btn-danger" onclick="return deleteResr(<%= rs.getString(3) %>);">Cancel</button></td>
 					</tr>
 <%
 				}

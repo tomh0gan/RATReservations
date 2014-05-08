@@ -104,7 +104,7 @@
     <br />
     
     <%
-      if(request.getParameter("help").equals("navCusHomScr")){
+      if(request.getParameter("help") == null || request.getParameter("help").equals("navCusHomScr")){
     	  %>
     	  	<!--<button class="btn btn-lg btn-primary" onclick="window.open('','_self');"></button>-->
     	  	<br />

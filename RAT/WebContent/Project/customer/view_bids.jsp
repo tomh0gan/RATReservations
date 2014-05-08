@@ -5,6 +5,14 @@
 <title>RAT - View Bids</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
+<script>
+ function deleteBid(resrNum){
+	 var resp=confirm("Are you sure you want to delete this bid?");
+	 if(resp == true){
+		 window.open('delete_bid.jsp?resrNum='+resrNum+'', '_self');
+	 }
+ }
+</script>
 </head>
 <body>
 	 <div class="container">
@@ -52,10 +60,44 @@
 
         java.sql.ResultSet rs = stmt.executeQuery("SELECT resrCreated, bid, reverse_bid.resrNum, status" + 
         								" FROM reservation JOIN reverse_bid on reservation.resrNum = reverse_bid.resrNum" +
-        								" AND reverse_bid.accountNum = "+session.getAttribute("accountNum")+";");
+        								" AND reverse_bid.accountNum = "+session.getAttribute("accountNum")+" AND reverse_bid.status='pending';");
 %>
 	<div class="container">
-		<legend>Bids</legend>
+		<legend>Pending Bids</legend>
+		<div class="well">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+					<th>Reservation Date</th>
+					<th>Bid</th>
+					<th>View</th>
+					<th>Status</th>
+					<th>Cancel</th>
+					</tr>
+				</thead>
+				<tbody>
+<% 
+				while(rs.next()){
+%>
+					<tr>
+					<td><%=rs.getString(1)%></td>
+					<td><%=rs.getString(2)%></td>
+					<td><button type="button" class="btn btn-sm btn-primary" onclick="window.open('customer_bid.jsp?resrNum=<%=rs.getString(3) %>', '_self')" >View</button></td>
+					<td><%=rs.getString(4)%></td>
+					<td><button type="button" class="btn btn-sm btn-danger" onclick="return deleteBid(<%= rs.getString(3) %>);">Cancel</button></td>
+					</tr>
+<%
+				}
+%>
+				</tbody>
+			</table>
+		</div>
+<%
+		java.sql.ResultSet rs2 = stmt.executeQuery("SELECT resrCreated, bid, reverse_bid.resrNum, status" + 
+		" FROM reservation JOIN reverse_bid on reservation.resrNum = reverse_bid.resrNum" +
+		" AND reverse_bid.accountNum = "+session.getAttribute("accountNum")+" AND reverse_bid.status <> 'pending';");
+%>	
+		<legend>Processed Bids</legend>
 		<div class="well">
 			<table class="table table-striped">
 				<thead>
@@ -68,7 +110,7 @@
 				</thead>
 				<tbody>
 <% 
-				while(rs.next()){
+				while(rs2.next()){
 %>
 					<tr>
 					<td><%=rs.getString(1)%></td>
