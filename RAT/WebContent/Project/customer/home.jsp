@@ -8,6 +8,7 @@
 <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
 <!-- START SCRIPT -->
  <script type="text/javascript">
+ 	
 	function dtable(){
 		if(document.getElementById('type-0').checked){
 			document.getElementById('returning_div').style.display = "none";
@@ -46,7 +47,7 @@
 		else if(flightType == 'roundtrip'){
 			document.getElementById('type-1').checked = true;
 		}
-		if(flightType == 'multdest'){
+		else if(flightType == 'multdest'){
 			document.getElementById('type-2').checked = true;
 		}
 		else if(flightType == 'flex'){
@@ -108,7 +109,6 @@
 		<form class="form-horizontal" action="generate.jsp" method="post">
 			<fieldset>
 				<legend>Search Flights</legend>
-
 				<!-- SEARCH TYPE -->
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="flightType"></label>
@@ -129,7 +129,7 @@
 				</div>
 
 			<div class="well">	
-			
+			<p class=redText id=searchErrs>${SearchError}</p>
 			<div id="flight1_div" style="display:none">
 			<legend><h4><b>Flight 1</b></h4></legend>
 			</div>			
