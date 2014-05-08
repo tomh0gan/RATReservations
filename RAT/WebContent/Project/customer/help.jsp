@@ -54,6 +54,9 @@
     
 </head>
 <body>
+<%
+request.setAttribute("helpMenuSelect", request.getParameter("help"));
+%>
 	<!-- START NAV -->
 	<div class="container">
 		<div class="navbar navbar-default" style="margin-top: 20px;">
