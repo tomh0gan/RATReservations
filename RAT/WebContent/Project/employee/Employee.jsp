@@ -58,6 +58,7 @@
 	<button type="button" class="btn btn-lg btn-primary" onclick="window.open('EmployeeReceipts.jsp','_self');" />My Receipts</button>
 	<br />
 	<br />
+	<button type="button" class="btn btn-lg btn-primary" onclick="window.open('ViewEmployeePage.jsp','_self');" />View Employees</button>
 	<br />
 	<br />
 
