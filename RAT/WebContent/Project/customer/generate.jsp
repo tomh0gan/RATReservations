@@ -209,7 +209,7 @@
 				
 				if(paths.isEmpty()){
 					/* ERROR NOT HANDLED;  there is no path path */
-					System.out.println("O3"); // for debuging 
+					System.out.println("S1"); // for debuging 
 					response.sendRedirect("home.jsp");
 					return;
 				}else{
@@ -227,7 +227,80 @@
 		return;
 	}
 	if(flightType.equals("suggest")){
-		System.out.println("suggest");
+		String mysJDBCDriver = "com.mysql.jdbc.Driver"; 
+		String mysURL = "jdbc:mysql://localhost:3306/rat_schema"; 
+		String mysUserID = "tester"; 
+		String mysPassword = "test";
+		
+		String depAirportId = "";
+		String arrAirportId = "";
+		String newFlightType = "flex";
+		String newClassType = "economy";
+		int numOfPassengers = 1;
+		
+		Connection conn = null;
+		try{
+			Class.forName(mysJDBCDriver).newInstance();
+			java.util.Properties sysprops = System.getProperties();
+			sysprops.put("user", mysUserID);
+			sysprops.put("password", mysPassword);
+			conn = java.sql.DriverManager.getConnection(mysURL, sysprops);
+			Statement stmt = conn.createStatement();
+			
+			ResultSet rs = stmt.executeQuery("SELECT L.depAirportId, L.arrAirportId "
+					+ "FROM reservation_legs RL, Leg L "
+					+ "WHERE RL.resrNum = ( "
+					+ "SELECT MAX(R.resrNum) "
+					+ "FROM reservation R "
+					+ "WHERE R.accountNum = "+session.getAttribute("accountNum")+") "
+					+ "AND L.airlineId=RL.airlineId "
+					+ "AND L.flightNum=RL.flightNum "
+					+ "AND L.legNum=RL.legNum "
+					+ "AND L.depDate=RL.depDate "
+					+ "AND L.legNum=1;");
+			
+			if(rs.next()){
+				depAirportId = rs.getString("L.depAirportId");
+				arrAirportId = rs.getString("L.arrAirportId");
+			}else{
+				response.sendRedirect("home.jsp");
+			}
+		}catch(Exception e){ System.out.println(e);} 
+		finally {try {conn.close();} catch(Exception ee){}}
+		// handle it like mult des for the next 3 months
+		Calendar startCal = Calendar.getInstance();
+		Calendar endCal = Calendar.getInstance();
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	    endCal.add(Calendar.MONTH, 2);
+	    
+	    System.out.println(sdf.format(startCal.getTime()));
+	    System.out.println(sdf.format(endCal.getTime()));
+	    
+		ArrayList<ArrayList<Res>> flexResults = new ArrayList<ArrayList<Res>>();
+		
+		while(startCal.before(endCal)){
+			ArrayList<ArrayList<Leg>> paths = findPaths(depAirportId, arrAirportId, sdf.format(startCal.getTime()));
+			
+			if(!paths.isEmpty()){
+				ArrayList<Res> results = generateReservations(paths, newFlightType, newClassType, numOfPassengers);
+				if(!results.isEmpty()){
+					flexResults.add(results);
+				}
+			}
+			startCal.add(Calendar.DATE, 1);
+		}
+		
+		if(flexResults.isEmpty()){
+			/* ERROR NOT HANDLED;  no flights were found */
+			System.out.println("S2");
+			response.sendRedirect("home.jsp"); 
+			return;
+		}
+		else {
+			// otherwise, send it to the mult flight page
+			session.setAttribute("flexResults", flexResults);
+			response.sendRedirect("view_flex.jsp");
+		}
 		return;
 	}
 	else{
