@@ -6,13 +6,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript">
-	function clearErrorMsg(errorMsgTagId){
+	function clearErrorMsg(errorMsgTagId) {
 		document.getElementById(errorMsgTagId).innerHTML = "";
 	}
 </script>
 <style>
-	.redText{ color: red; }
-	.greenText{ color: green; }
+.redText {
+	color: red;
+}
+
+.greenText {
+	color: green;
+}
 </style>
 </head>
 <body>
@@ -50,7 +55,9 @@
 	</div>
 	<br>
 	<div class="container">
-		<form class="form-horizontal" action="account_info_verification.jsp?updateType=password" method="post">
+		<form class="form-horizontal"
+			action="account_info_verification.jsp?updateType=password"
+			method="post">
 			<fieldset>
 				<legend>Change Password</legend>
 				<div class="well">
@@ -60,18 +67,20 @@
 							Password</label>
 						<div class="col-md-5">
 							<input id="currPass" name="currPass" type="password"
-								 class="form-control input-md" oninput="clearErrorMsg('currPassError')" required />
-							<span class="redText" id="currPassError">${currPassError}</span>
+								class="form-control input-md"
+								oninput="clearErrorMsg('currPassError')" required /> <span
+								class="redText" id="currPassError">${currPassError}</span>
 
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-md-4 control-label" for="newPass1">
-							New Password</label>
+						<label class="col-md-4 control-label" for="newPass1"> New
+							Password</label>
 						<div class="col-md-5">
 							<input id="newPass1" name="newPass1" type="password"
-								 class="form-control input-md" oninput="clearErrorMsg('newPass1Error')" required />
-							<span class="redText" id="newPass1Error">${newPass1Error}</span>
+								class="form-control input-md"
+								oninput="clearErrorMsg('newPass1Error')" required /> <span
+								class="redText" id="newPass1Error">${newPass1Error}</span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -79,7 +88,7 @@
 							New Password</label>
 						<div class="col-md-5">
 							<input id="newPass2" name="newPass2" type="password"
-								 class="form-control input-md" required />
+								class="form-control input-md" required />
 						</div>
 					</div>
 					<div class="form-group">
@@ -94,35 +103,40 @@
 		</form>
 	</div>
 	<div class="container">
-		<form class="form-horizontal" action="account_info_verification.jsp?updateType=account" method="post">
+		<form class="form-horizontal"
+			action="account_info_verification.jsp?updateType=account"
+			method="post">
 			<fieldset>
 				<legend>Edit Account Info</legend>
 				<div class="well">
-				    <p class=greenText id=successMessageAcct>${successMessageAcct}</p>
+					<p class=greenText id=successMessageAcct>${successMessageAcct}</p>
 					<div class="form-group">
 						<label class="col-md-4 control-label" for="firstName">First
 							Name</label>
 						<div class="col-md-5">
-							<input id="firstName" name="firstName" type="text" value="${firstName}"
-								 class="form-control input-md" oninput="clearErrorMsg('emailError')" />
-							<span class="redText" id="firstNameError">${firstNameError}</span>
+							<input id="firstName" name="firstName" type="text"
+								value="${firstName}" class="form-control input-md"
+								oninput="clearErrorMsg('emailError')" /> <span class="redText"
+								id="firstNameError">${firstNameError}</span>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-4 control-label" for="lastName">Last
 							Name</label>
 						<div class="col-md-5">
-							<input id="lastName" name="lastName" type="text" value="${lastName}"
-								 class="form-control input-md" oninput="clearErrorMsg('firstNameError')" />
-							<span class="redText" id="lastNameError">${lastNameError}</span>
+							<input id="lastName" name="lastName" type="text"
+								value="${lastName}" class="form-control input-md"
+								oninput="clearErrorMsg('firstNameError')" /> <span
+								class="redText" id="lastNameError">${lastNameError}</span>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-4 control-label" for="email">Email</label>
 						<div class="col-md-5">
 							<input id="email" name="email" type="text" value="${email}"
-								 class="form-control input-md" oninput="clearErrorMsg('lastNameError')"  />
-							<span class="redText" id="emailError">${emailError}</span>
+								class="form-control input-md"
+								oninput="clearErrorMsg('lastNameError')" /> <span
+								class="redText" id="emailError">${emailError}</span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -137,7 +151,9 @@
 		</form>
 	</div>
 	<div class="container">
-		<form class="form-horizontal" action="account_info_verification.jsp?updateType=billing" method="post">
+		<form class="form-horizontal"
+			action="account_info_verification.jsp?updateType=billing"
+			method="post">
 			<fieldset>
 				<legend>Edit Billing Info</legend>
 				<div class="well">
@@ -146,8 +162,9 @@
 						<label class="col-md-4 control-label" for="address">Address</label>
 						<div class="col-md-5">
 							<input id="address" name="address" type="text" value="${address}"
-								 class="form-control input-md" oninput="clearErrorMsg('addressError')"/>
-							<span class="redText" id="addressError">${addressError}</span>
+								class="form-control input-md"
+								oninput="clearErrorMsg('addressError')" /> <span class="redText"
+								id="addressError">${addressError}</span>
 
 						</div>
 					</div>
@@ -155,16 +172,19 @@
 						<label class="col-md-4 control-label" for="city">City</label>
 						<div class="col-md-5">
 							<input id="city" name="city" type="text" value="${city}"
-								class="form-control input-md" oninput="clearErrorMsg('cityError')"/>
-							<span class="redText" id="cityError">${cityError}</span>
+								class="form-control input-md"
+								oninput="clearErrorMsg('cityError')" /> <span class="redText"
+								id="cityError">${cityError}</span>
 
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-md-4 control-label" for="state" oninput="clearErrorMsg('stateError')">State</label>
+						<label class="col-md-4 control-label" for="state"
+							oninput="clearErrorMsg('stateError')">State</label>
 						<div class="col-md-5">
 							<select id="state" name="state" class="form-control">
-								<option ${state==""?"Selected=selected":""} value="">Please Select:</option>
+								<option ${state==""?"Selected=selected":""} value="">Please
+									Select:</option>
 								<option ${state=="AL"?"Selected=selected":""} value="AL">Alabama</option>
 								<option ${state=="AK"?"Selected=selected":""} value="AK">Alaska</option>
 								<option ${state=="AZ"?"Selected=selected":""} value="AZ">Arizona</option>
@@ -173,7 +193,8 @@
 								<option ${state=="CO"?"Selected=selected":""} value="CO">Colorado</option>
 								<option ${state=="CT"?"Selected=selected":""} value="CT">Connecticut</option>
 								<option ${state=="DE"?"Selected=selected":""} value="DE">Delaware</option>
-								<option ${state=="DC"?"Selected=selected":""} value="DC">District Of Columbia</option>
+								<option ${state=="DC"?"Selected=selected":""} value="DC">District
+									Of Columbia</option>
 								<option ${state=="FL"?"Selected=selected":""} value="FL">Florida</option>
 								<option ${state=="GA"?"Selected=selected":""} value="GA">Georgia</option>
 								<option ${state=="HI"?"Selected=selected":""} value="HI">Hawaii</option>
@@ -194,30 +215,39 @@
 								<option ${state=="MT"?"Selected=selected":""} value="MT">Montana</option>
 								<option ${state=="NE"?"Selected=selected":""} value="NE">Nebraska</option>
 								<option ${state=="NV"?"Selected=selected":""} value="NV">Nevada</option>
-								<option ${state=="NH"?"Selected=selected":""} value="NH">New Hampshire</option>
-								<option ${state=="NJ"?"Selected=selected":""} value="NJ">New Jersey</option>
-								<option ${state=="NM"?"Selected=selected":""} value="NM">New Mexico</option>
-								<option ${state=="NY"?"Selected=selected":""} value="NY">New York</option>
-								<option ${state=="NC"?"Selected=selected":""} value="NC">North Carolina</option>
-								<option ${state=="ND"?"Selected=selected":""} value="ND">North Dakota</option>
+								<option ${state=="NH"?"Selected=selected":""} value="NH">New
+									Hampshire</option>
+								<option ${state=="NJ"?"Selected=selected":""} value="NJ">New
+									Jersey</option>
+								<option ${state=="NM"?"Selected=selected":""} value="NM">New
+									Mexico</option>
+								<option ${state=="NY"?"Selected=selected":""} value="NY">New
+									York</option>
+								<option ${state=="NC"?"Selected=selected":""} value="NC">North
+									Carolina</option>
+								<option ${state=="ND"?"Selected=selected":""} value="ND">North
+									Dakota</option>
 								<option ${state=="OH"?"Selected=selected":""} value="OH">Ohio</option>
 								<option ${state=="OK"?"Selected=selected":""} value="OK">Oklahoma</option>
 								<option ${state=="OR"?"Selected=selected":""} value="OR">Oregon</option>
 								<option ${state=="PA"?"Selected=selected":""} value="PA">Pennsylvania</option>
-								<option ${state=="RI"?"Selected=selected":""} value="RI">Rhode Island</option>
-								<option ${state=="SC"?"Selected=selected":""} value="SC">South Carolina</option>
-								<option ${state=="SD"?"Selected=selected":""} value="SD">South Dakota</option>
+								<option ${state=="RI"?"Selected=selected":""} value="RI">Rhode
+									Island</option>
+								<option ${state=="SC"?"Selected=selected":""} value="SC">South
+									Carolina</option>
+								<option ${state=="SD"?"Selected=selected":""} value="SD">South
+									Dakota</option>
 								<option ${state=="TN"?"Selected=selected":""} value="TN">Tennessee</option>
 								<option ${state=="TX"?"Selected=selected":""} value="TX">Texas</option>
 								<option ${state=="UT"?"Selected=selected":""} value="UT">Utah</option>
 								<option ${state=="VT"?"Selected=selected":""} value="VT">Vermont</option>
 								<option ${state=="VT"?"Selected=selected":""} value="VA">Virginia</option>
 								<option ${state=="WA"?"Selected=selected":""} value="WA">Washington</option>
-								<option ${state=="WV"?"Selected=selected":""} value="WV">West Virginia</option>
+								<option ${state=="WV"?"Selected=selected":""} value="WV">West
+									Virginia</option>
 								<option ${state=="WI"?"Selected=selected":""} value="WI">Wisconsin</option>
 								<option ${state=="WY"?"Selected=selected":""} value="WY">Wyoming</option>
-							</select>
-							<span class="redText" id="stateError">${stateError}</span>
+							</select> <span class="redText" id="stateError">${stateError}</span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -225,8 +255,9 @@
 							code</label>
 						<div class="col-md-4">
 							<input id="zipCode" name="zipcode" type="text" value="${zipcode}"
-								 class="form-control input-md" oninput="clearErrorMsg('zipcodeError')"/>
-							<span class="redText" id="zipcodeError">${zipcodeError}</span>
+								class="form-control input-md"
+								oninput="clearErrorMsg('zipcodeError')" /> <span class="redText"
+								id="zipcodeError">${zipcodeError}</span>
 
 						</div>
 					</div>
@@ -234,9 +265,10 @@
 						<label class="col-md-4 control-label" for="creditCard">Credit
 							Card</label>
 						<div class="col-md-6">
-							<input id="creditCard" name="creditCard" type="text" value="${creditcard}"
-								 class="form-control input-md" oninput="clearErrorMsg('creditCardError')"/>
-							<span class="redText" id="creditCardError">${creditCardError}</span>
+							<input id="creditCard" name="creditCard" type="text"
+								value="${creditcard}" class="form-control input-md"
+								oninput="clearErrorMsg('creditCardError')" /> <span
+								class="redText" id="creditCardError">${creditCardError}</span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -250,6 +282,39 @@
 			</fieldset>
 		</form>
 	</div>
+	<br>
+	<div class="container">
+		<form class="form-horizontal"
+			action="account_info_verification.jsp?updateType=rating" method="post">
+			<fieldset>
+				<legend>Site Feedback</legend>
+				<div class="well">
+					<p class=greenText id=successMessagePass>${successMessageRating}</p>
+					<div class="form-group">
+						<label class="col-md-4 control-label" for="rating">Rate Us!</label>
+						<div class="col-md-5">
+							<select id="rating" name="rating" class="form-control">
+								<option ${rating==""?"Selected=selected":""} value="">No Rating</option>
+								<option ${rating=="1"?"Selected=selected":""} value="1">Horrible</option>
+								<option ${rating=="2"?"Selected=selected":""} value="2">Bad</option>
+								<option ${rating=="3"?"Selected=selected":""} value="3">Content</option>
+								<option ${rating=="4"?"Selected=selected":""} value="4">Amazing</option>
+								<option ${rating=="5"?"Selected=selected":""} value="5">Supercalifragilisticexpialidocious</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-4 control-label" for="submitRating"></label>
+						<div class="col-md-4">
+							<button id="submitRating" name="submitRating"
+								class="btn btn-primary">Submit</button>
+						</div>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+	<br><br><br><br><br>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="../resources/js/bootstrap.min.js"></script>

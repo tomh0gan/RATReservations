@@ -155,6 +155,17 @@ try{
 			rd.forward(request, response);
 			return;
 		}
+	} else if(updateType.equals("rating")){
+		String rating = request.getParameter("rating");
+		Statement stmt2 = conn.createStatement();
+		String updateCustomer = "UPDATE Customer SET rating='"+rating+"' WHERE id="+session.getAttribute("id")+" AND accountNum="+session.getAttribute("accountNum")+";";
+		stmt2.addBatch(updateCustomer);
+		stmt2.executeBatch();
+		
+		request.setAttribute("successMessageRating", "Rating change successful!");
+		RequestDispatcher rd = request.getRequestDispatcher("get_account_info.jsp");
+		rd.forward(request, response);
+		return;
 	}
 } catch(Exception e){
 	System.out.println(e);

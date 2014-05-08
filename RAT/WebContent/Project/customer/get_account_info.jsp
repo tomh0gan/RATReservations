@@ -35,11 +35,12 @@
 					request.setAttribute("zipcode", rs.getString(7));
 				}
 				
-				retrieve = "SELECT creditCardNum, email FROM Customer WHERE id='"+ id +"'";
+				retrieve = "SELECT creditCardNum, email, rating FROM Customer WHERE id='"+ id +"'";
 				java.sql.ResultSet rs2 = stmt1.executeQuery(retrieve);
 				if(rs2.next()){
 					request.setAttribute("creditcard", rs2.getString(1));
 					request.setAttribute("email", rs2.getString(2));
+					request.setAttribute("rating", rs2.getString(3));
 				}
 				
 				RequestDispatcher fd = request.getRequestDispatcher("account.jsp?");
