@@ -96,7 +96,7 @@
 				</td>
 				<td><%= results.get(innerIndex).getPassengers().get(0).getLegs().size()-1 %></td>
 				<td><%= "$" + df.format(results.get(innerIndex).getCost()) %></td>
-				<td><a href="passengers_info.jsp?OuterIndex=<%= outerIndex %>&InnerIndex=<%= innerIndex %>" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-check"></span> Select</a></td>
+				<td><a href="passengers_info.jsp?OuterIndex=<%= outerIndex %>&InnerIndex=<%= innerIndex %>&type=flex" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-check"></span> Select</a></td>
 			</tr>
 <%
 				innerIndex++;
